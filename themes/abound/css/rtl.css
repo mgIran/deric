@@ -1,0 +1,34 @@
+.sidebar-menu li a .fa-angle-left,
+.sidebar-menu li .label, .sidebar-menu li .badge {
+	margin-top: -15px !important;
+}
+.login-box, .register-box{
+	position: fixed;
+	z-index:3;
+	margin: 0 auto;
+	left: 50%;
+	top:40%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+.login-cover-bg{
+	position: fixed;
+	top:0;
+	right:0;
+	left:0;
+	bottom:0;
+	z-index:1;
+	background: #666;
+	background: -moz-radial-gradient(center, ellipse cover, #666 0, #000 100%);
+	background: -webkit-gradient(radial, center center, 0, center center, 100%, color-stop(0, #666), color-stop(100%, #000));
+	background: -webkit-radial-gradient(center, ellipse cover, #666 0, #000 100%);
+	background: -o-radial-gradient(center, ellipse cover, #666 0, #000 100%);
+	background: -ms-radial-gradient(center, ellipse cover, #666 0, #000 100%);
+	background: radial-gradient(ellipse at center, #666 0, #000 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#666666", endColorstr="#000000", GradientType=1);
+	opacity: .6;
+	filter: alpha(opacity=60);
+}

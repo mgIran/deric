@@ -1,0 +1,54 @@
+Install Mellat Peyment
+1- First copy folder to extension folder
+2- config extension in config file: main.php
+'components'=>array(
+    .
+    .
+    'Payment' => array(
+            'class'=> 'ext.MellatPayment.MellatPayment',
+            'terminalId' => '',
+            'userName' => '',
+            'userPassword' => '',
+    ),
+    .
+    .
+    .
+),
+3- call functions with this instance:
+    request:
+        Yii::app()->Payment->PayRequest(...)
+    verify request:
+        Yii::app()->Payment->VerifyRequest(...)
+    settlement request:
+        Yii::app()->Payment->SettleRequest(...)
+
+example for request:
+    $Amount = intval($lastTransaction->amount) * 10; //Amount will be based on Toman  - Required
+    $CallbackURL = Yii::app()->getBaseUrl(true) . '/verify';  // Required
+    $result = Yii::app()->Payment->PayRequest($Amount, $lastTransaction->order_id, $CallbackURL);
+    if (!$result['error']) {
+        $ref_id = $result['responseCode'];
+        $this->render('ext.MellatPayment.views._redirect', array('ReferenceId' => $result['responseCode']));
+    } else {
+        echo '<meta charset="utf-8">';
+        echo 'ERR: ' . Yii::app()->Payment->getResponseText($result['responseCode']);
+    }
+
+example for verify and settlement function:
+    if($_POST['ResCode'] == 0) {
+        $result = Yii::app()->Payment->VerifyRequest($model->order_id, $_POST['SaleOrderId'], $_POST['SaleReferenceId']);
+    }
+    if($result != NULL) {
+        $RecourceCode = (!is_array($result) ? $result : $result['responseCode']);
+        if($RecourceCode == 0) {
+            $model->status = 'paid';
+            // Settle Payment
+            $settle = Yii::app()->Payment->SettleRequest($model->order_id, $_POST['SaleOrderId'], $_POST['SaleReferenceId']);
+            if($settle)
+                $model->settle = 1;
+        }
+    } else {
+        $RecourceCode = $_POST['ResCode'];
+    }
+    $model->res_code = $RecourceCode;
+    $model->sale_reference_id = $_POST['SaleReferenceId'];

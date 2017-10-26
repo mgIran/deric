@@ -1,0 +1,162 @@
+/* 
+    Document   : comments.css
+    Created on : 11 груд 2011, 19:41:11
+    Author     : segoddnja@gmail.com
+*/
+
+root { 
+    display: block;
+}
+.comment-widget{
+    max-width: 100%;
+}
+.comments-list{
+    background: #fdfdfd;
+    list-style-type: none;
+    padding: 0;
+    margin: 0 -5px;
+}
+.comments-list h3{
+    margin-bottom: 0 !important;
+}
+
+.comments-list .admin-panel{
+    display: inline-block;
+}
+
+.comments-list .admin-panel a:hover {
+    text-decoration: underline !important;
+}
+
+.comments-list .comments-list{
+    padding-right: 30px;
+}
+.comments-list li{
+    border-bottom: 1px solid #dadada !important;
+    padding-bottom: 5px !important;
+}
+.comments-list li:last-of-type{
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+}
+
+.en .comments-list .comments-list{
+    padding-left: 30px;
+    padding-right: 0;
+}
+
+.comments-list .form-group{
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+.comments-list li{
+    overflow: hidden;
+    border-bottom: none;
+    padding:0 15px;
+    padding-top:15px;
+}
+.comments-list .col{
+    display: block;
+    overflow: hidden;
+    padding: 10px 5px;
+}
+.comments-list li .comment-header{
+    margin: 15px 0 0;
+    display: block;
+}
+.comments-list li .comment-name{
+    color: #13aaf1;
+    font-size: 13px;
+}
+.comments-list li .comment-date{
+    display: none;
+}
+.comments-list li .comment-avatar{
+    display: inline-block;
+    float: right;
+    margin: 0 0 15px 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.1); -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.1); box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.comments-list li .comment-avatar img{
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%); -moz-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); -o-transform: translate(-50%, -50%); transform: translate(-50%, -50%);
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
+.comments-list li a{
+    font-size: 12px;
+}
+.comments-list li .comment-avatar .default-comment-avatar{
+    background: url("user.svg") no-repeat scroll center center transparent;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+.en .comments-list li .comment-avatar{
+    float: left;
+}
+
+.comments-list .comment-header{
+    position: relative;
+    right: 0px;
+    left: 0;
+}
+.comments-list p{
+    white-space: pre-line;
+    -ms-text-align-last: auto;
+    text-align-last: auto;
+    overflow: hidden;
+}
+p.rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+p.ltr {
+    direction: ltr;
+    text-align: left;
+}
+.comment-form-outer{
+    position: relative;
+}
+
+
+@media (min-width: 768px) and (max-width: 991px){
+    .comments-list .comments-list{
+        padding-right: 30px;
+    }
+    .en .comments-list .comments-list{
+        padding-left: 30px;
+        padding-right: 0;
+    }
+    .comments-list li{
+        padding: 15px;
+    }
+}
+
+@media (max-width: 767px){
+    .comments-list .comments-list{
+        padding-right: 0;
+    }
+    .en .comments-list .comments-list{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .comments-list li .comment-avatar{
+        display: none;
+    }
+    .comments-list li{
+        padding: 10px;
+    }
+}

@@ -1,0 +1,59 @@
+.svg{
+    display: inline-block;
+    background-size: cover !important;
+    margin-left: 5px !important;
+}
+.svg-bag{
+    width: 17px;
+    height: 16px;
+}
+.svg-coin{
+    width: 22px;
+    height: 11px;
+}
+.svg-star{
+    width: 16px;
+    height: 14px;
+}
+.svg-star-empty{
+    width: 16px;
+    height: 14px;
+}
+.svg-os{
+    background: url("../svg/os.svg") no-repeat scroll 0 0 transparent;
+    width:24px;
+    height:24px;
+}
+.svg-close{
+    background: url("../svg/close.svg") no-repeat scroll 0 0 transparent;
+    width:24px;
+    height:24px;
+}
+.svg-search{
+    background: url("../svg/search.svg") no-repeat scroll 0 0 transparent;
+    width:24px;
+    height:24px;
+}
+.svg-bars{
+    background: url("../svg/bars.svg") no-repeat scroll 0 0 transparent;
+    width:24px;
+    height:24px;
+}
+.svg-bookmark{
+    width: 15px;
+    height: 20px;
+    float: right;
+    margin: 5px 0;
+}
+.svg-manager{
+    width: 30px;
+    height: 30px;
+    margin: 15px 0 !important;
+    background: url("../svg/manager.svg") no-repeat scroll 0 0 transparent;
+}
+.svg-supporter{
+    width: 30px;
+    height: 30px;
+    margin: 15px 0 !important;
+    background: url("../svg/supporter.svg") no-repeat scroll 0 0 transparent;
+}
