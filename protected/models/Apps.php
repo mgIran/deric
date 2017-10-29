@@ -372,4 +372,14 @@ class Apps extends CActiveRecord
 		$criteria->params = array(":id" => $this->id);
 		return Comment::model()->count($criteria);
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getViewUrl()
+	{
+		if($this->platform_id == 1)
+			return Yii::app()->createUrl('/apps/' . urlencode($this->lastPackage->package_name));
+		return Yii::app()->createUrl('/apps/' . $this->id);
+	}
 }

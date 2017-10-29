@@ -6,14 +6,14 @@
     <div class="app-item-content">
         <div class="pic">
             <div>
-                <a href="<?php echo Yii::app()->createUrl('/apps/'.$data->id.'/'.urlencode($data->lastPackage->package_name));?>">
+                <a href="<?php echo $data->getViewUrl()?>">
                     <img src="<?php echo Yii::app()->baseUrl.'/uploads/apps/icons/'.CHtml::encode($data->icon);?>">
                 </a>
             </div>
         </div>
         <div class="detail">
             <div class="app-title">
-                <a href="<?php echo Yii::app()->createUrl('/apps/'.$data->id.'/'.urlencode($data->lastPackage->package_name));?>">
+                <a href="<?php echo $data->getViewUrl()?>">
                     <?php echo CHtml::encode($data->title);?>
                     <span class="paragraph-end"></span>
                 </a>

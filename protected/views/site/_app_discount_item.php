@@ -8,14 +8,14 @@ if($app && $app->hasDiscount()) {
         <div class="app-item-content">
             <div class="pic">
                 <div>
-                    <a href="<?php echo Yii::app()->createUrl('/apps/'.$app->id.'/'.urlencode($app->lastPackage->package_name)); ?>">
+                    <a href="<?php echo $app->getViewUrl() ?>">
                         <img src="<?php echo Yii::app()->baseUrl.'/uploads/apps/icons/'.CHtml::encode($app->icon); ?>">
                     </a>
                 </div>
             </div>
             <div class="detail">
                 <div class="app-title">
-                    <a href="<?php echo Yii::app()->createUrl('/apps/'.$app->id.'/'.urlencode($app->lastPackage->package_name)); ?>">
+                    <a href="<?php echo $app->getViewUrl() ?>">
                         <?php echo CHtml::encode($app->title); ?>
                         <span class="paragraph-end"></span>
                     </a>

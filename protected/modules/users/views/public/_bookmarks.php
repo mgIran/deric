@@ -9,7 +9,7 @@
     <?php else:?>
         <?php foreach($model->bookmarkedApps as $app):?>
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 bookmarked-app">
-                <a href="<?php echo $this->createUrl('/apps/'.$app->id.'/'.urlencode(CHtml::encode($app->title)));?>"></a>
+                <a href="<?php echo $app->getViewUrl()?>"></a>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 image">
                     <img src="<?php echo Yii::app()->baseUrl.'/uploads/apps/icons/'.CHtml::encode($app->icon);?>">
                 </div>

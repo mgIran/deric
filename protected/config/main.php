@@ -156,6 +156,8 @@ return array(
                 'ios' => 'site/index/platform/ios',
                 'windowsphone' => 'site/index/platform/windowsphone',
 				'apps/<id:\d+>'=>'apps/view',
+				'apps/<action:\w+>'=>'apps/<action>',
+				'apps/<id:(.*)>'=>'apps/view',
 				'api/<action:\w+>'=>'api/<action>',
 				'documents/<id:\d+>/<title>'=>'pages/manage/view',
 				'<module:\w+>/<id:\d+>'=>'<module>/manage/view',

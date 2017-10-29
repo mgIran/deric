@@ -89,7 +89,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/owl
     <div class="banner-box">
         <div class="banner-carousel">
             <div class="banner-item">
-                <a class="absolute-link" href="<?php echo $this->createUrl('/apps/'.CHtml::encode($specialAdvertise->app->id).'/'.CHtml::encode($specialAdvertise->app->lastPackage->package_name));?>"></a>
+                <a class="absolute-link" href="<?php echo $specialAdvertise->app->getViewUrl();?>"></a>
                 <div class="fade-overly"></div>
                 <?
                 Yii::app()->clientScript->registerCss('fade-overly', "
