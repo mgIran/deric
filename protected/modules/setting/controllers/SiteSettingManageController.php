@@ -57,7 +57,9 @@ class SiteSettingManageController extends Controller
             Yii::app()->user->setFlash('success', 'اطلاعات با موفقیت ثبت شد.');
             $this->refresh();
         }
-        $model = SiteSetting::model()->findAll('name NOT REGEXP \'\\([^\\)]*gateway_.*\\)\'');
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('name NOT REGEXP \'\\([^\\)]*gateway_.*\\)\'');
+        $model = SiteSetting::model()->findAll($criteria);
         $this->render('_general', array(
             'model' => $model
         ));

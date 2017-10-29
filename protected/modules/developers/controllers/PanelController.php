@@ -55,7 +55,7 @@ class PanelController extends Controller
         $criteria->addCondition('developer_id = :user_id');
         $criteria->addCondition('deleted = 0');
         //$criteria->addCondition('title != ""');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
+//        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
         $criteria->params=array(':user_id'=>Yii::app()->user->getId());
         $appsDataProvider=new CActiveDataProvider('Apps', array(
             'criteria'=>$criteria,

@@ -165,7 +165,6 @@ class BaseManageController extends Controller
         $appImagesUrl = Yii::app()->createAbsoluteUrl('/uploads/apps/images');
 
         $model = $this->loadModel($id);
-
         // Uncomment the following line if AJAX validation is needed
         $this->performAjaxValidation($model);
         $icon = array();
@@ -234,9 +233,10 @@ class BaseManageController extends Controller
                     rename($tmpDIR . $model->file_name, $appFilesDIR . $model->file_name);
                 }
                 if($iconFlag) {
-                    $thumbnail = new Imager();
-                    $thumbnail->createThumbnail($tmpDIR . $model->icon, 150, 150, false, $appIconsDIR . $model->icon);
-                    unlink($tmpDIR . $model->icon);
+                    // create icon thumbnail
+//                    $thumbnail = new Imager();
+//                    $thumbnail->createThumbnail($tmpDIR . $model->icon, 150, 150, false, $appIconsDIR . $model->icon);
+                    rename($tmpDIR . $model->icon, $appIconsDIR . $model->icon);
                 }
                 Yii::app()->user->setFlash('success', 'اطلاعات با موفقیت ویرایش شد.');
                 $this->redirect(array('/manageApps/'.$model->platform->name.'/update/' . $model->id . '?step=2'));
@@ -259,8 +259,8 @@ class BaseManageController extends Controller
             'images' => $images,
             'step' => 1,
             'packageDataProvider'=>$packageDataProvider,
-            'tax'=>SiteSetting::model()->findByAttributes(array('name'=>'tax'))->value,
-            'commission'=>SiteSetting::model()->findByAttributes(array('name'=>'commission'))->value,
+            'tax'=>SiteSetting::getOption('tax'),
+            'commission'=>SiteSetting::getOption('commission')
         ));
     }
 
@@ -458,12 +458,19 @@ class BaseManageController extends Controller
 
     public function actionChangePackageStatus()
     {
+        /** @var $model AppPackages */
         if (isset($_POST['package_id'])) {
             $model = AppPackages::model()->findByPk($_POST['package_id']);
             $model->status = $_POST['value'];
             $model->setScenario('publish');
             if ($_POST['value'] == 'accepted')
+            {
                 $model->publish_date = time();
+                if($model->app->confirm == 'change_required'){
+                    $model->app->confirm = 'pending';
+                    $model->app->save();
+                }
+            }
             if ($_POST['value'] == 'refused' or $_POST['value'] == 'change_required')
                 $model->reason = $_POST['reason'];
             if ($model->save()) {
@@ -493,15 +500,27 @@ class BaseManageController extends Controller
 
     public function actionDeletePackage($id)
     {
-        $model=AppPackages::model()->findByPk($id);
-        $uploadDir = Yii::getPathOfAlias("webroot") . '/uploads/apps/files/'.$model->app->platform->name;
-        if(file_exists($uploadDir.'/'.$model->file_name))
-            if(unlink($uploadDir.'/'.$model->file_name))
-                if($model->delete())
-                    $this->createLog('بسته ' . $model->package_name . ' توسط مدیر سیستم حذف شد.', $model->app->developer_id);
+        /** @var $model AppPackages */
+        $model = AppPackages::model()->findByPk($id);
+        if($model->app->platform->name == 'android'){
+            $uploadDir = Yii::getPathOfAlias("webroot") . '/uploads/apps/files/' . $model->app->platform->name;
+            if(file_exists($uploadDir . '/' . $model->file_name))
+                @unlink($uploadDir . '/' . $model->file_name);
+        }
 
-        if (!isset($_GET['ajax']))
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        $c = AppPackages::model()->count(array(
+            'condition' => 'status = :s AND app_id = :id',
+            'params' => [':s' => 'accepted', ':id' => $model->app_id]
+        ));
+        if($c <= 1){
+            $model->app->confirm = 'change_required';
+            $model->app->save();
+        }
+        if($model->delete())
+            $this->createLog('بسته ' . $model->package_name . ' توسط مدیر سیستم حذف شد.', $model->app->developer_id);
+
+        if(!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl'])?$_POST['returnUrl']:array('admin'));
     }
 
     /**
@@ -538,6 +557,8 @@ class BaseManageController extends Controller
 
             $model = new AppPackages();
             $model->app_id = $_POST['app_id'];
+            if($model->app->platform_id != 1)
+                $model->setScenario('url_package');
             $model->create_date = time();
             $model->publish_date = time();
             $model->status='accepted';
@@ -550,24 +571,26 @@ class BaseManageController extends Controller
                 $model->file_name = $apkInfo['version'] . '-' . $apkInfo['package_name'] . '.' . pathinfo($_POST['Apps']['file_name'], PATHINFO_EXTENSION);
             } else {
                 $model->version = $_POST['version'];
-                $model->package_name = $_POST['package_name'];
-                $model->file_name = $_POST['version'] . '-' . $_POST['package_name'] . '.' . pathinfo($_POST['Apps']['file_name'], PATHINFO_EXTENSION);
+                $model->package_name = null;
+                $model->file_name = null;
+                $model->download_file_url= $_POST['download_file_url'];
             }
-
             if ($model->save()) {
-                $response = ['status' => true, 'fileName' => CHtml::encode($model->file_name)];
-                rename($tempDir . DIRECTORY_SEPARATOR . $_POST['Apps']['file_name'], $uploadDir . DIRECTORY_SEPARATOR . $model->file_name);
                 if ($_POST['platform'] == 'android') {
+                    $response = ['status' => true, 'fileName' => CHtml::encode($model->file_name)];
+                    rename($tempDir . DIRECTORY_SEPARATOR . $_POST['Apps']['file_name'], $uploadDir . DIRECTORY_SEPARATOR . $model->file_name);
                     /* @var $app Apps */
                     $app = Apps::model()->findByPk($_POST['app_id']);
                     $app->setScenario('set_permissions');
                     $app->permissions = CJSON::encode($this->getPermissionsName($apkInfo['permissions']));
                     $app->change_log=$_POST['Apps']['change_log'];
                     $app->save();
-                }
+                }else
+                    $response = ['status' => true, 'fileName' => CHtml::encode($model->file_name)];
             } else {
-                $response = ['status' => false, 'message' => $model->getError('package_name')];
-                unlink($tempDir . '/' . $_POST['Apps']['file_name']);
+                $response = ['status' => false, 'message' => $this->implodeErrors($model)];
+                if(isset($_POST['Apps']['file_name']) && file_exists($tempDir . '/' . $_POST['Apps']['file_name']))
+                    @unlink($tempDir . '/' . $_POST['Apps']['file_name']);
             }
 
             echo CJSON::encode($response);
@@ -606,21 +629,24 @@ class BaseManageController extends Controller
     public function actionDownload($id)
     {
         $model = $this->loadModel($id);
-        $platformFolder = '';
-        switch (pathinfo($model->lastPackage->file_name, PATHINFO_EXTENSION)) {
-            case 'apk':
-                $platformFolder = 'android';
-                break;
+        if($model->platform_id == 1){
+            $platformFolder = '';
+            switch(pathinfo($model->lastPackage->file_name, PATHINFO_EXTENSION)){
+                case 'apk':
+                    $platformFolder = 'android';
+                    break;
 
-            case 'ipa':
-                $platformFolder = 'ios';
-                break;
+                case 'ipa':
+                    $platformFolder = 'ios';
+                    break;
 
-            case 'xap':
-                $platformFolder = 'windowsphone';
-                break;
-        }
-        $this->download($model->lastPackage->file_name, Yii::getPathOfAlias("webroot") . '/uploads/apps/files/' . $platformFolder);
+                case 'xap':
+                    $platformFolder = 'windowsphone';
+                    break;
+            }
+            $this->download($model->lastPackage->file_name, Yii::getPathOfAlias("webroot") . '/uploads/apps/files/' . $platformFolder);
+        }else
+            $this->redirect($model->lastPackage->download_file_url);
     }
 
     /**
@@ -629,21 +655,24 @@ class BaseManageController extends Controller
     public function actionDownloadPackage($id)
     {
         $model = AppPackages::model()->findByPk($id);
-        $platformFolder = '';
-        switch (pathinfo($model->file_name, PATHINFO_EXTENSION)) {
-            case 'apk':
-                $platformFolder = 'android';
-                break;
+        if($model->app->platform_id == 1){
+            $platformFolder = '';
+            switch(pathinfo($model->file_name, PATHINFO_EXTENSION)){
+                case 'apk':
+                    $platformFolder = 'android';
+                    break;
 
-            case 'ipa':
-                $platformFolder = 'ios';
-                break;
+                case 'ipa':
+                    $platformFolder = 'ios';
+                    break;
 
-            case 'xap':
-                $platformFolder = 'windowsphone';
-                break;
-        }
-        $this->download($model->file_name, Yii::getPathOfAlias("webroot") . '/uploads/apps/files/' . $platformFolder);
+                case 'xap':
+                    $platformFolder = 'windowsphone';
+                    break;
+            }
+            $this->download($model->file_name, Yii::getPathOfAlias("webroot") . '/uploads/apps/files/' . $platformFolder);
+        }else
+            $this->redirect($model->download_file_url);
     }
 
     protected function download($fileName, $filePath)

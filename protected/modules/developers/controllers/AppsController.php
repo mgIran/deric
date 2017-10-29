@@ -293,10 +293,10 @@ class AppsController extends Controller
             if (move_uploaded_file($file['tmp_name'], $tempDir . DIRECTORY_SEPARATOR . CHtml::encode($file['name']))) {
                 $imager = new Imager();
                 $imageInfo = $imager->getImageInfo($tempDir . DIRECTORY_SEPARATOR . $file['name']);
-                if ($imageInfo['width'] < 512 or $imageInfo['height'] < 512) {
-                    $response = ['state' => 'error', 'msg' => 'اندازه آیکون نباید کوچکتر از 512x512 پیکسل باشد.'];
-                    unlink($tempDir . DIRECTORY_SEPARATOR . $file['name']);
-                } else
+//                if ($imageInfo['width'] < 512 or $imageInfo['height'] < 512) {
+//                    $response = ['state' => 'error', 'msg' => 'اندازه آیکون نباید کوچکتر از 512x512 پیکسل باشد.'];
+//                    unlink($tempDir . DIRECTORY_SEPARATOR . $file['name']);
+//                } else
                     $response = ['state' => 'ok', 'fileName' => CHtml::encode($file['name'])];
             } else
                 $response = ['state' => 'error', 'msg' => 'فایل آپلود نشد.'];
@@ -470,6 +470,8 @@ class AppsController extends Controller
 
             $model = new AppPackages();
             $model->app_id = $_POST['app_id'];
+            if($model->app->platform_id != 1)
+                $model->setScenario('url_package');
             $model->create_date = time();
             $model->for = $_POST['for'];
             $apkInfo = null;
@@ -481,14 +483,15 @@ class AppsController extends Controller
                 $model->file_name = $apkInfo['version'] . '-' . $apkInfo['package_name'] . '.' . pathinfo($_POST['Apps']['file_name'], PATHINFO_EXTENSION);
             } else {
                 $model->version = $_POST['version'];
-                $model->package_name = $_POST['package_name'];
-                $model->file_name = $_POST['version'] . '-' . $_POST['package_name'] . '.' . pathinfo($_POST['Apps']['file_name'], PATHINFO_EXTENSION);
+                $model->package_name = null;
+                $model->file_name = null;
+                $model->download_file_url= $_POST['download_file_url'];
             }
 
             if ($model->save()) {
-                $response = ['status' => true, 'fileName' => CHtml::encode($model->file_name)];
-                rename($tempDir . DIRECTORY_SEPARATOR . $_POST['Apps']['file_name'], $uploadDir . DIRECTORY_SEPARATOR . $model->file_name);
                 if ($_POST['platform'] == 'android') {
+                    $response = ['status' => true, 'fileName' => CHtml::encode($model->file_name)];
+                    rename($tempDir . DIRECTORY_SEPARATOR . $_POST['Apps']['file_name'], $uploadDir . DIRECTORY_SEPARATOR . $model->file_name);
                     /* @var $app Apps */
                     $app = Apps::model()->findByPk($_POST['app_id']);
                     $app->setScenario('set_permissions');
@@ -496,10 +499,14 @@ class AppsController extends Controller
                     $app->change_log = $_POST['Apps']['change_log'];
                     $app->save();
                 }
-            } else {
-                $response = ['status' => false, 'message' => $model->getError('package_name')];
-                //unlink($tempDir . '/' . $_POST['Apps']['file_name']);
+                else
+                    $response = ['status' => true, 'fileName' => CHtml::encode($model->file_name)];
+            } else{
+                $response = ['status' => false, 'message' => $this->implodeErrors($model)];
+                if(isset($_POST['Apps']['file_name']) && file_exists($tempDir . '/' . $_POST['Apps']['file_name']))
+                    @unlink($tempDir . DIRECTORY_SEPARATOR . $_POST['Apps']['file_name']);
             }
+
 
             echo CJSON::encode($response);
             Yii::app()->end();

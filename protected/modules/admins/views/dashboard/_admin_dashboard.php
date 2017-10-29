@@ -249,13 +249,16 @@ if(Yii::app()->user->roles == 'employee'){
                         'dataProvider'=>$newestPackages,
                         'itemsCssClass' => 'table table-hover',
                         'columns'=>array(
+                            [
+                                'header' => 'پلتفرم',
+                                'name' => 'app.platform.name',
+                            ],
                             'app_id'=>array(
                                 'name'=>'app_id',
                                 'value'=>'CHtml::link($data->app->title, Yii::app()->createUrl("/apps/".$data->app_id."/".$data->app->title))',
                                 'type'=>'raw'
                             ),
                             'version',
-                            'package_name',
                             'status'=>array(
                                 'name'=>'status',
                                 'value'=>'CHtml::dropDownList("confirm", "pending", $data->statusLabels, array("class"=>"change-package-status", "data-id"=>$data->id))',
@@ -365,13 +368,16 @@ if(Yii::app()->user->roles == 'employee'){
                         'dataProvider'=>$updatedPackages,
                         'itemsCssClass' => 'table table-hover',
                         'columns'=>array(
-                            'app_id'=>array(
+                            [
+                                'header' => 'پلتفرم',
+                                'name' => 'app.platform.name',
+                            ],
+                            array(
                                 'name'=>'app_id',
                                 'value'=>'CHtml::link($data->app->title, Yii::app()->createUrl("/apps/".$data->app_id."/".$data->app->title))',
                                 'type'=>'raw'
                             ),
                             'version',
-                            'package_name',
                             'status'=>array(
                                 'name'=>'status',
                                 'value'=>'CHtml::dropDownList("confirm", "pending", $data->statusLabels, array("class"=>"change-package-status", "data-id"=>$data->id))',
@@ -410,6 +416,7 @@ if(Yii::app()->user->roles == 'employee'){
                             data:{package_id:$(this).data('id'), value:$(this).val()},
                             success:function(data){
                                 if(data.status){
+                                    $.fn.yiiGridView.update('newest-apps-grid');
                                     $.fn.yiiGridView.update('newest-packages-grid');
                                     $.fn.yiiGridView.update('updated-packages-grid');
                                 }else

@@ -2,59 +2,55 @@
 class Mailer
 {
 
+    public static $host = 'mail.avayeshahir.com';
+    public static $username = 'noreply@avayeshahir.com';
+    public static $password = '!@avayeshahir1395';
+    public static $port = '587';
+    public static $secure = '';
+
     /**
-     * Send mail
-     *
-     * @param $to string
-     * @param $subject string
-     * @param $message string
-     * @param $from string
-     * @param $SMTP array
-     * @param $attachments array
-     *
-     * @return boolean
+     * @param $to
+     * @param $subject
+     * @param $message
+     * @param $from
+     * @param array $SMTP
+     * @param null $attachment
+     * @return bool
+     * @throws CException
+     * @throws phpmailerException
      */
-    public static function mail($to, $subject, $message, $from, $SMTP = array(), $attachments = array())
+    public static function mail($to, $subject, $message, $from, $SMTP = array(), $attachment = NULL)
     {
-        $mailTheme = Yii::app()->params['mailTheme'];
-        $mailTheme = str_replace('{CurrentYear}', JalaliDate::date('Y'), $mailTheme);
-        $message = str_replace('{MessageBody}', $message, $mailTheme);
-
-        /*$mail=Yii::app()->swiftMailer;
-        $mailHost = 'mail.hyperapps.ir';
-        $mailPort = 465;
-        $Transport = $mail->smtpTransport($mailHost, $mailPort)->setUsername('no-reply@hyperapps.ir')->setPassword('hyperapps.ir');
-        $Mailer = $mail->mailer($Transport);
-        $Message = $mail
-            ->newMessage($subject)
-            ->setFrom(array($from => Yii::app()->name))
-            ->setTo(array($to => $to))
-            ->addPart($message, 'text/html')
-            ->setBody('plain text');
-
-        return $Mailer->send($Message);*/
-
-
+        $mail_theme = Yii::app()->params['mailTheme'];
+        $message = str_replace('{MessageBody}', $message, $mail_theme);
         Yii::import('application.extensions.phpmailer.JPhpMailer');
         $mail = new JPhpMailer;
-        $mail->CharSet = 'UTF-8';
-        $mail->SetFrom($from, Yii::app()->name);
-        if ($SMTP && isset($SMTP['Host']) && isset($SMTP['Secure']) && isset($SMTP['Username']) && isset($SMTP['Password']) && isset($SMTP['Port'])) {
-            //$mail->SMTPDebug = 3;
-            $mail->IsSMTP();
-            $mail->SMTPAuth = true;
+        $mail->IsSMTP();
+        $mail->SMTPAuth = true;
+        if($SMTP && isset($SMTP['Host']) && isset($SMTP['Secure']) && isset($SMTP['Username']) && isset($SMTP['Password']) && isset($SMTP['Port'])){
             $mail->Host = $SMTP['Host'];
             $mail->SMTPSecure = $SMTP['Secure'];
             $mail->Username = $SMTP['Username'];
             $mail->Password = $SMTP['Password'];
-            $mail->Port = $SMTP['Port'];
+            $mail->Port = (int)$SMTP['Port'];
+            $mail->SetFrom($from, Yii::app()->name);
+        }else{
+            $mail->Host = self::$host;
+            $mail->SMTPSecure = self::$secure;
+            $mail->Username = self::$username;
+            $mail->Password = self::$password;
+            $mail->Port = (int)self::$port;
+            $mail->SetFrom(self::$username, Yii::app()->name);
         }
         $mail->Subject = $subject;
         $mail->MsgHTML($message);
-        $mail->AddAddress($to);
-        if ($attachments)
-            foreach ($attachments as $attachment)
-                $mail->AddAttachment($attachment);
-        return $mail->Send();
+        if(is_array($to))
+            foreach($to as $address)
+                $mail->AddAddress($address);
+        else
+            $mail->AddAddress($to);
+        if($attachment)
+            $mail->AddAttachment($attachment);
+        return @$mail->Send();
     }
 }

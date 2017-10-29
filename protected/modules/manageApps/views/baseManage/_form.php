@@ -17,6 +17,12 @@
 )); ?>
 
 	<div class="form-group">
+		<label for="">تعداد نصب</label>
+		<?php echo $form->textField($model,'install',array('size'=>10,'class'=> 'form-control','style' => 'width:100px')); ?> عدد
+		<?php echo $form->error($model,'install'); ?>
+	</div>
+
+	<div class="form-group">
 		<?php echo $form->labelEx($model,'title'); ?>
 		<?php echo $form->textField($model,'title',array('size'=>50,'maxlength'=>50, 'class'=> 'form-control')); ?>
 		<?php echo $form->error($model,'title'); ?>

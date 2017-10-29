@@ -15,6 +15,7 @@
  * @property string $status
  * @property string $reason
  * @property string $for
+ * @property string $download_file_url
  *
  * The followings are the available model relations:
  * @property Apps $app
@@ -51,6 +52,7 @@ class AppPackages extends CActiveRecord
         return array(
             array('package_name', 'checkPackageName', 'on' => 'insert, update'),
             array('package_name', 'uniqueDeveloper', 'on' => 'insert, update'),
+            array('version, download_file_url', 'required', 'on' => 'url_package'),
             array('app_id', 'length', 'max' => 10),
             array('version, version_code, create_date, publish_date', 'length', 'max' => 20),
             array('package_name', 'length', 'max' => 100),
@@ -58,9 +60,12 @@ class AppPackages extends CActiveRecord
             array('status', 'length', 'max' => 15),
             array('reason', 'safe'),
             array('for', 'length', 'max' => 7),
+            array('download_file_url', 'length', 'max' => 512),
+            array('download_file_url', 'url'),
+            array('version', 'numerical'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, app_id, version, version_code, package_name, file_name, create_date, publish_date, status, reason, for', 'safe', 'on' => 'search'),
+            array('id, app_id, version, version_code, package_name, file_name, create_date, publish_date, status, reason, for, download_file_url', 'safe', 'on' => 'search'),
         );
     }
 
@@ -84,7 +89,7 @@ class AppPackages extends CActiveRecord
         return array(
             'id' => 'شناسه',
             'app_id' => 'برنامه',
-            'version' => 'نسخه',
+            'version' => 'ورژن',
             'version_code' => 'کد نسخه',
             'package_name' => 'نام بسته',
             'file_name' => 'فایل',
@@ -93,6 +98,7 @@ class AppPackages extends CActiveRecord
             'status' => 'وضعیت',
             'reason' => 'دلیل',
             'for' => 'نوع بسته',
+            'download_file_url' => 'آدرس دانلود فایل',
         );
     }
 
@@ -125,6 +131,8 @@ class AppPackages extends CActiveRecord
         $criteria->compare('status', $this->status, true);
         $criteria->compare('reason', $this->reason, true);
         $criteria->compare('for', $this->for, true);
+        $criteria->compare('download_file_url', $this->download_file_url, true);
+        $criteria->order = 'id DESC';
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

@@ -95,6 +95,20 @@ return array(
 		'yexcel' => array(
 			'class' => 'ext.yexcel.Yexcel'
 		),
+		'ftp' => array(
+			'class'=>'YMFtpComponent',
+			'host' => '',
+			'port'=>21,
+			'username' => '',
+			'password' => '',
+			'ssl'=>false,
+			'timeout'=>300,
+			'autoConnect'=>false,
+			'useFtpModels' => array(
+				'BooksGallery' => false,
+				'BooksFiles' => false,
+			)
+		),
 		'session' => array(
 			'class' => 'YmDbHttpSession',
 			'autoStart' => false,
