@@ -90,6 +90,7 @@ class Apps extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('platform_id', 'required', 'on' => 'insert'),
+			array('title', 'unique', 'on' => 'insert'),
 			array('title, category_id, price ,platform_id ,icon, support_email, platform_id', 'required', 'on' => 'admin_insert'),
 			array('title, category_id, price ,platform_id ,icon, support_email', 'required', 'on' => 'update'),
             array('support_email', 'email'),
@@ -380,6 +381,6 @@ class Apps extends CActiveRecord
 	{
 		if($this->platform_id == 1)
 			return Yii::app()->createUrl('/apps/' . urlencode($this->lastPackage->package_name));
-		return Yii::app()->createUrl('/apps/' . $this->id);
+		return Yii::app()->createUrl('/apps/' . $this->id.'/'.urlencode($this->title));
 	}
 }
