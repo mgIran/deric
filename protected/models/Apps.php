@@ -360,7 +360,7 @@ class Apps extends CActiveRecord
 			$criteria->addInCondition('category_id', $visitedCats);
 		if($platform) {
 			$criteria->addCondition('platform_id=:platform_id');
-			$criteria->params[':platform_id'] = $this->platform;
+			$criteria->params[':platform_id'] = $platform;
 		}
 
 		$criteria->order = 'id DESC';
