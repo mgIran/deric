@@ -35,6 +35,12 @@ $this->breadcrumbs=array(
 					'filter' => CHtml::activeDropDownList($model,'status',$model->statusLabels,array('prompt' => 'همه'))
 				),
 				array(
+					'name'=>'confirm',
+					'value'=>'CHtml::activeDropDownList($data, "confirm", $data->confirmLabels, array("class"=>"change-confirm", "data-id"=>$data->id))',
+					'type'=>'raw',
+					'filter' => CHtml::activeDropDownList($model,'confirm',$model->confirmLabels,array('prompt' => 'همه'))
+				),
+				array(
 					'name' => 'price',
 					'value' => '$data->price != 0?$data->price:"رایگان"'
 				),
@@ -51,7 +57,6 @@ $this->breadcrumbs=array(
 				'permissions',
 				'size',
 				'version',
-				'confirm',
 				*/
 				array(
 					'class'=>'CButtonColumn',
@@ -75,3 +80,25 @@ $this->breadcrumbs=array(
 		</div>
 	</div>
 </div>
+
+<?php Yii::app()->clientScript->registerScript('changeConfirm', "
+	$('body').on('change', '.change-confirm',function(e){
+		if(!confirm(\"آیا از تغییر وضعیت این نرم افزار اطمینان دارید؟\")){
+			e.preventDefault();
+			return false;
+		}
+		$.ajax({
+			url:'".$this->createUrl('/manageApps/android/changeConfirm')."',
+			type:'POST',
+			dataType:'JSON',
+			data:{app_id:$(this).data('id'), value:$(this).val()},
+			success:function(data){
+				if(data.status){
+					alert(\"وضعیت تغییر یافت.\");
+					$.fn.yiiGridView.update('apps-grid');
+				}else
+					alert('در انجام عملیات خطایی رخ داده است لطفا مجددا تلاش کنید.');
+			}
+		});
+	});
+");

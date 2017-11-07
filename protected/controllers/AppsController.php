@@ -54,7 +54,9 @@ class AppsController extends Controller
             $criteria->compare('packages.package_name',$id);
             $model = Apps::model()->find($criteria);
         }
-        if((Yii::app()->user->isGuest || (Yii::app()->user->roles !='admin' && Yii::app()->user->roles !='validator')) && (!$model || $model->confirm != 'accepted' || !$model->lastPackage))
+        if($model === null)
+            throw new CHttpException(404, 'برنامه موردنظر موجود نیست.');
+        if((Yii::app()->user->isGuest || (Yii::app()->user->roles !='admin' && Yii::app()->user->roles !='validator')) && ($model->confirm != 'accepted' || !$model->lastPackage))
             throw new CHttpException(404, 'برنامه موردنظر موجود نیست.');
         $this->app = $model;
         $model->seen = $model->seen + 1;

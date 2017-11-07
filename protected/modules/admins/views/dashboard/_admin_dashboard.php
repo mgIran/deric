@@ -180,7 +180,7 @@ if(Yii::app()->user->roles == 'employee'){
                             ),
                             'confirm'=>array(
                                 'name'=>'confirm',
-                                'value'=>'CHtml::dropDownList("confirm", "pending", $data->confirmLabels, array("class"=>"change-confirm", "data-id"=>$data->id))',
+                                'value'=>'CHtml::activeDropDownList($data, "confirm", $data->confirmLabels, array("class"=>"change-confirm", "data-id"=>$data->id))',
                                 'type'=>'raw'
                             ),
                             array(

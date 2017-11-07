@@ -53,7 +53,7 @@ class Controller extends CController
 
     public function beforeAction($action)
     {
-        if($this->id === 'site' and $action->id === 'index') {
+        if(!Yii::app()->user->hasState('platform')) {
             $queryPlatform = Yii::app()->request->getQuery('platform');
             if(is_null($queryPlatform))
                 $queryPlatform = 'android';
@@ -63,7 +63,6 @@ class Controller extends CController
             Yii::app()->user->setState('platformName', $queryPlatform);
         } else
             $this->platform = Yii::app()->user->getState('platform');
-
         Yii::import("users.models.*");
         $this->userDetails = UserDetails::model()->findByPk(Yii::app()->user->getId());
         $this->userNotifications = UserNotifications::model()->findAllByAttributes(array('user_id' => Yii::app()->user->getId(), 'seen' => '0'));
