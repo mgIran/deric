@@ -5,8 +5,8 @@
 /* @var $packageDataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'مدیریت'=>array('admin'),
-	$model->title=>array('view','id'=>$model->id),
+	'مدیریت'=>Yii::app()->createUrl('/manageApps/'.$this->controller.'/admin'),
+	$model->title=>Yii::app()->createUrl('/apps/'.$model->id.'/'.urlencode($model->title)),
 	'ویرایش',
 );
 
