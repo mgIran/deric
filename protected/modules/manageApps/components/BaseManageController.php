@@ -353,7 +353,7 @@ class BaseManageController extends Controller
                 $imager = new Imager();
                 $imageInfo = $imager->getImageInfo($tempDir . DIRECTORY_SEPARATOR . $file['name']);
                 if($imageInfo['width'] < 300 or $imageInfo['height'] < 300) {
-                    $response = ['state' => 'error', 'msg' => 'اندازه آیکون نباید کوچکتر از 512x512 پیکسل باشد.'];
+                    $response = ['state' => 'error', 'msg' => 'اندازه آیکون نباید کوچکتر از 300x300 پیکسل باشد.'];
                     unlink($tempDir . DIRECTORY_SEPARATOR . $file['name']);
                 }else
                     $response = ['state' => 'ok', 'fileName' => CHtml::encode($file['name'])];
