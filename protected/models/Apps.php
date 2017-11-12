@@ -378,6 +378,6 @@ class Apps extends CActiveRecord
 	{
 		if($this->platform_id == 1)
 			return Yii::app()->createUrl('/apps/' . urlencode($this->lastPackage->package_name));
-		return Yii::app()->createUrl('/apps/' . $this->id.'/'.urlencode($this->title));
+		return Yii::app()->createUrl('/apps/' . urlencode($this->title));
 	}
 }

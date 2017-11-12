@@ -48,11 +48,14 @@ class AppsController extends Controller
         if((int)$id)
             $model = $this->loadModel($id);
         else{
-            $criteria = new CDbCriteria();
-            $criteria->with[] = 'packages';
-            $criteria->together = true;
-            $criteria->compare('packages.package_name',$id);
-            $model = Apps::model()->find($criteria);
+            $model = Apps::model()->findByAttributes(array('title' => urldecode($id)));
+            if($model === null){
+                $criteria = new CDbCriteria();
+                $criteria->with[] = 'packages';
+                $criteria->together = true;
+                $criteria->compare('packages.package_name', $id);
+                $model = Apps::model()->find($criteria);
+            }
         }
         if($model === null)
             throw new CHttpException(404, 'برنامه موردنظر موجود نیست.');
