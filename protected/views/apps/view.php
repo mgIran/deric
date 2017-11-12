@@ -265,7 +265,17 @@ if($model->platform) {
                         <?php if($model->price>0):?>
                             <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode(Yii::app()->createAbsoluteUrl('/apps/buy/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title))));?>" />
                         <?php else:?>
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode(Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title))));?>" />
+                            <?php
+                            if($model->platform_id == 1):
+                                ?>
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode(Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title))));?>" />
+                                <?php
+                            else:
+                                ?>
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode($model->lastPackage->download_file_url);?>" />
+                                <?php
+                            endif;
+                            ?>
                         <?php endif;?>
                     </div>
                     <?php
@@ -277,7 +287,17 @@ if($model->platform) {
                     }else {
                         ?>
                         <div class="text-center" style="margin-bottom: 15px;">
-                            <a href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">دانلود مستقیم برنامه</a>
+                            <?php
+                            if($model->platform_id == 1):
+                            ?>
+                                <a href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">دانلود مستقیم برنامه</a>
+                            <?php
+                            else:
+                                ?>
+                                <a target="_blank" rel="nofollow" href="<?php echo $model->lastPackage->download_file_url ;?>">لینک برنامه</a>
+                                <?php
+                            endif;
+                            ?>
                         </div>
                         <a href="#" data-dismiss="modal" class="btn btn-default">بستن</a>
                         <?php
