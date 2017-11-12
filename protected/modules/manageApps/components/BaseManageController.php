@@ -576,17 +576,17 @@ class BaseManageController extends Controller
                 $model->download_file_url= $_POST['download_file_url'];
             }
             if ($model->save()) {
+                /* @var $app Apps */
+                $app = Apps::model()->findByPk($_POST['app_id']);
+                $app->setScenario('set_permissions');
+                $app->change_log=$_POST['Apps']['change_log'];
                 if ($_POST['platform'] == 'android') {
-                    $response = ['status' => true, 'fileName' => CHtml::encode($model->file_name)];
-                    rename($tempDir . DIRECTORY_SEPARATOR . $_POST['Apps']['file_name'], $uploadDir . DIRECTORY_SEPARATOR . $model->file_name);
-                    /* @var $app Apps */
-                    $app = Apps::model()->findByPk($_POST['app_id']);
-                    $app->setScenario('set_permissions');
                     $app->permissions = CJSON::encode($this->getPermissionsName($apkInfo['permissions']));
-                    $app->change_log=$_POST['Apps']['change_log'];
-                    $app->save();
+                    $response = ['status' => true, 'fileName' => CHtml::encode($model->file_name)];
+                    @rename($tempDir . DIRECTORY_SEPARATOR . $_POST['Apps']['file_name'], $uploadDir . DIRECTORY_SEPARATOR . $model->file_name);
                 }else
                     $response = ['status' => true, 'fileName' => CHtml::encode($model->file_name)];
+                @$app->save();
             } else {
                 $response = ['status' => false, 'message' => $this->implodeErrors($model)];
                 if(isset($_POST['Apps']['file_name']) && file_exists($tempDir . '/' . $_POST['Apps']['file_name']))

@@ -189,10 +189,16 @@ if($model->platform) {
             <?php endif;?>
             <div class="app-details">
                 <h4>اطلاعات برنامه</h4>
+                <?php
+                if($model->lastPackage->file_name):
+                ?>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 detail">
                     <h5>حجم</h5>
                     <span class="ltr" ><?= Controller::fileSize($filePath.$model->lastPackage->file_name) ?></span>
                 </div>
+                <?php
+                endif;
+                ?>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 detail">
                     <h5>نسخه</h5>
                     <span class="ltr" ><?= $model->lastPackage->version ?></span>
