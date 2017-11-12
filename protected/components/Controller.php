@@ -53,7 +53,7 @@ class Controller extends CController
 
     public function beforeAction($action)
     {
-        if(!Yii::app()->user->hasState('platform')) {
+        if(Yii::app()->request->getQuery('platform') || (!Yii::app()->request->getQuery('platform') && !Yii::app()->user->hasState('platform'))) {
             $queryPlatform = Yii::app()->request->getQuery('platform');
             if(is_null($queryPlatform))
                 $queryPlatform = 'android';
@@ -119,7 +119,7 @@ class Controller extends CController
                     'items' => array(
                         array('label' => '<i class="fa fa-circle-o"></i>بخش اندروید', 'url' => Yii::app()->createUrl('/manageApps/android/admin/')),
                         array('label' => '<i class="fa fa-circle-o"></i>بخش آی او اس', 'url' => Yii::app()->createUrl('/manageApps/ios/admin/')),
-                        array('label' => '<i class="fa fa-circle-o"></i>بخش ویندوز فون', 'url' => Yii::app()->createUrl('/manageApps/windowsphone/admin/')),
+//                        array('label' => '<i class="fa fa-circle-o"></i>بخش ویندوز فون', 'url' => Yii::app()->createUrl('/manageApps/windowsphone/admin/')),
                         array('label' => '<i class="fa fa-circle-o"></i>تبلیغات', 'url' => Yii::app()->createUrl('/advertises/manage/admin/')),
                         array('label' => '<i class="fa fa-circle-o"></i>نظرات', 'url' => Yii::app()->createUrl('/comments/comment/adminApps')),
                     )
@@ -242,7 +242,7 @@ class Controller extends CController
                     'items' => array(
                         array('label' => '<i class="fa fa-circle-o"></i>بخش اندروید', 'url' => Yii::app()->createUrl('/manageApps/android/admin/')),
                         array('label' => '<i class="fa fa-circle-o"></i>بخش آی او اس', 'url' => Yii::app()->createUrl('/manageApps/ios/admin/')),
-                        array('label' => '<i class="fa fa-circle-o"></i>بخش ویندوز فون', 'url' => Yii::app()->createUrl('/manageApps/windowsphone/admin/')),
+//                        array('label' => '<i class="fa fa-circle-o"></i>بخش ویندوز فون', 'url' => Yii::app()->createUrl('/manageApps/windowsphone/admin/')),
                         array('label' => '<i class="fa fa-circle-o"></i>نظرات', 'url' => Yii::app()->createUrl('/comments/comment/adminApps')),
                     )
                 ),

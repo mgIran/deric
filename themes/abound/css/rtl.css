@@ -32,3 +32,24 @@
 	opacity: .6;
 	filter: alpha(opacity=60);
 }
+
+.add-multipliable-input,
+.remove-multipliable-input
+{
+	position: absolute;
+	left: 20px;
+	bottom: 7px;
+}
+.remove-multipliable-input
+{
+	left: 0;
+}
+.multipliable-input-container
+{
+	position: relative;
+}
+.multipliable-input
+{
+	width: 90%;
+	margin-bottom: 15px;
+}

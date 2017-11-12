@@ -3,9 +3,25 @@
 ?>
 
 <div class="tr">
-    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8"><?php echo CHtml::encode($data->package_name);?></div>
+    <?php
+    if($data->app->platform_id != 1):
+        ?>
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8"><a href="<?php echo $data->download_file_url;?>" target="_blank">لینک فایل</a></div>
+        <?php
+    else:
+        ?>
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8"><?php echo CHtml::encode($data->package_name);?></div>
+        <?php
+    endif;
+    ?>
     <div class="col-lg-1 col-md-1 col-sm-4 hidden-xs"><?php echo CHtml::encode($data->version);?></div>
-    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"><?php echo Controller::fileSize(Yii::getPathOfAlias("webroot") . '/uploads/apps/files/'.$data->app->platform->name.'/'.$data->file_name);?></div>
+    <?php
+    if($data->app->platform_id == 1):
+    ?>
+        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"><?php echo Controller::fileSize(Yii::getPathOfAlias("webroot") . '/uploads/apps/files/'.$data->app->platform->name.'/'.$data->file_name);?></div>
+    <?php
+    endif;
+    ?>
     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"><?php echo JalaliDate::date('d F Y', $data->create_date);?></div>
     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"><?php if($data->status=='accepted')echo JalaliDate::date('d F Y', $data->publish_date);else echo '-';?></div>
     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">

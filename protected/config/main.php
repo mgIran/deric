@@ -154,7 +154,7 @@ return array(
 				'<action:(logout|login|register|dashboard)>' => 'users/public/<action>',
                 'android' => 'site/index/platform/android',
                 'ios' => 'site/index/platform/ios',
-                'windowsphone' => 'site/index/platform/windowsphone',
+//                'windowsphone' => 'site/index/platform/windowsphone',
 				'apps/<id:\d+>'=>'apps/view',
 				'apps/<action:\w+>'=>'apps/<action>',
 				'api/<action:\w+>'=>'api/<action>',

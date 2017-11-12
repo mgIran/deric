@@ -293,10 +293,10 @@ class AppsController extends Controller
             if (move_uploaded_file($file['tmp_name'], $tempDir . DIRECTORY_SEPARATOR . CHtml::encode($file['name']))) {
                 $imager = new Imager();
                 $imageInfo = $imager->getImageInfo($tempDir . DIRECTORY_SEPARATOR . $file['name']);
-//                if ($imageInfo['width'] < 512 or $imageInfo['height'] < 512) {
-//                    $response = ['state' => 'error', 'msg' => 'اندازه آیکون نباید کوچکتر از 512x512 پیکسل باشد.'];
-//                    unlink($tempDir . DIRECTORY_SEPARATOR . $file['name']);
-//                } else
+                if ($imageInfo['width'] < 300 or $imageInfo['height'] < 300) {
+                    $response = ['state' => 'error', 'msg' => 'اندازه آیکون نباید کوچکتر از 512x512 پیکسل باشد.'];
+                    unlink($tempDir . DIRECTORY_SEPARATOR . $file['name']);
+                } else
                     $response = ['state' => 'ok', 'fileName' => CHtml::encode($file['name'])];
             } else
                 $response = ['state' => 'error', 'msg' => 'فایل آپلود نشد.'];

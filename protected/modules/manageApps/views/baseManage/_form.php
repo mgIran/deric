@@ -215,8 +215,8 @@
 					echo CHtml::textField('Apps[permissions][0]','',array('placeholder'=>'دسترسی','class'=>'form-control multipliable-input'));
 				}
 			endif;?>
-			<a href="#add-permission" class="add-multipliable-input"><i class="icon icon-plus"></i></a>
-			<a href="#remove-permission" class="remove-multipliable-input"><i class="icon icon-trash"></i></a>
+			<a href="#add-permission" class="add-multipliable-input"><i class="fa fa-plus"></i></a>
+			<a href="#remove-permission" class="remove-multipliable-input"><i class="fa fa-trash"></i></a>
 			<?php echo $form->error($model,'permissions'); ?>
 		</div>
 	<?php endif;?>

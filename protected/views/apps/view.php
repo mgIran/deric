@@ -166,17 +166,24 @@ if($model->platform) {
             <section>
                 <div class="app-description">
                     <h4>توضیحات برنامه</h4>
-                    <p><?= strip_tags(nl2br($model->description)); ?></p>
+                    <p><?php
+                        $purifier  = new CHtmlPurifier();
+                        $purifier->setOptions(array(
+                            'HTML.Allowed'=> 'p,b,i,br,img,span',
+                            'HTML.AllowedAttributes'=> 'style,id,class,src,a.href',
+                        ));
+                        echo $purifier->purify($model->description);
+                        ?></p>
                 </div>
                 <a class="more-text" href="#">
                     <span>توضیحات بیشتر</span>
                 </a>
             </section>
-            <?php if(!is_null($model->change_log) or $model->change_log!=''):?>
+            <?php if($model->change_log || !empty($model->change_log)):?>
                 <div class="change-log">
                     <h4>آخرین تغییرات</h4>
                     <div class="app-description">
-                        <?= $model->change_log ?>
+                        <?php echo $purifier->purify($model->change_log) ?>
                     </div>
                 </div>
             <?php endif;?>

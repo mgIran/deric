@@ -12,12 +12,12 @@
                 iOS
             </a>
         </div>
-        <div>
-            <a href="<?php echo Yii::app()->createUrl('/windowsphone');?>" class="win" data-platform="windowsphone">
-                <span class="icon-windows icon-2x"></span>
-                ویندوز فون
-            </a>
-        </div>
+<!--        <div>-->
+<!--            <a href="--><?php //echo Yii::app()->createUrl('/windowsphone');?><!--" class="win" data-platform="windowsphone">-->
+<!--                <span class="icon-windows icon-2x"></span>-->
+<!--                ویندوز فون-->
+<!--            </a>-->
+<!--        </div>-->
     </div>
     <div class="panel panel-default enamad hidden-sm hidden-xs">
         <div class="panel-body">

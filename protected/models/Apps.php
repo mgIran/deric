@@ -165,18 +165,10 @@ class Apps extends CActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
+    /**
+     * @param bool $withFree
+     * @return CActiveDataProvider
+     */
 	public function search($withFree = true)
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
@@ -186,11 +178,15 @@ class Apps extends CActiveRecord
 		$criteria->with = array('developer', 'developer.userDetails');
 		$criteria->join='LEFT OUTER JOIN ym_app_ratings ratings ON ratings.app_id = t.id';
 		if(isset($_GET['ajax']) and $_GET['ajax']=='apps-grid') {
-			$criteria->addCondition('developer_team Like :dev_filter OR  userDetails.fa_name Like :dev_filter OR userDetails.en_name Like :dev_filter OR userDetails.developer_id Like :dev_filter');
-			$criteria->params[':dev_filter'] = '%' . $this->devFilter . '%';
-			$criteria->join.=' LEFT OUTER JOIN ym_app_packages package ON package.app_id = t.id';
-			$criteria->addCondition('package.package_name Like :package_filter');
-			$criteria->params[':package_filter'] = '%' . $this->packageFilter . '%';
+            if($this->devFilter){
+                $criteria->addCondition('developer_team Like :dev_filter OR  userDetails.fa_name Like :dev_filter OR userDetails.en_name Like :dev_filter OR userDetails.developer_id Like :dev_filter');
+                $criteria->params[':dev_filter'] = '%' . $this->devFilter . '%';
+            }
+            if($this->packageFilter){
+                $criteria->join .= ' LEFT OUTER JOIN ym_app_packages package ON package.app_id = t.id';
+                $criteria->addCondition('package.package_name Like :package_filter');
+                $criteria->params[':package_filter'] = '%' . $this->packageFilter . '%';
+            }
 		}
 		//$criteria->addCondition('ratings.rate > 1');
 		if(!$withFree)
@@ -203,6 +199,7 @@ class Apps extends CActiveRecord
 		$criteria->addCondition('t.title != ""');
 		$criteria->order = 't.id DESC';
 
+        $criteria->compare('category_id',$this->category_id);
         $criteria->compare('support_phone',$this->support_phone,true);
         $criteria->compare('support_email',$this->support_email,true);
         $criteria->compare('support_fa_web',$this->support_fa_web,true);

@@ -12,9 +12,15 @@ Yii::app()->clientScript->registerCss('inline',"
     <a class="btn btn-success" href="#package-modal" data-toggle="modal"><i class="icon icon-plus"></i> ثبت بسته</a>
     <div class="table text-center">
         <div class="thead">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8">نام بسته</div>
+            <?php if($model->platform_id != 1):?>
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8">فایل</div>
+            <?php else:?>
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8">نام بسته</div>
+            <?php endif;?>
             <div class="col-lg-1 col-md-1 col-sm-4 hidden-xs">نسخه</div>
-            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs">حجم</div>
+            <?php if($model->platform_id == 1):?>
+                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs">حجم</div>
+            <?php endif;?>
             <div class="col-lg-2 col-md-3 hidden-sm hidden-xs">تاریخ بارگذاری</div>
             <div class="col-lg-2 col-md-3 hidden-sm hidden-xs">تاریخ انتشار</div>
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">وضعیت</div>

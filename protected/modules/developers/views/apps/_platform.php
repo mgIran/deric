@@ -26,7 +26,7 @@
             <?php if(Yii::app()->user->hasFlash('failed')) echo Yii::app()->user->getFlash('failed'); ?>
         </p>
         <div class="form-group">
-            <?php echo CHtml::dropDownList('platform_id',$model->platform_id,CHtml::listData(AppPlatforms::model()->findAll(), 'id', 'upperName'),array('prompt'=>'لطفا پلتفرم مورد نظر را انتخاب کنید *','class'=>'form-control')); ?>
+            <?php echo CHtml::dropDownList('platform_id',$model->platform_id,CHtml::listData(AppPlatforms::model()->findAll('id <> 3'), 'id', 'upperName'),array('prompt'=>'لطفا پلتفرم مورد نظر را انتخاب کنید *','class'=>'form-control')); ?>
             <?php echo $form->error($model,'platform_id'); ?>
         </div>
         <br>

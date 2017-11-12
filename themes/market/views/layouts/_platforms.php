@@ -15,12 +15,12 @@
                 </span>
         </a>
     </div>
-    <div class="col-xs-4">
-        <a href="<?php echo Yii::app()->createUrl('/windowsphone');?>" class="win" data-platform="windowsphone">
-            <span class="icon-windows "></span>
-                <span class="label hidden-xs">
-                    ویندوز فون
-                </span>
-        </a>
-    </div>
+<!--    <div class="col-xs-4">-->
+<!--        <a href="--><?php //echo Yii::app()->createUrl('/windowsphone');?><!--" class="win" data-platform="windowsphone">-->
+<!--            <span class="icon-windows "></span>-->
+<!--                <span class="label hidden-xs">-->
+<!--                    ویندوز فون-->
+<!--                </span>-->
+<!--        </a>-->
+<!--    </div>-->
 </div>
