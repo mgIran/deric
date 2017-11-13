@@ -489,18 +489,18 @@ class AppsController extends Controller
             }
 
             if ($model->save()) {
+                /* @var $app Apps */
+                $app = Apps::model()->findByPk($_POST['app_id']);
+                $app->setScenario('set_permissions');
+                $app->change_log = $_POST['Apps']['change_log'];
                 if ($_POST['platform'] == 'android') {
+                    $app->permissions = CJSON::encode($this->getPermissionsName($apkInfo['permissions']));
                     $response = ['status' => true, 'fileName' => CHtml::encode($model->file_name)];
                     rename($tempDir . DIRECTORY_SEPARATOR . $_POST['Apps']['file_name'], $uploadDir . DIRECTORY_SEPARATOR . $model->file_name);
-                    /* @var $app Apps */
-                    $app = Apps::model()->findByPk($_POST['app_id']);
-                    $app->setScenario('set_permissions');
-                    $app->permissions = CJSON::encode($this->getPermissionsName($apkInfo['permissions']));
-                    $app->change_log = $_POST['Apps']['change_log'];
-                    $app->save();
                 }
                 else
                     $response = ['status' => true, 'fileName' => CHtml::encode($model->file_name)];
+                @$app->save();
             } else{
                 $response = ['status' => false, 'message' => $this->implodeErrors($model)];
                 if(isset($_POST['Apps']['file_name']) && file_exists($tempDir . '/' . $_POST['Apps']['file_name']))

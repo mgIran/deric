@@ -203,6 +203,7 @@ class Apps extends CActiveRecord
         $criteria->compare('t.status',$this->status);
         $criteria->compare('t.confirm',$this->confirm);
         $criteria->compare('price',$this->price, true);
+        $criteria->compare('category_id',$this->category_id);
         $criteria->compare('support_phone',$this->support_phone,true);
         $criteria->compare('support_email',$this->support_email,true);
         $criteria->compare('support_fa_web',$this->support_fa_web,true);

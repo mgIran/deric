@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 ?>
 <div class="box">
 	<div class="box-header with-border">
-		<h3 class="box-title">مدیریت برنامه ها</h3>
+		<h3 class="box-title">مدیریت برنامه های <?= ucfirst($this->controller) ?></h3>
 		<a href="<?php echo Yii::app()->createUrl('/manageApps/'.$this->controller.'/create')?>" class="btn btn-default btn-sm">افزودن برنامه</a>
 	</div>
 	<div class="box-body">

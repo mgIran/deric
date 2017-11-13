@@ -102,7 +102,8 @@ class DashboardController extends Controller
         $criteria->compare('messages.sender', 'user');
         $statistics = array(
             'tickets' => Tickets::model()->count($criteria),
-            'apps' => Apps::model()->count('title IS NOT NULL'),
+            'appsAndroid' => Apps::model()->count('title IS NOT NULL AND platform_id = 1'),
+            'appsIos' => Apps::model()->count('title IS NOT NULL AND platform_id = 2'),
             'developers' => Users::model()->count('role_id = 2'),
             'transactions' => UserTransactions::model()->count(),
         );

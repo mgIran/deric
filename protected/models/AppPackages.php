@@ -62,7 +62,7 @@ class AppPackages extends CActiveRecord
             array('for', 'length', 'max' => 7),
             array('download_file_url', 'length', 'max' => 512),
             array('download_file_url', 'url'),
-            array('download_file_url', 'unique', 'on' => 'url_package', 'message' => 'آدرس دانلود فایل موردنظر قبلا ثبت شده است.'),
+//            array('download_file_url', 'unique', 'on' => 'url_package', 'message' => 'آدرس دانلود فایل موردنظر قبلا ثبت شده است.'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, app_id, version, version_code, package_name, file_name, create_date, publish_date, status, reason, for, download_file_url', 'safe', 'on' => 'search'),

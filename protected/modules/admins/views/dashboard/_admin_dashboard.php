@@ -15,7 +15,8 @@ $permissions = [
     'updatedPackages' => false,
     'statistics' => false,
     'todaySales' => false,
-    'AppStatistics' => false,
+    'AppAndroidStatistics' => false,
+    'AppIosStatistics' => false,
     'DevStatistics' => false,
     'TransactionStatistics' => false,
     'TicketStatistics' => false,
@@ -28,7 +29,8 @@ if(Yii::app()->user->roles == 'admin'){
     $permissions['updatedPackages'] = true;
     $permissions['statistics'] = true;
     $permissions['todaySales'] = true;
-    $permissions['AppStatistics'] = true;
+    $permissions['AppAndroidStatistics'] = true;
+    $permissions['AppIosStatistics'] = true;
     $permissions['DevStatistics'] = true;
     $permissions['TransactionStatistics'] = true;
     $permissions['TicketStatistics'] = true;
@@ -38,7 +40,8 @@ if(Yii::app()->user->roles == 'validator'){
     $permissions['newestPrograms'] = true;
     $permissions['newestPackages'] = true;
     $permissions['updatedPackages'] = true;
-    $permissions['AppStatistics'] = true;
+    $permissions['AppAndroidStatistics'] = true;
+    $permissions['AppIosStatistics'] = true;
 }
 
 if(Yii::app()->user->roles == 'supporter'){
@@ -54,21 +57,22 @@ if(Yii::app()->user->roles == 'finance'){
 
 if(Yii::app()->user->roles == 'employee'){
     $permissions['statistics'] = true;
-    $permissions['AppStatistics'] = true;
+    $permissions['AppAndroidStatistics'] = true;
+    $permissions['AppIosStatistics'] = true;
 }
 
 ?>
 <div class="row boxed-statistics">
     <!--Apps Statistics-->
     <?php
-    if($permissions['AppStatistics']):
+    if($permissions['AppAndroidStatistics']):
     ?>
-    <div class="col-lg-3 col-xs-6">
+    <div class="col-md-4 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-green">
             <div class="inner">
-                <h3><?php echo $statistics['apps'];?></h3>
-                <p>اپلیکیشن ها</p>
+                <h3><?php echo $statistics['appsAndroid'];?></h3>
+                <p>اپلیکیشن های اندروید</p>
             </div>
             <div class="icon">
                 <i class="ion ion-android-apps"></i>
@@ -79,11 +83,30 @@ if(Yii::app()->user->roles == 'employee'){
     <?php
     endif;
     ?>
+    <?php
+    if($permissions['AppIosStatistics']):
+    ?>
+    <div class="col-md-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3><?php echo $statistics['appsIos'];?></h3>
+                <p>اپلیکیشن های ios</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-android-apps"></i>
+            </div>
+            <a href="<?php echo $this->createUrl('/manageApps/ios/admin');?>" class="small-box-footer">مشاهده لیست <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+    <?php
+    endif;
+    ?>
     <!--Developers Statistics-->
     <?php
     if($permissions['DevStatistics']):
     ?>
-    <div class="col-lg-3 col-xs-6">
+    <div class="col-md-4 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-red">
             <div class="inner">
@@ -103,7 +126,7 @@ if(Yii::app()->user->roles == 'employee'){
     <?php
     if($permissions['TransactionStatistics']):
     ?>
-    <div class="col-lg-3 col-xs-6">
+    <div class="col-md-4 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-blue">
             <div class="inner">
@@ -123,7 +146,7 @@ if(Yii::app()->user->roles == 'employee'){
     <?php
     if($permissions['TicketStatistics']):
     ?>
-    <div class="col-lg-3 col-xs-6">
+    <div class="col-md-4 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-yellow">
             <div class="inner">
