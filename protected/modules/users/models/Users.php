@@ -149,6 +149,7 @@ class Users extends CActiveRecord
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('username', $this->username, true);
+        $criteria->compare('email', $this->email, true);
         $criteria->compare('password', $this->password, true);
         $criteria->compare('create_date', $this->create_date, true);
         $criteria->compare('status', $this->statusFilter, true);

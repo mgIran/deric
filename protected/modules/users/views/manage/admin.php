@@ -83,10 +83,10 @@ $this->breadcrumbs=array(
                                 'header'=>'امتیاز خرید',
                                 'value' => 'is_null($data->userDetails->score)?"-":$data->userDetails->score',
                             ),
-                            array(
-                                'header'=>'امتیاز فروش',
-                                'value' => 'is_null($data->userDetails->dev_score)?"-":$data->userDetails->dev_score',
-                            ),
+//                            array(
+//                                'header'=>'امتیاز فروش',
+//                                'value' => 'is_null($data->userDetails->dev_score)?"-":$data->userDetails->dev_score',
+//                            ),
                             array(
                                 'class'=>'CButtonColumn',
                                 'template' => '{view} {update} {delete}'
@@ -123,10 +123,10 @@ $this->breadcrumbs=array(
                                 'value' => '$data->role->name',
                                 'filter' => CHtml::activeDropDownList($model,'roleId',array('1'=>'کاربر معمولی', '2'=>'توسعه دهنده'),array('prompt' => 'همه'))
                             ),
-                            array(
-                                'header'=>'امتیاز خرید',
-                                'value' => 'is_null($data->userDetails->score)?"-":$data->userDetails->score',
-                            ),
+//                            array(
+//                                'header'=>'امتیاز خرید',
+//                                'value' => 'is_null($data->userDetails->score)?"-":$data->userDetails->score',
+//                            ),
                             array(
                                 'header'=>'امتیاز فروش',
                                 'value' => 'is_null($data->userDetails->dev_score)?"-":$data->userDetails->dev_score',
