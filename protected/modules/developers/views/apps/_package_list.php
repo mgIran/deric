@@ -20,6 +20,10 @@
     ?>
         <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"><?php echo Controller::fileSize(Yii::getPathOfAlias("webroot") . '/uploads/apps/files/'.$data->app->platform->name.'/'.$data->file_name);?></div>
     <?php
+    else:
+        ?>
+        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs ltr"><?php echo $data->download_file_size;?></div>
+        <?php
     endif;
     ?>
     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"><?php echo JalaliDate::date('d F Y', $data->create_date);?></div>

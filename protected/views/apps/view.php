@@ -192,10 +192,17 @@ if($model->platform) {
                 <?php
                 if($model->lastPackage->file_name):
                 ?>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 detail">
-                    <h5>حجم</h5>
-                    <span class="ltr" ><?= Controller::fileSize($filePath.$model->lastPackage->file_name) ?></span>
-                </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 detail">
+                        <h5>حجم</h5>
+                        <span class="ltr" ><?= Controller::fileSize($filePath.$model->lastPackage->file_name) ?></span>
+                    </div>
+                <?php
+                else:
+                    ?>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 detail">
+                        <h5>حجم</h5>
+                        <span class="ltr" ><?= $model->lastPackage->download_file_size ?></span>
+                    </div>
                 <?php
                 endif;
                 ?>

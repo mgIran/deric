@@ -8,7 +8,21 @@ a[href='#package-modal']{margin-top:20px;}
 ");
 ?>
 
-<?php if($model->platform_id==1):?>
+<?php if($model->platform_id==1):
+    $cols = [
+        'version',
+        'package_name',
+        array(
+            'class'=>'CButtonColumn',
+            'template' => '{delete}',
+            'buttons'=>array(
+                'delete'=>array(
+                    'url'=>'Yii::app()->createUrl("/manageApps/'.$model->platform->name.'/deletePackage/".$data->id)',
+                ),
+            ),
+        ),
+    ];
+    ?>
     <?php echo CHtml::beginForm('','post',array('id'=>'package-info-form'));?>
     <label style="margin-top: 15px;">فایل بسته</label>
     <?php $this->widget('ext.dropZoneUploader.dropZoneUploader', array(
@@ -77,13 +91,45 @@ a[href='#package-modal']{margin-top:20px;}
         </div>
     </div>
     <?php echo CHtml::endForm();?>
-<?php else:?>
+<?php else:
+    $cols = [
+        'version',
+        [
+            'name' => 'download_file_url',
+            'value' => function($data){
+                return CHtml::link(urldecode($data->download_file_url), $data->download_file_url,['target' => '_blank']);
+            },
+            'htmlOptions' => [
+                'class' => 'ltr text-right'
+            ],
+            'type' => 'raw'
+        ],
+        [
+            'name' => 'download_file_size',
+            'htmlOptions' => [
+                'class' => 'ltr text-right'
+            ],
+        ],
+        array(
+            'class'=>'CButtonColumn',
+            'template' => '{delete}',
+            'buttons'=>array(
+                'delete'=>array(
+                    'url'=>'Yii::app()->createUrl("/manageApps/'.$model->platform->name.'/deletePackage/".$data->id)',
+                ),
+            ),
+        ),
+    ];
+    ?>
     <?php echo CHtml::beginForm('','post',array('id'=>'package-info-form'));?>
     <div class="form-group row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <?php echo CHtml::textField('download_file_url', '', array('class'=>'form-control ltr text-right', 'placeholder'=>'لینک دانلود فایل *'));?>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <?php echo CHtml::textField('download_file_size', '', array('class'=>'form-control ltr text-right', 'placeholder'=>'حجم فایل *'));?>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <?php echo CHtml::textField('version', '', array('class'=>'form-control', 'placeholder'=>'ورژن *'));?>
         </div>
     </div>
@@ -111,7 +157,9 @@ a[href='#package-modal']{margin-top:20px;}
                         'dataType':'JSON',
                         'data':$(\"#package-info-form\").serialize(),
                         'beforeSend':function(){
-                            if($('#package-info-form #download_file_url').val()=='' || $('#package-info-form #version').val()==''){
+                            if($('#package-info-form #download_file_url').val()=='' ||
+                                $('#package-info-form #download_file_size').val()=='' || 
+                                $('#package-info-form #version').val()==''){
                                 $('.uploader-message').text('لطفا فیلد های ستاره دار را پر کنید.');
                                 return false;
                             }else
@@ -124,7 +172,9 @@ a[href='#package-modal']{margin-top:20px;}
                                 $('.dz-preview').remove();
                                 $('.dropzone').removeClass('dz-started');
                                 $('#package-info-form #download_file_url').val('');
+                                $('#package-info-form #download_file_size').val('');
                                 $('#package-info-form #version').val('');
+                                $('#package-info-form #Apps_change_log').val('');
                             }
                             else
                                 $('.uploader-message').html(data.message);
@@ -145,29 +195,7 @@ a[href='#package-modal']{margin-top:20px;}
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'packages-grid',
     'dataProvider'=>$dataProvider,
-    'columns'=>array(
-        'version',
-        'package_name',
-        [
-            'name' => 'download_file_url',
-            'value' => function($data){
-                return CHtml::link(urldecode($data->download_file_url), $data->download_file_url,['target' => '_blank']);
-            },
-            'htmlOptions' => [
-                'class' => 'ltr text-right'
-            ],
-            'type' => 'raw'
-        ],
-        array(
-            'class'=>'CButtonColumn',
-            'template' => '{delete}',
-            'buttons'=>array(
-                'delete'=>array(
-                    'url'=>'Yii::app()->createUrl("/manageApps/'.$model->platform->name.'/deletePackage/".$data->id)',
-                ),
-            ),
-        ),
-    ),
+    'columns'=>$cols
 ));?>
 </div>
 <?php echo CHtml::button('ثبت و ادامه', array('class'=>'btn btn-success', 'onclick'=>'$(".nav a[href=\'#pics\']").trigger("click");'));?>

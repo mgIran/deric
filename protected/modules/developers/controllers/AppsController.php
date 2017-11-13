@@ -486,6 +486,7 @@ class AppsController extends Controller
                 $model->package_name = null;
                 $model->file_name = null;
                 $model->download_file_url= $_POST['download_file_url'];
+                $model->download_file_size= $_POST['download_file_size'];
             }
 
             if ($model->save()) {

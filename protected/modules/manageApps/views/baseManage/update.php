@@ -21,7 +21,7 @@ if(isset($_GET['step']))
 
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs pull-right">
-        <li class="pull-right header">ویرایش برنامه <?php echo $model->id; ?></li>
+        <li class="pull-right header">ویرایش برنامه <?php echo $model->title; ?></li>
         <li class="<?= ($step == 1?'active':''); ?>"><a data-toggle="tab" href="#general">عمومی</a></li>
         <li class="<?= $model->getIsNewRecord()?'disabled':''; ?> <?= ($step == 2?'active':''); ?>"><a data-toggle="tab" href="#packages">بسته ها</a></li>
         <li class="<?= $model->getIsNewRecord()?'disabled':''; ?> <?= ($step == 3?'active':''); ?>"><a data-toggle="tab" href="#pics">تصاویر</a></li>

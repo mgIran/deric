@@ -126,7 +126,10 @@ Yii::app()->clientScript->registerCss('inline',"
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                             <?php echo CHtml::textField('download_file_url', '', array('class'=>'form-control ltr text-right', 'placeholder'=>'آدرس دانلود فایل *'));?>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                            <?php echo CHtml::textField('download_file_size', '', array('class'=>'form-control ltr text-right', 'placeholder'=>'حجم فایل *'));?>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                             <?php echo CHtml::textField('version', '', array('class'=>'form-control', 'placeholder'=>'ورژن *'));?>
                                         </div>
                                     </div>
@@ -152,7 +155,9 @@ Yii::app()->clientScript->registerCss('inline',"
                                                         'dataType':'JSON',
                                                         'data':$(\"#package-info-form\").serialize(),
                                                         'beforeSend':function(){
-                                                            if($('#package-info-form #version').val()=='' || $('#package-info-form #download_file_url').val()==''){
+                                                            if($('#package-info-form #version').val()=='' || 
+                                                            $('#package-info-form #download_file_url').val()=='' || 
+                                                            $('#package-info-form #download_file_size').val()==''){
                                                                 $('.uploader-message').text('لطفا فیلد های ستاره دار را پر کنید.').addClass('error');
                                                                 return false;
                                                             }else
@@ -165,6 +170,8 @@ Yii::app()->clientScript->registerCss('inline',"
                                                                 $('#package-modal').modal('hide');
                                                                 $('#package-info-form #version').val('');
                                                                 $('#package-info-form #download_file_url').val('');
+                                                                $('#package-info-form #download_file_size').val('');
+                                                                $('#package-info-form #Apps_change_log').val('');
                                                             }
                                                             else
                                                                 $('.uploader-message').html(data.message).addClass('error');
