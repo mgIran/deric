@@ -7,21 +7,33 @@
     <?php if(empty($model->appBuys)):?>
         نتیجه ای یافت نشد.
     <?php else:?>
-        <div class="table text-center">
-            <div class="thead">
-                <div class="td col-lg-4 col-md-4 col-sm-4 hidden-xs">زمان</div>
-                <div class="td col-lg-4 col-md-4 col-sm-4 col-xs-12">نام برنامه</div>
-                <div class="td col-lg-4 col-md-4 col-sm-4 hidden-xs">مبلغ</div>
-            </div>
-            <div class="tbody">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>نام برنامه</th>
+                    <th>مبلغ برنامه</th>
+                    <th>مقدار تخفیف</th>
+                    <th>مبلغ پرداخت شده</th>
+                    <th>زمان</th>
+                </tr>
+                </thead>
+                <tbody>
                 <?php foreach($model->appBuys as $buy):?>
-                    <div class="tr">
-                        <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs"><?php echo JalaliDate::date('d F Y - H:i', $buy->date);?></div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><?php echo CHtml::encode($buy->app->title);?></div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs"><?php echo number_format($buy->app->price, 0).' تومان';?></div>
-                    </div>
+                    <tr>
+                        <td>
+                            <a href="<?= $buy->app->getViewUrl() ?>">
+                                <?php echo CHtml::encode($buy->app->title);?>
+                            </a>
+                        </td>
+                        <td><?php echo Controller::parseNumbers(number_format($buy->app_price)).' تومان';?></td>
+                        <td><?php echo Controller::parseNumbers(number_format($buy->discount_amount)).' تومان';?></td>
+                        <td class="text-info"><?php echo Controller::parseNumbers(number_format($buy->pay_amount)).' تومان';?></td>
+                        <td><?php echo JalaliDate::date('d F Y - H:i', $buy->date);?></td>
+                    </tr>
                 <?php endforeach;?>
-            </div>
+                </tbody>
+            </table>
         </div>
     <?php endif;?>
 </div>

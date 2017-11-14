@@ -29,7 +29,10 @@
                         echo $transaction->status == 'paid'? 'success':'danger';
                         ?>"><?php echo $transaction->getStatusLabel();?></span></td>
                     <td><b><?php echo CHtml::encode($transaction->token);?></b></td>
-                    <td><?= $transaction->gatewayLabels[$transaction->gateway_name]?></td>
+                    <td><?= $transaction->gateway_name?
+                            '<span class="text-info">'.$transaction->gatewayLabels[$transaction->gateway_name].'</span>'
+                            :'<span class="text-danger">نامشخص</span>';
+                        ?></td>
                     <td><?php echo CHtml::encode($transaction->description);?></td>
                 </tr>
                 <?php endforeach;?>
