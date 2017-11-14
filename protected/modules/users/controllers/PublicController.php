@@ -86,7 +86,7 @@ class PublicController extends Controller
         if(!Yii::app()->user->isGuest && Yii::app()->user->type == 'user')
             $this->redirect($this->createAbsoluteUrl('//'));
 
-        $model = new UserLoginForm;
+        $model = new UserLoginForm();
         // if it is ajax validation request
         if ( isset( $_POST[ 'ajax' ] ) && $_POST[ 'ajax' ] === 'login-form' ) {
             echo CActiveForm::validate( $model );

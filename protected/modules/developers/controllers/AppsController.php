@@ -197,11 +197,8 @@ class AppsController extends Controller
             }
 
             if ($model->save()) {
-                if ($iconFlag) {
-                    $thumbnail = new Imager();
-                    $thumbnail->createThumbnail($tmpDIR . $model->icon, 150, 150, false, $appIconsDIR . $model->icon);
-                    unlink($tmpDIR . $model->icon);
-                }
+                if ($iconFlag)
+                    @rename($tmpDIR . $model->icon, $appIconsDIR . $model->icon);
                 Yii::app()->user->setFlash('success', 'اطلاعات با موفقیت ویرایش شد.');
                 $this->redirect(array('/developers/apps/update/' . $model->id . '?step=3'));
             } else {

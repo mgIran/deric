@@ -28,6 +28,12 @@ $this->menu=array(
 			<?php echo $form->error($model,'status'); ?>
 		</div>
 
+		<div class="form-group">
+			<?php echo $form->labelEx($model,'role_id'); ?>
+			<?php echo $form->dropDownList($model,'role_id',CHtml::listData(UserRoles::model()->findAll(),'id', 'name'),array('class' => 'form-control')); ?>
+			<?php echo $form->error($model,'role_id'); ?>
+		</div>
+
 		<div class="form-group buttons">
 			<?php echo CHtml::submitButton($model->isNewRecord ? 'ثبت' : 'ذخیره', array('class' => 'btn btn-success')); ?>
 		</div>

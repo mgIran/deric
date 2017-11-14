@@ -6,7 +6,6 @@
 
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/css/owl.carousel.css');
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/css/owl.theme.default.min.css');
-//Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/jquery.mousewheel.min.js');
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/owl.carousel.min.js');
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/jquery.magnific-popup.min.js');
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/css/magnific-popup.css');
@@ -26,13 +25,16 @@ if($model->platform) {
         <div class="app-heading">
             <h2><?= $model->title ?></h2>
             <div class="row-fluid">
-                <span ><a href="<?php echo $this->createUrl('apps/developer?title='.($model->developer?urlencode($model->developer->userDetails->developer_id).'&id='.$model->developer_id:urlencode($model->developer_team).'&t=1'));?>"><?= $model->getDeveloperName(); ?></a></span>
-                <span ><a href="<?php echo $this->createUrl('apps/'.((strpos($model->category->path,'2-')!==false)?'games':'programs').'/'.$model->category->id.'/'.urlencode($model->category->title));?>"><?= $model->category?$model->category->title:''; ?></a></span>
-                <span class="app-rate">
-                    <? ?>
+                <span>پلتفرم: <a href="<?php echo $this->createUrl("/{$model->platform->name}"); ?>"><?= $model->platform->title ?></a></span>
+                <span class="app-rate pull-left">
+                    <?= Controller::printRateStars($model->rate) ?>
                 </span>
             </div>
             <div class="row-fluid">
+                <span><a href="<?php echo $this->createUrl('apps/developer?title='.($model->developer?urlencode($model->developer->userDetails->developer_id).'&id='.$model->developer_id:urlencode($model->developer_team).'&t=1'));?>"><?= $model->getDeveloperName(); ?></a></span>
+                <span><a href="<?php echo $this->createUrl('apps/'.((strpos($model->category->path,'2-')!==false)?'games':'programs').'/'.$model->category->id.'/'.urlencode($model->category->title));?>"><?= $model->category?$model->category->title:''; ?></a></span>
+            </div>
+            <div class="row-fluid pr6">
                 <svg class="svg svg-bag green"><use xlink:href="#bag"></use></svg>
                 <span ><?= Controller::parseNumbers($model->install) ?>&nbsp;نصب فعال</span>
             </div>
@@ -170,7 +172,7 @@ if($model->platform) {
                         $purifier  = new CHtmlPurifier();
                         $purifier->setOptions(array(
                             'HTML.Allowed'=> 'p,b,i,br,img,span',
-                            'HTML.AllowedAttributes'=> 'style,id,class,src,a.href',
+                            'HTML.AllowedAttributes'=> 'style,id,class,src,a.href,dir',
                         ));
                         echo $purifier->purify($model->description);
                         ?></p>
@@ -272,17 +274,7 @@ if($model->platform) {
                         <?php if($model->price>0):?>
                             <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode(Yii::app()->createAbsoluteUrl('/apps/buy/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title))));?>" />
                         <?php else:?>
-                            <?php
-                            if($model->platform_id == 1):
-                                ?>
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode(Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title))));?>" />
-                                <?php
-                            else:
-                                ?>
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode($model->lastPackage->download_file_url);?>" />
-                                <?php
-                            endif;
-                            ?>
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode(Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title))));?>" />
                         <?php endif;?>
                     </div>
                     <?php
@@ -294,17 +286,7 @@ if($model->platform) {
                     }else {
                         ?>
                         <div class="text-center" style="margin-bottom: 15px;">
-                            <?php
-                            if($model->platform_id == 1):
-                            ?>
-                                <a href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">دانلود مستقیم برنامه</a>
-                            <?php
-                            else:
-                                ?>
-                                <a target="_blank" rel="nofollow" href="<?php echo $model->lastPackage->download_file_url ;?>">لینک برنامه</a>
-                                <?php
-                            endif;
-                            ?>
+                            <a href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">دانلود مستقیم برنامه</a>
                         </div>
                         <a href="#" data-dismiss="modal" class="btn btn-default">بستن</a>
                         <?php
@@ -324,3 +306,8 @@ if($model->platform) {
             </div>
         </div>
     </div>
+<style>
+    .pr6 {
+        padding-right: 6px;
+    }
+</style>

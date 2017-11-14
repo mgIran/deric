@@ -1424,6 +1424,9 @@ body.ios .footer .nav li.active {
     max-width: 30%;
     margin: 0 15px 0 0;
 }
+.app-inner .app-heading > .row-fluid > span:first-of-type{
+    margin: 0 !important;
+}
 
 .app-inner .app-body {
     display: block;

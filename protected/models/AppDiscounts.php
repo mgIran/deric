@@ -20,7 +20,7 @@ class AppDiscounts extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'ym_app_discounts';
+		return '{{app_discounts}}';
 	}
 
 	/**

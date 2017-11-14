@@ -373,34 +373,52 @@ class AppsController extends Controller
     public function actionDownload($id, $title)
     {
         $model = $this->loadModel($id);
-        $platformFolder = '';
-        switch (pathinfo($model->lastPackage->file_name, PATHINFO_EXTENSION)) {
-            case 'apk':
-                $platformFolder = 'android';
-                break;
+        if($model->platform_id == 1){
+            $platformFolder = '';
+            switch(pathinfo($model->lastPackage->file_name, PATHINFO_EXTENSION)){
+                case 'apk':
+                    $platformFolder = 'android';
+                    break;
 
-            case 'ipa':
-                $platformFolder = 'ios';
-                break;
+                case 'ipa':
+                    $platformFolder = 'ios';
+                    break;
 
-            case 'xap':
-                $platformFolder = 'windowsphone';
-                break;
-        }
-        if ($model->price == 0) {
-            $model->install += 1;
-            $model->setScenario('update-install');
-            $model->save();
-            $this->download($model->lastPackage->file_name, Yii::getPathOfAlias("webroot") . '/uploads/apps/files/' . $platformFolder);
-        } else {
-            $buy = AppBuys::model()->findByAttributes(array('user_id' => Yii::app()->user->getId(), 'app_id' => $id));
-            if ($buy) {
+                case 'xap':
+                    $platformFolder = 'windowsphone';
+                    break;
+            }
+            if($model->price == 0){
                 $model->install += 1;
                 $model->setScenario('update-install');
                 $model->save();
                 $this->download($model->lastPackage->file_name, Yii::getPathOfAlias("webroot") . '/uploads/apps/files/' . $platformFolder);
-            } else
-                $this->redirect(array('/apps/buy/' . CHtml::encode($model->id) . '/' . CHtml::encode($model->title)));
+            }else{
+                $buy = AppBuys::model()->findByAttributes(array('user_id' => Yii::app()->user->getId(), 'app_id' => $id));
+                if($buy){
+                    $model->install += 1;
+                    $model->setScenario('update-install');
+                    $model->save();
+                    $this->download($model->lastPackage->file_name, Yii::getPathOfAlias("webroot") . '/uploads/apps/files/' . $platformFolder);
+                }else
+                    $this->redirect(array('/apps/buy/' . CHtml::encode($model->id) . '/' . CHtml::encode($model->title)));
+            }
+        }else{
+            if($model->price == 0){
+                $model->install += 1;
+                $model->setScenario('update-install');
+                $model->save();
+                $this->redirect($model->lastPackage->download_file_url);
+            }else{
+                $buy = AppBuys::model()->findByAttributes(array('user_id' => Yii::app()->user->getId(), 'app_id' => $id));
+                if($buy){
+                    $model->install += 1;
+                    $model->setScenario('update-install');
+                    $model->save();
+                    $this->redirect($model->lastPackage->download_file_url);
+                }else
+                    $this->redirect(array('/apps/buy/' . CHtml::encode($model->id) . '/' . CHtml::encode($model->title)));
+            }
         }
     }
 

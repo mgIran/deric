@@ -55,7 +55,7 @@ class BaseManageController extends Controller
     {
         return array(
             array('allow',  // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'upload', 'deleteUpload', 'uploadFile', 'deleteUploadFile', 'changeConfirm', 'changePackageStatus', 'deletePackage', 'savePackage', 'images', 'download', 'downloadPackage'),
+                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'upload', 'deleteUpload', 'uploadFile', 'deleteUploadFile', 'changeConfirm', 'changePackageStatus', 'deletePackage', 'savePackage', 'images', 'download', 'downloadPackage', 'discount'),
                 'roles' => array('admin', 'validator'),
             ),
             array('deny',  // deny all users
@@ -127,11 +127,8 @@ class BaseManageController extends Controller
                     break;
             }
             if ($model->save()) {
-                if ($model->icon) {
-                    $thumbnail = new Imager();
-                    $thumbnail->createThumbnail($tmpDIR . $model->icon, 150, 150, false, $appIconsDIR . $model->icon);
-                    @unlink($tmpDIR . $model->icon);
-                }
+                if ($model->icon)
+                    @rename($tmpDIR . $model->icon, $appIconsDIR . $model->icon);
                 Yii::app()->user->setFlash('success', 'اطلاعات با موفقیت ثبت شد.');
                 $this->redirect('update/' . $model->id . '/?step=2');
             } else
@@ -233,10 +230,7 @@ class BaseManageController extends Controller
                     rename($tmpDIR . $model->file_name, $appFilesDIR . $model->file_name);
                 }
                 if($iconFlag) {
-                    // create icon thumbnail
-//                    $thumbnail = new Imager();
-//                    $thumbnail->createThumbnail($tmpDIR . $model->icon, 150, 150, false, $appIconsDIR . $model->icon);
-                    rename($tmpDIR . $model->icon, $appIconsDIR . $model->icon);
+                    @rename($tmpDIR . $model->icon, $appIconsDIR . $model->icon);
                 }
                 Yii::app()->user->setFlash('success', 'اطلاعات با موفقیت ویرایش شد.');
                 $this->redirect(array('/manageApps/'.$model->platform->name.'/update/' . $model->id . '?step=2'));
@@ -874,5 +868,73 @@ class BaseManageController extends Controller
         }
 
         return $result;
+    }
+
+    public function actionDiscount()
+    {
+        $model = new AppDiscounts();
+        if(isset($_GET['ajax']) && $_GET['ajax'] === 'apps-discount-form') {
+            $model->attributes = $_POST['AppDiscounts'];
+            $errors = CActiveForm::validate($model);
+            if(CJSON::decode($errors)) {
+                echo $errors;
+                Yii::app()->end();
+            }
+        }
+
+        if(isset($_POST['AppDiscounts']))
+        {
+            $model->attributes =$_POST['AppDiscounts'];
+            if($model->save())
+            {
+                if(isset($_GET['ajax'])) {
+                    echo CJSON::encode(array('state' => 'ok','msg' => 'تخفیف با موفقیت اعمال شد.'));
+                    Yii::app()->end();
+                } else {
+                    Yii::app()->user->setFlash('discount-success','تخفیف با موفقیت اعمال شد.');
+                    $this->refresh();
+                }
+            }
+            else
+                Yii::app()->user->setFlash('discount-failed','متاسفانه در انجام درخواست مشکلی ایجاد شده است.');
+        }
+
+        $criteria=new CDbCriteria();
+        $criteria->with[] = 'app';
+        $criteria->addCondition('app.deleted = 0');
+        $criteria->addCondition('app.title != ""');
+        $criteria->compare('app.platform_id', $this->platform_id);
+        $criteria->addCondition('end_date > :now');
+        $criteria->params=array(
+            ':user_id'=>Yii::app()->user->getId(),
+            ':now' => time()
+        );
+        $appsDataProvider=new CActiveDataProvider('AppDiscounts', array(
+            'criteria'=>$criteria,
+        ));
+
+        // delete expire discounts
+        $criteria=new CDbCriteria();
+        $criteria->addCondition('end_date < :now');
+        $criteria->params=array(
+            ':now' => time()
+        );
+        AppDiscounts::model()->deleteAll($criteria);
+        //
+
+        $criteria=new CDbCriteria();
+        $criteria->addCondition('deleted = 0');
+        $criteria->addCondition('price != 0');
+        $criteria->addCondition('title != ""');
+        $criteria->with[] = 'discount';
+        $criteria->addCondition('discount.app_id IS NULL');
+        $criteria->compare('platform_id', $this->platform_id);
+
+        $apps = CHtml::listData(Apps::model()->findAll($criteria),'id' ,'title');
+
+        $this->render('discount', array(
+            'appsDataProvider'=>$appsDataProvider,
+            'apps' => $apps
+        ));
     }
 }
