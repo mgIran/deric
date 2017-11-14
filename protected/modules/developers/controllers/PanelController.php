@@ -592,7 +592,7 @@ class PanelController extends Controller
                     ' با کد رهگیری ' . $model->token . ' به شماره شبای IR' . $model->iban . ' واریز شد.', $userDetails->user_id);
                 // Send email
                 $message = '<p style="text-align: right;">با سلام<br>طبق درخواست تسویه حساب خودکار شما، مبلغ '.Controller::parseNumbers(number_format($model->amount, 0)).' تومان به شبای IR'.$model->iban.' در تاریخ '.JalaliDate::date('d F Y - H:i', $model->date).' واریز گردید.<br>این رسید جهت اطلاع شما صادر گردیده است.<br>امیدواریم که کسب و کار شما رونق بیشتری بیابد و همواره سیر صعودی داشته باشید.<br><br>با احترام</p>';
-                Mailer::mail($userDetails->user->email, 'رسید تسویه حساب', $message, Yii::app()->params['noReplyEmail'], Yii::app()->params['SMTP']);
+                Mailer::mail($userDetails->user->email, 'رسید تسویه حساب', $message);
                 Yii::app()->user->setFlash('success', 'اطلاعات با موفقیت ثبت شد.');
                 $this->refresh();
             } else

@@ -484,7 +484,7 @@ class BaseManageController extends Controller
                     $text .= '<div>'.$model->reason.'</div>';
                     $text .= '</div>';
                 }
-                Mailer::mail($model->app->developer->email, 'برنامه '.$model->app->title, $text, Yii::app()->params['noReplyEmail'], Yii::app()->params['SMTP']);
+                Mailer::mail($model->app->developer->email, 'برنامه '.$model->app->title, $text);
 
                 echo CJSON::encode(array('status' => true));
             } else

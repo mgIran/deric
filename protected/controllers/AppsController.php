@@ -373,7 +373,7 @@ class AppsController extends Controller
                     <td>کسر از اعتبار</td>
                 </tr>';
         $message .= '</table>';
-        Mailer::mail($user->email, 'اطلاعات خرید برنامه', $message, Yii::app()->params['noReplyEmail'], Yii::app()->params['SMTP']);
+        Mailer::mail($user->email, 'اطلاعات خرید برنامه', $message);
         return $buy;
     }
 
@@ -848,9 +848,6 @@ class AppsController extends Controller
             );
             /* @var $report AppBuys[] */
             $report = AppBuys::model()->findAll($criteria);
-            Yii::app()->getModule('setting');
-            $commission = SiteSetting::model()->findByAttributes(array('name' => 'commission'));
-            $commission = $commission->value;
             // show daily report
             $daysCount = (JalaliDate::date('m', $_POST['month_altField'], false) <= 6) ? 31 : 30;
             for ($i = 0; $i < $daysCount; $i++) {
@@ -858,10 +855,10 @@ class AppsController extends Controller
                 $amount = 0;
                 foreach ($report as $model) {
                     if ($model->date >= $startTime + (60 * 60 * (24 * $i)) and $model->date < $startTime + (60 * 60 * (24 * ($i + 1))))
-                        $amount = $model->app->price;
+                        $amount = $model->site_earn;
                 }
-                $values[] = $model->app->developer?($amount * $commission) / 100:$amount;
-                $sumIncome += $model->app->developer?($amount * $commission) / 100:$amount;
+                $values[] = $amount;
+                $sumIncome += $amount;
             }
         }
 
