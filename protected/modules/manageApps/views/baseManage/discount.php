@@ -50,14 +50,19 @@ $this->breadcrumbs=array(
                     [
                         'header' => 'مدت تخفیف',
                         'value' => function($data){
-                            return Controller::parseNumbers(JalaliDate::date('Y/m/d - H:i',$data->start_date)).'<br>الی<br>'.Controller::parseNumbers(JalaliDate::date('Y/m/d - H:i',$data->end_date));
-                        }
+                            return Controller::parseNumbers(JalaliDate::date('Y/m/d - H:i',$data->start_date)).'&nbsp;الی&nbsp;'.Controller::parseNumbers(JalaliDate::date('Y/m/d - H:i',$data->end_date));
+                        },
+                        'type' => 'raw'
                     ],
                     array(
                         'class'=>'CButtonColumn',
+                        'template' => '{view} {delete}',
                         'buttons' => array(
                             'delete' => array(
-                                'url' => 'Yii::app()->createUrl("/manageApps/'.$this->controller.'/deleteDiscount", array("id"=>$data->id))'
+                                'url' => 'Yii::app()->createUrl("/manageApps/'.$this->controller.'/deleteDiscount", array("id"=>$data->app->id))'
+                            ),
+                            'view' => array(
+                                'url' => 'Yii::app()->createUrl("/apps/".$data->app->id."/".urlencode($data->app->title))'
                             )
                         )
                     ),
@@ -75,7 +80,7 @@ $this->breadcrumbs=array(
                 <h5>افزودن تخیف</h5>
             </div>
             <div class="modal-body">
-                <? $this->renderPartial('_discount_form',array('model' => new AppDiscounts(),'apps' => $apps)); ?>
+                <? $this->renderPartial('manageApps.views.baseManage._discount_form',array('model' => new AppDiscounts(),'apps' => $apps)); ?>
             </div>
         </div>
     </div>

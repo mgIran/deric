@@ -905,10 +905,7 @@ class BaseManageController extends Controller
         $criteria->addCondition('app.title != ""');
         $criteria->compare('app.platform_id', $this->platform_id);
         $criteria->addCondition('end_date > :now');
-        $criteria->params=array(
-            ':user_id'=>Yii::app()->user->getId(),
-            ':now' => time()
-        );
+        $criteria->params[':now']= time();
         $appsDataProvider=new CActiveDataProvider('AppDiscounts', array(
             'criteria'=>$criteria,
         ));
@@ -932,7 +929,7 @@ class BaseManageController extends Controller
 
         $apps = CHtml::listData(Apps::model()->findAll($criteria),'id' ,'title');
 
-        $this->render('discount', array(
+        $this->render('manageApps.views.baseManage.discount', array(
             'appsDataProvider'=>$appsDataProvider,
             'apps' => $apps
         ));
