@@ -15,8 +15,9 @@
                     <th>زمان</th>
                     <th>مبلغ</th>
                     <th>وضعیت</th>
-                    <th>توضیحات</th>
                     <th>کد رهگیری</th>
+                    <th>درگاه پرداخت</th>
+                    <th>توضیحات</th>
                 </tr>
                 </thead>
                 <tbody class="text-right">
@@ -24,11 +25,12 @@
                 <tr>
                     <td><?php echo JalaliDate::date('d F Y - H:i', $transaction->date);?></td>
                     <td><?php echo number_format($transaction->amount, 0).' تومان';?></td>
-                    <td<?php
-                    echo $transaction->status == 'paid'? ' class="text-success"':' class="text-danger"';
-                    ?>><?php echo $transaction->getStatusLabel();?></td>
+                    <td><span class="label label-<?php
+                        echo $transaction->status == 'paid'? 'success':'danger';
+                        ?>"><?php echo $transaction->getStatusLabel();?></span></td>
+                    <td><b><?php echo CHtml::encode($transaction->token);?></b></td>
+                    <td><?= $transaction->gatewayLabels[$transaction->gateway_name]?></td>
                     <td><?php echo CHtml::encode($transaction->description);?></td>
-                    <td><?php echo CHtml::encode($transaction->token);?></td>
                 </tr>
                 <?php endforeach;?>
                 </tbody>

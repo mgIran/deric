@@ -468,3 +468,6 @@ input[type='checkbox']{
     background: #d9534f;
     color: #fff;
 }
+th {
+    text-align: right !important;
+}

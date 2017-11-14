@@ -35,6 +35,12 @@ class UserTransactions extends CActiveRecord
 		'paid' => 'پرداخت شده'
 	];
 
+	public $gatewayLabels = [
+		'mellat' => 'بانک ملت',
+		'zarinpal' => 'زرین پال',
+		'credit' => 'اعتبار کاربری'
+	];
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
