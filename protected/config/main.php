@@ -157,6 +157,7 @@ return array(
 //                'windowsphone' => 'site/index/platform/windowsphone',
 				'apps/<id:\d+>'=>'apps/view',
 				'apps/<action:\w+>'=>'apps/<action>',
+				'apps/<action:\w+>/<id:\d+>'=>'apps/<action>',
 				'api/<action:\w+>'=>'api/<action>',
 				'documents/<id:\d+>/<title>'=>'pages/manage/view',
 				'<module:\w+>/<id:\d+>'=>'<module>/manage/view',

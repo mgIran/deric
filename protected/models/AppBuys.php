@@ -8,6 +8,13 @@
  * @property string $app_id
  * @property string $user_id
  * @property string $date
+ * @property string $package_version
+ * @property string $package_version_code
+ * @property string $app_price
+ * @property string $discount_amount
+ * @property string $pay_amount
+ * @property string $site_earn
+ * @property string $developer_earn
  *
  * The followings are the available model relations:
  * @property Apps $app
@@ -20,7 +27,7 @@ class AppBuys extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'ym_app_buys';
+		return '{{app_buys}}';
 	}
 
 	/**
@@ -35,6 +42,10 @@ class AppBuys extends CActiveRecord
 			array('date', 'default', 'value'=>time()),
 			array('app_id, user_id', 'length', 'max'=>10),
 			array('date', 'length', 'max'=>20),
+			array('package_version', 'length', 'max'=>50),
+			array('package_version_code, app_price, discount_amount, pay_amount', 'length', 'max'=>10),
+			array('package_version_code, app_price, discount_amount, pay_amount', 'numerical', 'integerOnly'=>true),
+			array('site_earn, developer_earn', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, app_id, user_id, date', 'safe', 'on'=>'search'),
@@ -64,6 +75,13 @@ class AppBuys extends CActiveRecord
 			'app_id' => 'App',
 			'user_id' => 'User',
 			'date' => 'تاریخ',
+			'package_version' => 'ورژن بسته',
+			'package_version_code' => 'کد ورژن بسته',
+			'app_price' => 'قیمت نرم افزار',
+			'discount_amount' => 'درصد تخفیف',
+			'pay_amount' => 'مبلغ پرداخت شده',
+			'site_earn' => 'سهم دریافتی سایت',
+			'developer_earn' => 'سهم دریافتی توسعه دهنده',
 		);
 	}
 

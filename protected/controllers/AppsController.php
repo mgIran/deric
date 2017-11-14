@@ -148,7 +148,7 @@ class AppsController extends Controller
                         $userDetails->score = $userDetails->score + 1;
 
                         if($userDetails->save()){
-                            $buy = $this->saveBuyInfo($model, $price, $user, 'credit');
+                            $buy = $this->saveBuyInfo($model, $model->price, $price, $user, 'credit');
                             Yii::app()->user->setFlash('success', 'خرید شما با موفقیت انجام شد.');
                             $this->redirect(array('/apps/bill/' . $buy->id));
                         }else
@@ -160,6 +160,8 @@ class AppsController extends Controller
                         $transaction->amount = $price;
                         $transaction->date = time();
                         $transaction->gateway_name = $this->active_gateway;
+                        $transaction->model_name = 'Apps';
+                        $transaction->model_id = $model->id;
                         if($transaction->save()){
                             $CallbackURL = Yii::app()->getBaseUrl(true) . '/apps/verify/' . $id;
                             if($this->active_gateway == 'mellat'){
@@ -226,7 +228,7 @@ class AppsController extends Controller
                         $model->token = $_POST['SaleReferenceId'];
                         $model->save();
                         $transactionResult = true;
-                        $buy = $this->saveBuyInfo($app, $model->amount, $user, 'gateway', $model->id);
+                        $buy = $this->saveBuyInfo($app, $model->app->price, $model->amount, $user, 'gateway', $model->id);
                         Yii::app()->user->setFlash('success', 'پرداخت شما با موفقیت انجام شد.');
                         $this->redirect(array('/apps/bill/' . $buy->id));
                     }
@@ -255,7 +257,7 @@ class AppsController extends Controller
                             $model->token = Yii::app()->zarinpal->getRefId();
                             @$model->save(false);
                             $transactionResult = true;
-                            $buy = $this->saveBuyInfo($app, $model->amount, $user, 'gateway', $model->id);
+                            $buy = $this->saveBuyInfo($app, $model->app->price, $model->amount, $user, 'gateway', $model->id);
                             Yii::app()->user->setFlash('success', 'پرداخت شما با موفقیت انجام شد.');
                             $this->redirect(array('/apps/bill/' . $buy->id));
                         }else{
@@ -284,13 +286,14 @@ class AppsController extends Controller
      * Save buy information
      *
      * @param $app Apps
+     * @param $basePrice integer
      * @param $price string
      * @param $user Users
      * @param $method string
      * @param $transactionID string
      * @return AppBuys
      */
-    private function saveBuyInfo($app, $price, $user, $method, $transactionID = null)
+    private function saveBuyInfo($app, $basePrice, $price, $user, $method, $transactionID = null)
     {
         $appTitle=$app->title;
         $app->download += 1;
@@ -298,12 +301,20 @@ class AppsController extends Controller
         $app->save();
         $buy = new AppBuys();
         $buy->app_id = $app->id;
-        $buy->user_id = $user->id;
+        $buy->package_version = $app->lastPackage->version;
+        $buy->package_version_code = $app->lastPackage->version_code;
+        $buy->app_price = $basePrice;
+        $buy->discount_amount = $basePrice - $price;
+        $buy->pay_amount = $price;
+        $developerEarn = 0;
         if ($app->developer) {
-            $app->developer->userDetails->earning = $app->developer->userDetails->earning + $app->getDeveloperPortion($price);
+            $developerEarn = $app->getDeveloperPortion($price);
+            $buy->developer_earn = $developerEarn;
+            $app->developer->userDetails->earning = $app->developer->userDetails->earning + $developerEarn;
             $app->developer->userDetails->dev_score = $app->developer->userDetails->dev_score + 1;
             $app->developer->userDetails->save();
         }
+        $buy->site_earn = $price - $developerEarn;
         $buy->save();
         
         /* @var $transaction UserTransactions */
@@ -756,8 +767,8 @@ class AppsController extends Controller
             $criteria->addCondition('date > :from_date');
             $criteria->addCondition('date < :to_date');
             $criteria->addInCondition('app_id', CHtml::listData(Apps::model()->findAllByAttributes(array('developer_id' => $_POST['developer'])), 'id', 'id'));
-            $criteria->params[':from_date'] = $_POST['from_date_developer_altField'];
-            $criteria->params[':to_date'] = $_POST['to_date_developer_altField'];
+            $criteria->params[':from_date'] = strtotime(date('Y/m/d 00:00:00', $_POST['from_date_developer_altField']));
+            $criteria->params[':to_date'] = strtotime(date('Y/m/d 23:59:59', $_POST['to_date_developer_altField']));
             $report = AppBuys::model()->findAll($criteria);
             if ($_POST['to_date_developer_altField'] - $_POST['from_date_developer_altField'] < (60 * 60 * 24 * 30)) {
                 // show daily report
@@ -825,6 +836,7 @@ class AppsController extends Controller
                 ':start_date' => $startTime,
                 ':end_date' => $endTime,
             );
+            /* @var $report AppBuys[] */
             $report = AppBuys::model()->findAll($criteria);
             Yii::app()->getModule('setting');
             $commission = SiteSetting::model()->findByAttributes(array('name' => 'commission'));
@@ -838,8 +850,8 @@ class AppsController extends Controller
                     if ($model->date >= $startTime + (60 * 60 * (24 * $i)) and $model->date < $startTime + (60 * 60 * (24 * ($i + 1))))
                         $amount = $model->app->price;
                 }
-                $values[] = ($amount * $commission) / 100;
-                $sumIncome += ($amount * $commission) / 100;
+                $values[] = $model->app->developer?($amount * $commission) / 100:$amount;
+                $sumIncome += $model->app->developer?($amount * $commission) / 100:$amount;
             }
         }
 
