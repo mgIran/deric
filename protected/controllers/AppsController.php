@@ -135,6 +135,17 @@ class AppsController extends Controller
 
             if($model->developer_id != $userID){
                 if(isset($_POST['Buy'])){
+
+                    $siteName = Yii::app()->name;
+                    $transaction = new UserTransactions();
+                    $transaction->user_id = Yii::app()->user->getId();
+                    $transaction->amount = $price;
+                    $transaction->date = time();
+                    $transaction->gateway_name = $this->active_gateway;
+                    $transaction->model_name = 'Apps';
+                    $transaction->model_id = $model->id;
+                    $transaction->description = "پرداخت وجه جهت خرید نرم افزار {$model->title} در وبسایت {$siteName}";
+
                     if(isset($_POST['Buy']['credit'])){
                         if($user->userDetails->credit < $price){
                             Yii::app()->user->setFlash('credit-failed', 'اعتبار فعلی شما کافی نیست!');
@@ -147,7 +158,14 @@ class AppsController extends Controller
                         $userDetails->credit = $userDetails->credit - $price;
                         $userDetails->score = $userDetails->score + 1;
 
+                        $transaction->gateway_name = 'credit';
+                        $transaction->status = 'unpaid';
+                        @$transaction->save(false);
                         if($userDetails->save()){
+                            $transaction->token = rand(125463,984984);
+                            $transaction->status = 'paid';
+                            $transaction->save();
+
                             $buy = $this->saveBuyInfo($model, $model->price, $price, $user, 'credit');
                             Yii::app()->user->setFlash('success', 'خرید شما با موفقیت انجام شد.');
                             $this->redirect(array('/apps/bill/' . $buy->id));
@@ -155,13 +173,6 @@ class AppsController extends Controller
                             Yii::app()->user->setFlash('failed', 'در انجام عملیات خرید خطایی رخ داده است. لطفا مجددا تلاش کنید.');
                     }elseif(isset($_POST['Buy']['gateway'])){
                         // Save payment
-                        $transaction = new UserTransactions();
-                        $transaction->user_id = Yii::app()->user->getId();
-                        $transaction->amount = $price;
-                        $transaction->date = time();
-                        $transaction->gateway_name = $this->active_gateway;
-                        $transaction->model_name = 'Apps';
-                        $transaction->model_id = $model->id;
                         if($transaction->save()){
                             $CallbackURL = Yii::app()->getBaseUrl(true) . '/apps/verify/' . $id;
                             if($this->active_gateway == 'mellat'){
@@ -174,9 +185,7 @@ class AppsController extends Controller
                                 }else
                                     Yii::app()->user->setFlash('failed', Yii::app()->mellat->getResponseText($result['responseCode']));
                             }else if($this->active_gateway == 'zarinpal'){
-                                $siteName = Yii::app()->name;
-                                $description = "پرداخت وجه جهت خرید نرم افزار {$model->title} در وبسایت {$siteName}";
-                                $result = Yii::app()->zarinpal->PayRequest(doubleval($price), $description, $CallbackURL);
+                                $result = Yii::app()->zarinpal->PayRequest(doubleval($price), $transaction->description, $CallbackURL);
                                 $transaction->authority = Yii::app()->zarinpal->getAuthority();
                                 $transaction->save(false);
                                 if($result->getStatus() == 100)
@@ -301,20 +310,21 @@ class AppsController extends Controller
         $app->save();
         $buy = new AppBuys();
         $buy->app_id = $app->id;
+        $buy->user_id = $user->id;
+        $buy->date = time();
         $buy->package_version = $app->lastPackage->version;
         $buy->package_version_code = $app->lastPackage->version_code;
         $buy->app_price = $basePrice;
         $buy->discount_amount = $basePrice - $price;
         $buy->pay_amount = $price;
-        $developerEarn = 0;
+        $buy->developer_earn = 0;
         if ($app->developer) {
-            $developerEarn = $app->getDeveloperPortion($price);
-            $buy->developer_earn = $developerEarn;
-            $app->developer->userDetails->earning = $app->developer->userDetails->earning + $developerEarn;
+            $buy->developer_earn = $app->getDeveloperPortion($price);
+            $app->developer->userDetails->earning = $app->developer->userDetails->earning + $buy->developer_earn;
             $app->developer->userDetails->dev_score = $app->developer->userDetails->dev_score + 1;
             $app->developer->userDetails->save();
         }
-        $buy->site_earn = $price - $developerEarn;
+        $buy->site_earn = $price - $buy->developer_earn;
         $buy->save();
         
         /* @var $transaction UserTransactions */
