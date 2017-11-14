@@ -32,3 +32,10 @@
     </div>
 </div>
 <?php echo CHtml::endForm();?>
+
+<?php
+$ss = explode('/', JalaliDate::date("Y/m/d/H/i/s", isset($_POST['year_altField'])?$_POST['year_altField']:time(), false));
+Yii::app()->clientScript->registerScript('yearSets', '
+    $("#year").persianDatepicker("setDate",['.$ss[0].','.$ss[1].','.$ss[2].','.$ss[3].','.$ss[4].','.$ss[5].']);
+',CClientScript::POS_READY);
+

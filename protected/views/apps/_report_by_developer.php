@@ -49,3 +49,11 @@
     </div>
 </div>
 <?php echo CHtml::endForm();?>
+<?php
+
+$ss = explode('/', JalaliDate::date("Y/m/d/H/i/s", isset($_POST['from_date_developer_altField'])?$_POST['from_date_developer_altField']:time(), false));
+$es = explode('/', JalaliDate::date("Y/m/d/H/i/s", isset($_POST['to_date_developer_altField'])?$_POST['to_date_developer_altField']:time(), false));
+Yii::app()->clientScript->registerScript('developerDateSets', '
+    $("#from_date_developer").persianDatepicker("setDate",['.$ss[0].','.$ss[1].','.$ss[2].','.$ss[3].','.$ss[4].','.$ss[5].']);
+    $("#to_date_developer").persianDatepicker("setDate",['.$es[0].','.$es[1].','.$es[2].','.$es[3].',00,00]);
+',CClientScript::POS_READY);

@@ -715,8 +715,8 @@ class AppsController extends Controller
             $criteria->addCondition('date < :to_date');
             $criteria->addCondition('app_id=:app_id');
             $criteria->params = array(
-                ':from_date' => $_POST['from_date_altField'],
-                ':to_date' => $_POST['to_date_altField'],
+                ':from_date' => strtotime(date('Y/m/d 00:00:00', $_POST['from_date_altField'])),
+                ':to_date' => strtotime(date('Y/m/d 23:59:59', $_POST['to_date_altField'])),
                 ':app_id' => $_POST['app_id'],
             );
             $report = AppBuys::model()->findAll($criteria);
@@ -724,6 +724,8 @@ class AppsController extends Controller
                 // show daily report
                 $datesDiff = $_POST['to_date_altField'] - $_POST['from_date_altField'];
                 $daysCount = ($datesDiff / (60 * 60 * 24));
+                if($daysCount < 7)
+                    $daysCount = 7;
                 for ($i = 0; $i < $daysCount; $i++) {
                     $labels[] = JalaliDate::date('d F Y', $_POST['from_date_altField'] + (60 * 60 * (24 * $i)));
                     $count = 0;

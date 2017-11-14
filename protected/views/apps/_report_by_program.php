@@ -7,7 +7,11 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <?php $this->widget('zii.widgets.CListView', array(
-            'dataProvider'=>Apps::model()->search(false),
+            'dataProvider'=>new CActiveDataProvider('Apps',array(
+                'criteria' => array(
+                    'condition' => 'title IS NOT NULL AND deleted = 0'
+                )
+            )),
             'itemView'=>'_report_sale_app_list',
             'template'=>'{items}'
         ));?>
@@ -60,4 +64,12 @@
             return false;
         }
     });
-");?>
+");
+
+$ss = explode('/', JalaliDate::date("Y/m/d/H/i/s", isset($_POST['from_date_altField'])?$_POST['from_date_altField']:time(), false));
+$es = explode('/', JalaliDate::date("Y/m/d/H/i/s", isset($_POST['to_date_altField'])?$_POST['to_date_altField']:time(), false));
+Yii::app()->clientScript->registerScript('dateSets', '
+    $("#from_date").persianDatepicker("setDate",['.$ss[0].','.$ss[1].','.$ss[2].','.$ss[3].','.$ss[4].','.$ss[5].']);
+    $("#to_date").persianDatepicker("setDate",['.$es[0].','.$es[1].','.$es[2].','.$es[3].',00,00]);
+',CClientScript::POS_READY);
+?>
