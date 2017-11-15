@@ -29,7 +29,7 @@ class UsersManageController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'views' actions
-				'actions'=>array('index','view','create','update','admin','delete','confirmDevID','deleteDevID','confirmDeveloper','refuseDeveloper','changeStatus'),
+				'actions'=>array('index','view','create','update','admin','adminDeleted','delete','confirmDevID','deleteDevID','confirmDeveloper','refuseDeveloper','changeStatus'),
 				'roles'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -117,7 +117,10 @@ class UsersManageController extends Controller
 	public function actionDelete($id)
 	{
 		$model = $this->loadModel($id);
-		$model->updateByPk($model->id,array('status' => 'deleted'));
+        if($model->status == 'deleted')
+            $model->delete();
+        else
+		    $model->updateByPk($model->id,array('status' => 'deleted'));
 
 		// if AJAX request (triggered by deletion via admin grid views), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -157,6 +160,21 @@ class UsersManageController extends Controller
 			'model'=>$model,
 			'topUser'=>$topUser,
 			'topDeveloper'=>$topDeveloper,
+		));
+	}
+
+	/**
+	 * Manages all models.
+	 */
+	public function actionAdminDeleted()
+	{
+		$model=new Users('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Users']))
+			$model->attributes=$_GET['Users'];
+
+		$this->render('admin_deleted',array(
+			'model'=>$model
 		));
 	}
 

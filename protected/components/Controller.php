@@ -174,6 +174,7 @@ class Controller extends CController
                     'submenuOptions' => array('class' => 'treeview-menu'),
                     'items' => array(
                         array('label' => '<i class="fa fa-circle-o"></i>مدیریت', 'url' => Yii::app()->createUrl('/users/manage')),
+                        array('label' => '<i class="fa fa-circle-o"></i>کاربران حذف شده', 'url' => Yii::app()->createUrl('/users/manage/adminDeleted')),
                     )
                 ),
                 array(

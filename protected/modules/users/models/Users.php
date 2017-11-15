@@ -137,11 +137,11 @@ class Users extends CActiveRecord
      * - Execute this method to get CActiveDataProvider instance which will filter
      * models according to data in model fields.
      * - Pass data provider to CGridView, CListView or any similar widget.
-     *
+     * @param $deleted
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
      */
-    public function search()
+    public function search($deleted = false)
     {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
@@ -157,8 +157,14 @@ class Users extends CActiveRecord
         $criteria->compare('change_password_request_count', $this->change_password_request_count);
         $criteria->addSearchCondition('role.id', $this->roleId);
         $criteria->addSearchCondition('userDetails.fa_name', $this->fa_name);
-        $criteria->addCondition('status!=:status');
-        $criteria->params[':status'] = 'deleted';
+        if(!$deleted){
+            $criteria->addCondition('status!=:status');
+            $criteria->params[':status'] = 'deleted';
+        }else
+        {
+            $criteria->addCondition('status=:status');
+            $criteria->params[':status'] = 'deleted';
+        }
         $criteria->with = array('role', 'userDetails');
         $criteria->order = 'status ,t.id DESC';
         return new CActiveDataProvider($this, array(
