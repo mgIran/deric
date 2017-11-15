@@ -279,8 +279,11 @@ class UsersManageController extends Controller
 			}else
 				Yii::app()->user->setFlash('failed', 'در انجام عملیات خطایی رخ داده است لطفا مجددا تلاش کنید.');
 		}
-		$this->redirect(array('view', 'id' => $id));
-	}
+        if(!isset($_GET['return']))
+		    $this->redirect(array('view', 'id' => $id));
+        if(isset($_GET['return']))
+            $this->redirect(array($_GET['return']));
+    }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

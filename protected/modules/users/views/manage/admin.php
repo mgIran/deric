@@ -5,7 +5,7 @@
 /* @var $topDeveloper CActiveDataProvider */
 
 $this->breadcrumbs=array(
-    'کاربران'=>array('manage'),
+    'کاربران'=>array('/users/manage'),
     'مدیریت',
 );
 ?>

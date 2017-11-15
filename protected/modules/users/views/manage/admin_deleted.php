@@ -5,12 +5,12 @@
 /* @var $topDeveloper CActiveDataProvider */
 
 $this->breadcrumbs=array(
-    'کاربران'=>array('manage'),
-    'مدیریت',
+    'کاربران'=>array('/users/manage'),
+    'مدیریت کاربران حذف شده',
 );
 ?>
 <div class="box box-primary">
-    <div class="box-header with-border"><h3 class="box-title">مدیریت کاربران</h3></div>
+    <div class="box-header with-border"><h3 class="box-title">مدیریت کاربران حذف شده</h3></div>
     <div class="box-body">
         <? $this->renderPartial('//layouts/_flashMessage'); ?>
         <div class="table-responsive">
@@ -42,7 +42,7 @@ $this->breadcrumbs=array(
                         'buttons' => array(
                             'restore' => array(
                                 'label' => 'بازیابی کاربر',
-                                'url' => 'Yii::app()->createUrl("/users/manage/changeStatus/".$data->id."?status=active")',
+                                'url' => 'Yii::app()->createUrl("/users/manage/changeStatus/".$data->id."?status=active&return=admin")',
                                 'options' => array('class' => 'btn btn-xs btn-success','style' => 'margin-bottom:10px')
                             ),
                             'delete' => array(
