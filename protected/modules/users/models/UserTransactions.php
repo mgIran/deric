@@ -116,6 +116,8 @@ class UserTransactions extends CActiveRecord
 		$criteria->compare('token',$this->token,true);
 		$criteria->compare('description',$this->description,true);
 
+		$criteria->order = 'date DESC';
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

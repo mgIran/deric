@@ -24,7 +24,7 @@
                 <?php foreach($model->transactions(array('order'=>'id DESC')) as $transaction):?>
                 <tr>
                     <td><?php echo JalaliDate::date('d F Y - H:i', $transaction->date);?></td>
-                    <td><?php echo number_format($transaction->amount, 0).' تومان';?></td>
+                    <td><?php echo Controller::parseNumbers(number_format($transaction->amount)).' تومان';?></td>
                     <td><span class="label label-<?php
                         echo $transaction->status == 'paid'? 'success':'danger';
                         ?>"><?php echo $transaction->getStatusLabel();?></span></td>

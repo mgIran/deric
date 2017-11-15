@@ -24,8 +24,8 @@ class AppsController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('reportSales', 'reportIncome'),
-                'roles' => array('admin'),
+                'actions' => array('reportSales', 'reportIncome', 'transactions'),
+                'roles' => array('admin', 'finance'),
             ),
             array('allow',
                 'actions' => array('discount', 'search', 'view', 'download', 'programs', 'games', 'educations', 'developer', 'top', 'bestselling'),
@@ -1062,5 +1062,17 @@ class AppsController extends Controller
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
+    }
+
+    public function actionTransactions(){
+        Yii::app()->theme = 'abound';
+        $this->layout = '//layouts/main';
+        $model = new UserTransactions('search');
+        $model->status = null;
+        if(isset($_GET['UserTransactions']))
+            $model->attributes = $_GET['UserTransactions'];
+        $this->render('transactions',array(
+            'model' => $model
+        ));
     }
 }
