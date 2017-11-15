@@ -25,7 +25,7 @@ class AppsController extends Controller
         return array(
             array('allow',
                 'actions' => array('reportSales', 'reportIncome', 'transactions'),
-                'roles' => array('admin', 'finance'),
+                'roles' => array('admin'),
             ),
             array('allow',
                 'actions' => array('discount', 'search', 'view', 'download', 'programs', 'games', 'educations', 'developer', 'top', 'bestselling'),

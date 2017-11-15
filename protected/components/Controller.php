@@ -145,6 +145,7 @@ class Controller extends CController
                         array('label' => '<i class="fa fa-circle-o"></i>تسویه حساب', 'url' => Yii::app()->createUrl('/developers/panel/manageSettlement')),
                         array('label' => '<i class="fa fa-circle-o"></i>گزارش فروش', 'url' => Yii::app()->createUrl('/apps/reportSales')),
                         array('label' => '<i class="fa fa-circle-o"></i>گزارش درآمد', 'url' => Yii::app()->createUrl('/apps/reportIncome')),
+                        array('label' => '<i class="fa fa-circle-o"></i>ریز تراکنش ها', 'url' => Yii::app()->createUrl('/apps/transactions')),
                     )
                 ),
                 array(
