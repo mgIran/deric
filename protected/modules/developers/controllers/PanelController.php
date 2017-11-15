@@ -61,7 +61,6 @@ class PanelController extends Controller
             'criteria'=>$criteria,
         ));
         Yii::app()->getModule('users');
-
 		$this->render('index', array(
             'appsDataProvider'=>$appsDataProvider,
         ));

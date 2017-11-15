@@ -2,11 +2,11 @@
 class Mailer
 {
 
-    public static $host = 'mail.avayeshahir.com';
-    public static $username = 'noreply@avayeshahir.com';
-    public static $password = '!@avayeshahir1395';
+    public static $host = 'mail.sisenapp.com';
+    public static $username = 'info@sisenapp.com';
+    public static $password = 'mwaJF!4J';
     public static $port = '587';
-    public static $secure = '';
+    public static $secure = 'tls';
 
     /**
      * @param $to
@@ -26,9 +26,9 @@ class Mailer
         $mail->IsSMTP();
         $mail->SMTPAuth = true;
         $mail->Host = self::$host;
-        $mail->SMTPSecure = self::$secure;
         $mail->Username = self::$username;
         $mail->Password = self::$password;
+        $mail->SMTPSecure = self::$secure;
         $mail->Port = (int)self::$port;
         $mail->SetFrom(self::$username, Yii::app()->name);
         $mail->Subject = $subject;

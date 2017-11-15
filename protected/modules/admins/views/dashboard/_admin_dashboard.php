@@ -233,7 +233,7 @@ if(Yii::app()->user->roles == 'employee'){
                     ));?>
                 </div>
                 <?php Yii::app()->clientScript->registerScript('changeConfirm', "
-                    $('.change-confirm').on('change', function(){
+                    $('body').on('change', '.change-confirm', function(){
                         $.ajax({
                             url:'".$this->createUrl('/manageApps/android/changeConfirm')."',
                             type:'POST',

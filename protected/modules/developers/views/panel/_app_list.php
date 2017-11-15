@@ -12,7 +12,7 @@ Yii::import("comments.models.*");
         elseif($data->price==-1)
             echo 'پرداخت درون برنامه';
         else
-            Controller::parseNumbers(number_format($data->price,0)).' تومان';
+            echo Controller::parseNumbers(number_format($data->price,0)).' تومان';
         ?></div>
     <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs"><?= Controller::parseNumbers(number_format($data->install)) ?></div>
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">

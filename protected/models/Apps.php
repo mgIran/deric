@@ -257,7 +257,9 @@ class Apps extends CActiveRecord
 		if (!empty($this->packages)) {
 			$packages = array();
 			foreach ($this->packages as $key => $package)
-				if ((!Yii::app()->user->isGuest && Yii::app()->user->type =='admin') || $package->status == 'accepted')
+				if ((!Yii::app()->user->isGuest && Yii::app()->user->type =='admin') ||
+					(!Yii::app()->user->isGuest && Yii::app()->user->type =='user' && Yii::app()->user->getId() == $this->developer_id) ||
+					$package->status == 'accepted')
 					$packages[]=$package;
 			if (isset($packages[0]))
 				$this->lastPackage = $packages[0];
