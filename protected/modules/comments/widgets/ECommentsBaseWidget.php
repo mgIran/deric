@@ -69,8 +69,9 @@ class ECommentsBaseWidget extends CWidget
         {
             $assets = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('comments') . '/assets');
             $cs = Yii::app()->getClientScript();
+            /* @var $cs CClientScript */
             $cs->registerCssFile($assets . '/comments.css?'.time());
-            $cs->registerScriptFile($assets . '/comments.js?'.time());
+            $cs->registerScriptFile($assets . '/comments.js?'.time(),CClientScript::POS_END);
         }
         
         /*

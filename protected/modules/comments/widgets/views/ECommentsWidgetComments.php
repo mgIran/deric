@@ -22,6 +22,7 @@
                 </div>
                 <div class="comment-header">
                     <span class="comment-name"><?php echo $comment->userName;?></span>
+                    <span><?php if(!$comment->status) echo '<small class="text-danger">(تایید نشده)</small>' ?></span>
                     <span class="comment-date"><?php echo JalaliDate::differenceTime($comment->create_time);?></span>
                 </div>
                 <p dir="auto">
