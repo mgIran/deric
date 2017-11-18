@@ -61,6 +61,7 @@ class Tickets extends CActiveRecord
 			array('subject', 'length', 'max'=>255),
 			array('attachment', 'length', 'max'=>500),
 			array('text, firstMessageId', 'safe'),
+			array('status', 'default', 'value' => 'waiting'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, code, user_id, status, date, subject, department_id', 'safe', 'on'=>'search'),

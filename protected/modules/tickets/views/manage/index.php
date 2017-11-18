@@ -34,7 +34,7 @@
 									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 text-center"><?php echo $ticket->code ?></div>
 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4"><?php echo CHtml::encode($ticket->subject);?></div>
 									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"><?php echo CHtml::encode($ticket->department->title);?></div>
-									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"><?php echo CHtml::encode($ticket->statusLabels[$ticket->status]);?></div>
+									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"><?php echo $ticket->status?CHtml::encode($ticket->statusLabels[$ticket->status]):'-';?></div>
 									<div class="col-lg-2 col-md-2 col-sm-2 hidden-xs text-center"><?php echo JalaliDate::date('d F Y H:i', $ticket->date);?></div>
 								</a>
 							</div>

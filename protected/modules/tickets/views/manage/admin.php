@@ -41,7 +41,7 @@ setInterval(function(){
 								$criteria->compare('visit',0);
 								$criteria->compare('ticket_id',$data->id);
 								$criteria->compare('sender','user');
-								return TicketMessages::model()->count($criteria)?'<div class="text-center"><span class="icon icon-envelope"></span></div>':'';
+								return TicketMessages::model()->count($criteria)?'<div class="text-center"><span class="fa fa-envelope"></span></div>':'';
 							},
 							'type' => 'html'
 						),
@@ -53,7 +53,7 @@ setInterval(function(){
 						),
 						array(
 								'name' => 'status' ,
-								'value' => '$data->statusLabels[$data->status]'
+								'value' => '$data->status?$data->statusLabels[$data->status]:"-"'
 						),
 						array(
 							'class'=>'CButtonColumn',

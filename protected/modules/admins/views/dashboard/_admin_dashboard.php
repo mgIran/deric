@@ -151,7 +151,7 @@ if(Yii::app()->user->roles == 'employee'){
         <div class="small-box bg-yellow">
             <div class="inner">
                 <h3><?php echo $statistics['tickets'];?></h3>
-                <p>پشتیبانی</p>
+                <p>پشتیبانی (خوانده نشده)</p>
             </div>
             <div class="icon">
                 <i class="ion ion-headphone"></i>
