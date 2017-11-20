@@ -328,18 +328,16 @@ class Comment extends CActiveRecord
     {
         $tree = array();
         foreach($data as $id => $node) {
-            if(!Yii::app()->user->isGuest && Yii::app()->user->type == 'user' && Yii::app()->user->roles == "developer"){
-                if($node->status != self::STATUS_APPROWED && $node->creator_id != Yii::app()->user->getId())
-                {
+            if(!Yii::app()->user->isGuest && Yii::app()->user->type == 'user' && Yii::app()->user->roles == "developer" &&
+                $node->status != self::STATUS_APPROWED && $node->creator_id != Yii::app()->user->getId())
                     unset($data[$id]);
-                    continue;
+            else{
+                $node->parent_comment_id = $node->parent_comment_id === null?0:$node->parent_comment_id;
+                if($node->parent_comment_id == $rootID){
+                    unset($data[$id]);
+                    $node->childs = $this->buildTree($data, $node->comment_id);
+                    $tree[] = $node;
                 }
-            }
-            $node->parent_comment_id = $node->parent_comment_id === null ? 0 : $node->parent_comment_id;
-            if($node->parent_comment_id == $rootID){
-                unset($data[$id]);
-                $node->childs = $this->buildTree($data, $node->comment_id);
-                $tree[] = $node;
             }
         }
         return $tree;

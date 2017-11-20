@@ -152,7 +152,7 @@ Yii::app()->clientScript->registerScript('carousels','
     owl.owlCarousel({
         responsive:{
             0:{
-                items : 3,
+                items : 2,
             },
             410:{
                 items : 3,

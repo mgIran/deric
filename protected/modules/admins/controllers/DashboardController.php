@@ -96,16 +96,22 @@ class DashboardController extends Controller
         ));
 
         Yii::import("tickets.models.*");
+        Yii::import("comments.models.*");
         $criteria = new CDbCriteria();
         $criteria->with[] = 'messages';
         $criteria->compare('messages.visit', 0);
         $criteria->compare('messages.sender', 'user');
+        
+        $commentCriteria = new CDbCriteria();
+        $commentCriteria->compare('t.status', Comment::STATUS_NOT_APPROWED);
+        
         $statistics = array(
             'tickets' => Tickets::model()->count($criteria),
             'appsAndroid' => Apps::model()->count('title IS NOT NULL AND platform_id = 1 AND deleted=0'),
             'appsIos' => Apps::model()->count('title IS NOT NULL AND platform_id = 2 AND deleted=0'),
             'developers' => Users::model()->count('role_id = 2'),
             'transactions' => UserTransactions::model()->count(),
+            'comments' => Comment::model()->count($commentCriteria),
         );
 
         // today sales

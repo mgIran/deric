@@ -20,6 +20,7 @@ $permissions = [
     'DevStatistics' => false,
     'TransactionStatistics' => false,
     'TicketStatistics' => false,
+    'CommentStatistics' => false,
 ];
 if(Yii::app()->user->roles == 'admin'){
     $permissions['devIDRequests'] = true;
@@ -34,6 +35,7 @@ if(Yii::app()->user->roles == 'admin'){
     $permissions['DevStatistics'] = true;
     $permissions['TransactionStatistics'] = true;
     $permissions['TicketStatistics'] = true;
+    $permissions['CommentStatistics'] = true;
 }
 
 if(Yii::app()->user->roles == 'validator'){
@@ -42,11 +44,13 @@ if(Yii::app()->user->roles == 'validator'){
     $permissions['updatedPackages'] = true;
     $permissions['AppAndroidStatistics'] = true;
     $permissions['AppIosStatistics'] = true;
+    $permissions['CommentStatistics'] = true;
 }
 
 if(Yii::app()->user->roles == 'supporter'){
     $permissions['statistics'] = true;
     $permissions['TicketStatistics'] = true;
+    $permissions['CommentStatistics'] = true;
 }
 
 
@@ -157,6 +161,26 @@ if(Yii::app()->user->roles == 'employee'){
                 <i class="ion ion-headphone"></i>
             </div>
             <a href="<?php echo $this->createUrl('/tickets/manage/admin');?>" class="small-box-footer">مشاهده لیست <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+        <?php
+    endif;
+    ?>
+    <!--Ticket Statistics-->
+    <?php
+    if($permissions['CommentStatistics']):
+    ?>
+    <div class="col-md-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-fuchsia">
+            <div class="inner">
+                <h3><?php echo $statistics['comments'];?></h3>
+                <p>نظرات (خوانده نشده)</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-android-chat"></i>
+            </div>
+            <a href="<?php echo $this->createUrl('/comments/comment/adminApps');?>" class="small-box-footer">مشاهده نظرات <i class="fa fa-arrow-circle-left"></i></a>
         </div>
     </div>
         <?php

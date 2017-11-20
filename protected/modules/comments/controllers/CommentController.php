@@ -152,6 +152,7 @@ class CommentController extends Controller
                 }
 
 				$result['code'] = 'success';
+				$result['msg'] = 'نظر شما با موفقیت ثبت شد و پس از تایید مدیر نمایش داده خواهد شد.';
 				$this->beginClip('form');
 				$this->widget('comments.widgets.ECommentsFormWidget' ,array(
 					'model' => $comment->ownerModel ,
@@ -166,6 +167,7 @@ class CommentController extends Controller
 				$result['list'] = $this->clips['list'];
 			}else{
 				$result['code'] = 'fail';
+				$result['msg'] = 'با عرض پوزش! در ثبت نظر مشکلی پیش آمده است، لطفا مجدد تلاش فرمایید.';
 				$this->beginClip('form');
 				$this->widget('comments.widgets.ECommentsFormWidget' ,array(
 					'model' => $comment->ownerModel ,

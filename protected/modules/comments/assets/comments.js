@@ -80,6 +80,7 @@
                 $form.parents('.comment-form-outer').find('.loading-container').show();
             },
             success: function (data) {
+                alert(data.msg);
                 $form.parents('.comment-form-outer').find('.loading-container').hide();
                 $form.html(data.form);
                 if (data.code == "success") {
