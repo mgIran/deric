@@ -12,6 +12,7 @@ $this->breadcrumbs=array(
 		<a href="<?php echo Yii::app()->createUrl('/manageApps/'.$this->controller.'/create')?>" class="btn btn-default btn-sm">افزودن برنامه</a>
 	</div>
 	<div class="box-body">
+		<?= $this->renderPartial('//layouts/_flashMessage' ,array('prefix' => 'images-')); ?>
 		<div class="table-responsive">
 		<?php $this->widget('zii.widgets.grid.CGridView', array(
 			'id'=>'apps-grid',

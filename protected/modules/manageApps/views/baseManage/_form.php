@@ -128,20 +128,18 @@
 				else
 					$('.portion').addClass('hidden');
 			});
-			$('.priceType[value=\"free\"]').on('mousedown', function(){
-				var res = confirm('پس از رایگان کردن برنامه امکان بازگرداندن به حالت غیر رایگان وجود ندارد. \\nآیا مطمئن هستید که میخواهید برنامه را رایگان کنید؟');
-				if(res == true)
-					$(this).trigger('click');
-				else
-					return false;
-			});
-			$('.priceType[value=\"free\"] + label').on('mousedown', function(){
-				var res = confirm('پس از رایگان کردن برنامه امکان بازگرداندن به حالت غیر رایگان وجود ندارد. \\nآیا مطمئن هستید که میخواهید برنامه را رایگان کنید؟');
-				if(res == true)
-					$('.priceType[value=\"free\"]').trigger('click');
-				else
-					return false;
-			});
+//			$('.priceType[value=\"free\"]').on('mousedown', function(){
+//				if(confirm('پس از رایگان کردن برنامه امکان بازگرداندن به حالت غیر رایگان وجود ندارد. \\nآیا مطمئن هستید که میخواهید برنامه را رایگان کنید؟'))
+//					$(this).trigger('click');
+//				else
+//					return false;
+//			});
+//			$('.priceType[value=\"free\"] + label').on('mousedown', function(){
+//				if(confirm('پس از رایگان کردن برنامه امکان بازگرداندن به حالت غیر رایگان وجود ندارد. \\nآیا مطمئن هستید که میخواهید برنامه را رایگان کنید؟'))
+//					$('.priceType[value=\"free\"]').trigger('click');
+//				else
+//					return false;
+//			});
 		");?>
 	</div>
 
