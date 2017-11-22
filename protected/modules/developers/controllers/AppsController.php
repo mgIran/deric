@@ -430,8 +430,10 @@ class AppsController extends Controller
                 $this->redirect($this->createUrl('/developers/panel'));
             } else
                 Yii::app()->user->setFlash('images-failed', 'در ثبت اطلاعات خطایی رخ داده است! لطفا مجددا تلاش کنید.');
-        } else
-            Yii::app()->user->setFlash('images-failed', 'تصاویر برنامه را آپلود کنید.');
+        } else{
+            if(AppImages::model()->findByAttributes(array('app_id' => $id)) === null)
+                Yii::app()->user->setFlash('images-failed', 'تصاویر برنامه را آپلود کنید.');
+        }
         $this->redirect('update/' . $id . '/?step=2');
     }
 
