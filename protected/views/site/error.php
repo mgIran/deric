@@ -2,17 +2,36 @@
 /* @var $this SiteController */
 /* @var $error array */
 ?>
+<div class="page-error">
+    <div class="code"><?php echo $code; ?></div>
+    <div class="title"><?php echo CHtml::encode($message);?></div>
 
-<!-----start-wrap--------->
-<div class="wrap">
-    <!-----start-content--------->
-    <div class="content">
-        <!-----start-logo--------->
-        <div class="logo">
-            <h1><?php echo $code; ?></h1>
-            <span><img src="<?php echo Yii::app()->theme->baseUrl.'/images/signal.png';?>"/><?php echo CHtml::encode($message);?></span>
+    <div class="buttons">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="<?php echo Yii::app()->getBaseUrl(true);?>" class="btn btn-danger btn-block">صفحه اصلی <i class="arrow-icon right"></i></a>
+            </div>
+            <div class="col-md-6">
+                <button id="back-btn" onclick="history.back();" class="btn btn-info btn-block"><i class="arrow-icon left"></i> بازگشت</button>
+            </div>
         </div>
-        <!-----end-logo--------->
     </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+        <div class="ltr">
+            <?php $this->renderPartial('//layouts/_copyright');?>
+        </div>
+        <div>
+            <a href="<?php echo $this->createUrl('/')?>">راهنما</a> / <a href="#">تماس با ما</a>
+        </div>
+    </div>
+    <!-- ./Copyright -->
+
 </div>
-<!---------end-wrap---------->
+<script>
+    $(function () {
+        if(history.length <= 1)
+            $("#back-btn").attr("disabled", true);
+    });
+</script>

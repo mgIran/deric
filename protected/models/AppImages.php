@@ -7,18 +7,22 @@
  * @property string $id
  * @property string $app_id
  * @property string $image
+ * @property string $type
+ * @property string $iframe
  *
  * The followings are the available model relations:
  * @property Apps $app
  */
 class AppImages extends CActiveRecord
 {
+	const TYPE_IMAGE = 1;
+	const TYPE_IFRME = 2;
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'ym_app_images';
+		return '{{app_images}}';
 	}
 
 	/**
@@ -28,9 +32,21 @@ class AppImages extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
+        $purifier  = new CHtmlPurifier();
+        $purifier->setOptions(array(
+            'HTML.ForbiddenElements' => 'div',
+            'HTML.SafeIframe'=> true,
+            'URI.SafeIframeRegexp'=> '%^(https?:)?//(www\.aparat\.com/video/)%',
+        ));
 		return array(
-			array('app_id', 'length', 'max'=>10),
-			array('image', 'length', 'max'=>50),
+            array('iframe', 'filter', 'filter' => array($purifier, 'purify'), 'on' => 'insert_iframe'),
+            array('iframe', 'required', 'on'=>'insert_iframe', 'message' => 'کد ویدیو معتبر نیست.'),
+            array('app_id', 'length', 'max'=>10),
+            array('image', 'length', 'max'=>50),
+            array('iframe', 'length', 'max'=>1024),
+            array('iframe', 'length', 'max'=>1024),
+            array('type', 'length', 'max'=>1),
+            array('type', 'default', 'value'=>1),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, app_id, image', 'safe', 'on'=>'search'),
@@ -58,6 +74,7 @@ class AppImages extends CActiveRecord
 			'id' => 'ID',
 			'app_id' => 'App',
 			'image' => 'Image',
+			'iframe' => 'کد ویدئو',
 		);
 	}
 

@@ -15,6 +15,8 @@ if($model->platform) {
     $filesFolder = $platform->name;
     $filePath = Yii::getPathOfAlias("webroot") . "/uploads/apps/files/{$filesFolder}/";
 }
+if(!$model->lastPackage)
+    throw new CHttpException(404, "نرم افزار موردنظر بسته تایید شده ندارد.");
 ?>
 
 <div class="app col-sm-12 col-xs-12">

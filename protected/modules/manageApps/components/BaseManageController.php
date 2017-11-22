@@ -606,13 +606,13 @@ class BaseManageController extends Controller
                         $flag = false;
                 }
             }
-            if($flag)
+            if($flag){
                 Yii::app()->user->setFlash('images-success', 'اطلاعات با موفقیت ثبت شد.');
-            else
+                $this->redirect(array('/manageApps/' . $this->controller . '/admin'));
+            }else
                 Yii::app()->user->setFlash('images-failed', 'در ثبت اطلاعات خطایی رخ داده است! لطفا مجددا تلاش کنید.');
         }else
             Yii::app()->user->setFlash('images-failed', 'تصاویر برنامه را آپلود کنید.');
-        $this->redirect(array('/manageApps/' . $this->controller . '/admin'));
         $this->redirect('update/' . $id . '/?step=3');
     }
 

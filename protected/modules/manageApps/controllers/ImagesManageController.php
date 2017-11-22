@@ -27,7 +27,7 @@ class ImagesManageController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions' => array('upload','deleteUploaded'),
+				'actions' => array('createIframe', 'upload','deleteUploaded', 'delete'),
 				'roles' => array('admin','developer'),
 			),
 			array('deny',  // deny all users
@@ -88,5 +88,37 @@ class ImagesManageController extends Controller
 			echo CJSON::encode($response);
 			Yii::app()->end();
 		}
+	}
+
+	public function actionDelete($id){
+		$uploadDir = Yii::getPathOfAlias("webroot") . '/uploads/apps/images/';
+		$model = AppImages::model()->findByPk($id);
+        $appID = $model->app_id;
+		if($model->type == 1 && file_exists($uploadDir.$model->image))
+			@unlink($uploadDir.$model->image);
+		$model->delete();
+
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl'])?$_POST['returnUrl']:array('/manageApps/android/update/'.$appID.'?step=3'));
+	}
+
+	public function actionCreateIframe(){
+        $model = new AppImages('insert_iframe');
+        $model->type = AppImages::TYPE_IFRME;
+
+        if(isset($_GET['ajax']) && $_GET['ajax'] === 'apps-iframe-form') {
+            $model->attributes = $_POST['AppImages'];
+            $errors = CActiveForm::validate($model);
+            if(CJSON::decode($errors)) {
+                echo $errors;
+                Yii::app()->end();
+            }
+        }
+
+        if(isset($_POST['AppImages'])){
+            $model->attributes = $_POST['AppImages'];
+            if($model->save())
+                echo CJSON::encode(['state' => 'ok', 'message' => 'ویدئو با موفقیت ثبت گردید.']);
+        }
 	}
 }

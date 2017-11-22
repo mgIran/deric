@@ -33,6 +33,7 @@
  * @property AppPackages $lastPackage
  * @property AppBuys[] $appBuys
  * @property AppImages[] $images
+ * @property AppImages[] $iframes
  * @property AppPlatforms $platform
  * @property Users $developer
  * @property AppCategories $category
@@ -121,7 +122,8 @@ class Apps extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'appBuys' => array(self::HAS_MANY, 'AppBuys', 'app_id'),
-			'images' => array(self::HAS_MANY, 'AppImages', 'app_id'),
+			'images' => array(self::HAS_MANY, 'AppImages', 'app_id', 'on' => 'images.type = 1'),
+			'iframes' => array(self::HAS_MANY, 'AppImages', 'app_id', 'on' => 'iframes.type = 2'),
 			'platform' => array(self::BELONGS_TO, 'AppPlatforms', 'platform_id'),
 			'developer' => array(self::BELONGS_TO, 'Users', 'developer_id'),
 			'category' => array(self::BELONGS_TO, 'AppCategories', 'category_id'),
