@@ -2512,3 +2512,9 @@ header.mobile.search-open .mobile-search {
 .scroll-container{
     overflow-y: auto !important;
 }
+
+.owl-theme.owl-rtl .owl-stage-outer{
+    display: inline-block !important;
+    overflow-x: scroll!important;
+    max-width: 100% !important;
+}

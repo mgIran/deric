@@ -153,6 +153,8 @@ class AppsController extends Controller
                         'size' => filesize($appImagesDIR . $image->image),
                         'serverName' => $image->image,
                     );
+                else
+                    $image->delete();
 
         if (isset($_POST['packages-submit'])) {
             if (empty($model->packages))
@@ -434,7 +436,7 @@ class AppsController extends Controller
             if(AppImages::model()->findByAttributes(array('app_id' => $id)) === null)
                 Yii::app()->user->setFlash('images-failed', 'تصاویر برنامه را آپلود کنید.');
         }
-        $this->redirect('update/' . $id . '/?step=2');
+        $this->redirect('update/' . $id . '/?step=3');
     }
 
     /**

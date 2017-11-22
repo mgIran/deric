@@ -21,6 +21,7 @@
 ?>
 <?= $this->renderPartial('//layouts/_flashMessage' ,array('prefix' => 'images-')); ?>
 <div class="form-group">
+    <label for="uploader">تصاویر</label>
     <?php
     $this->widget('ext.dropZoneUploader.dropZoneUploader', array(
         'id' => 'uploader',

@@ -115,13 +115,14 @@ if(!$model->lastPackage)
         </div>
         <div class="app-body">
             <?
-            if($model->images) {
+            if($model->multimedia) {
             ?>
                 <div class="images-carousel">
                 <?
                 $imager = new Imager();
-                foreach($model->images as $key => $image):
-                    if(file_exists(Yii::getPathOfAlias("webroot").'/uploads/apps/images/'.$image->image)):
+                foreach($model->multimedia as $key => $image):
+                    if($image->type == AppImages::TYPE_IMAGE &&
+                        file_exists(Yii::getPathOfAlias("webroot").'/uploads/apps/images/'.$image->image)):
                         $imageInfo = $imager->getImageInfo(Yii::getPathOfAlias("webroot").'/uploads/apps/images/'.$image->image);
                         $ratio = $imageInfo['width'] / $imageInfo['height'];
                         ?>
@@ -130,6 +131,17 @@ if(!$model->lastPackage)
                             <a href="<?= Yii::app()->createAbsoluteUrl('/uploads/apps/images/'.$image->image) ?>"><img
                                     src="<?= Yii::app()->createAbsoluteUrl('/uploads/apps/images/'.$image->image) ?>"
                                     alt="<?= $model->title ?>"></a>
+                        </div>
+                        <?
+                    else:
+                        ?>
+                        <div class="image-item" data-toggle="modal" data-index="<?= $key ?>" data-target="#carousesl-modal">
+                            <div class="item-video">
+                                <?= $image->iframe ?>
+                            </div>
+<!--                            <a href="--><?//= Yii::app()->createAbsoluteUrl('/uploads/apps/images/'.$image->image) ?><!--"><img-->
+<!--                                    src=""-->
+<!--                                    alt="--><?//= $model->title ?><!--"></a>-->
                         </div>
                         <?
                     endif;
@@ -162,6 +174,7 @@ if(!$model->lastPackage)
                         margin:10,
                         rtl:true,
                         dots:false,
+                        video: true,
                         items:1
                     });
                 ");
@@ -313,3 +326,19 @@ if(!$model->lastPackage)
         padding-right: 6px;
     }
 </style>
+
+<script>
+    var ratio = 0.5625;
+    $(function() {
+        $(window).on("resize", iframeScaler);
+        $(window).load(iframeScaler);
+        function iframeScaler(){
+            $("iframe").each(function() {
+                console.log(1);
+//                var childWidth = $(this).width(); // width of child iframe
+//                var childHeight = $(this).height(); // child height
+//                console.log(childWidth,childHeight);
+            });
+        }
+    });
+</script>
