@@ -105,17 +105,17 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <a data-toggle="collapse" data-target="#m-edu-cat" data-parent="#category-collapse-parent" href="#" class="cat-menu-head">آموزش ها</a>
-                        <ul class="cat-menu collapse" id="m-edu-cat">
-                            <li><a href="<?php echo Yii::app()->createUrl('/apps/educations');?>">همه آموزش ها</a></li>
-                            <?php foreach($this->categories['educations'] as $category):?>
-                                <li><a href="<?php echo Yii::app()->createUrl('/apps/educations/'.$category->id.'/'.urlencode($category->title));?>"><?php echo $category->title;?></a></li>
-                            <?php endforeach;?>
-                        </ul>
-                    </div>
-                </div>
+<!--                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">-->
+<!--                    <div class="row">-->
+<!--                        <a data-toggle="collapse" data-target="#m-edu-cat" data-parent="#category-collapse-parent" href="#" class="cat-menu-head">آموزش ها</a>-->
+<!--                        <ul class="cat-menu collapse" id="m-edu-cat">-->
+<!--                            <li><a href="--><?php //echo Yii::app()->createUrl('/apps/educations');?><!--">همه آموزش ها</a></li>-->
+<!--                            --><?php //foreach($this->categories['educations'] as $category):?>
+<!--                                <li><a href="--><?php //echo Yii::app()->createUrl('/apps/educations/'.$category->id.'/'.urlencode($category->title));?><!--">--><?php //echo $category->title;?><!--</a></li>-->
+<!--                            --><?php //endforeach;?>
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
         <li><a href="<?= Yii::app()->user->hasState('platformName')?Yii::app()->baseUrl.'/'.Yii::app()->user->getState('platformName'):Yii::app()->createAbsoluteUrl('//') ?>">خانه</a></li>
@@ -123,7 +123,7 @@
         <li>
             <a href="<?php echo $this->createUrl('/site/underConstruction');?>">
                 <span class="icon-download-alt"></span>
-                هایپر اپس را دانلود کنید
+                سیسن اپ را دانلود کنید
             </a>
         </li>
     </ul>

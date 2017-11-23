@@ -38,6 +38,9 @@
     }
 }
 @media all and (max-width: 767px) {
+    .app-inner .owl-theme.owl-rtl .owl-stage-outer{
+        overflow-x: scroll !important;
+    }
     .content .app-box .app-item{
         min-width: auto;
         max-width: none;

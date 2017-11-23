@@ -18,9 +18,9 @@ Yii::app()->clientScript->registerCoreScript('jquery');
 
 $cs->registerCssFile($baseUrl.'/css/bootstrap.min.css');
 $cs->registerCssFile($baseUrl.'/css/font-awesome.css');
-$cs->registerCssFile($baseUrl.'/css/bootstrap-theme.css');
+$cs->registerCssFile($baseUrl.'/css/bootstrap-theme.css?2');
 $cs->registerCssFile($baseUrl.'/css/login.css');
-$cs->registerCssFile($baseUrl.'/css/responsive-theme.css');
+$cs->registerCssFile($baseUrl.'/css/responsive-theme.css?2');
 
 $cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
 $cs->registerScriptFile($baseUrl.'/js/scripts.js');
