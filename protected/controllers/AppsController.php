@@ -449,8 +449,6 @@ class AppsController extends Controller
         $realFileName = $fileName;
 
         $file = $filePath . DIRECTORY_SEPARATOR . $realFileName;
-        $fp = fopen($file, 'rb');
-
         $mimeType = '';
         switch (pathinfo($fileName, PATHINFO_EXTENSION)) {
             case 'apk':
@@ -465,15 +463,14 @@ class AppsController extends Controller
                 $mimeType = 'application/octet-stream';
                 break;
         }
-
         header('Pragma: public');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Content-Transfer-Encoding: binary');
         header('Content-Type: ' . $mimeType);
         header('Content-Disposition: attachment; filename=' . $fakeFileName);
-
-        echo stream_get_contents($fp);
+        readfile($file);
+        exit;
     }
 
     /**

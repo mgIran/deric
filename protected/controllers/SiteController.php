@@ -67,23 +67,23 @@ class SiteController extends Controller
         $criteria->order = 'id DESC';
         $newestGameDataProvider = new CActiveDataProvider('Apps', array('criteria' => $criteria));
 
-        // get newest educations
-        $catIds = AppCategories::model()->getCategoryChilds(3);
-        $criteria = new CDbCriteria();
-        $criteria->addInCondition('category_id', $catIds);
-        $criteria->addCondition('platform_id=:platform_id');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->params[':platform_id'] = $this->platform;
-        $criteria->params[':status'] = 'enable';
-        $criteria->params[':confirm'] = 'accepted';
-        $criteria->params[':deleted'] = 0;
-        $criteria->limit = 20;
-        $criteria->order = 'id DESC';
-        $newestEducationDataProvider = new CActiveDataProvider('Apps', array('criteria' => $criteria));
+//        // get newest educations
+//        $catIds = AppCategories::model()->getCategoryChilds(3);
+//        $criteria = new CDbCriteria();
+//        $criteria->addInCondition('category_id', $catIds);
+//        $criteria->addCondition('platform_id=:platform_id');
+//        $criteria->addCondition('status=:status');
+//        $criteria->addCondition('confirm=:confirm');
+//        $criteria->addCondition('deleted=:deleted');
+//        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
+//        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
+//        $criteria->params[':platform_id'] = $this->platform;
+//        $criteria->params[':status'] = 'enable';
+//        $criteria->params[':confirm'] = 'accepted';
+//        $criteria->params[':deleted'] = 0;
+//        $criteria->limit = 20;
+//        $criteria->order = 'id DESC';
+//        $newestEducationDataProvider = new CActiveDataProvider('Apps', array('criteria' => $criteria));
 
         // get suggested list
         $visitedCats = CJSON::decode(base64_decode(Yii::app()->request->cookies['VC']));
@@ -159,7 +159,7 @@ class SiteController extends Controller
         $this->render('index', array(
             'newestProgramDataProvider' => $newestProgramDataProvider,
             'newestGameDataProvider' => $newestGameDataProvider,
-            'newestEducationDataProvider' => $newestEducationDataProvider,
+//            'newestEducationDataProvider' => $newestEducationDataProvider,
             'suggestedDataProvider' => $suggestedDataProvider,
             'specialAdvertise' => $specialAdvertise,
             'advertise' => $advertises,

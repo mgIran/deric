@@ -1,6 +1,10 @@
 <?php
 /* @var $this AppsController */
 /* @var $data Apps */
+$fileSize = $data->lastPackage && $data->lastPackage->file_name?
+    Yii::getPathOfAlias('webroot').'/uploads/apps/files/'.$data->platformsID[$data->platform_id].DIRECTORY_SEPARATOR.$data->lastPackage->file_name:
+    false;
+$fileSize = $fileSize?Controller::fileSize($fileSize):0;
 ?>
 
 <div class="app-details">
@@ -43,7 +47,7 @@
     </div>
     <div class="app-footer">
         <span class="col-lg-4 col-md-4 col-sm-4 hidden-xs"><?php echo Controller::parseNumbers(number_format($data->install, 0)).' دانلود';?></span>
-        <span class="col-lg-4 col-md-4 col-sm-4 hidden-xs"><?php echo Controller::parseNumbers(round($data->size/1024,1)).' کیلوبایت';?></span>
+        <span class="col-lg-4 col-md-4 col-sm-4 hidden-xs"><?php echo $fileSize;?></span>
         <span class="col-lg-4 col-md-4 col-sm-4 hidden-xs green"><?php echo (is_null($data->developer_id) or empty($data->developer_id))?CHtml::encode($data->developer_team):CHtml::encode($data->developer->userDetails->fa_name);?></span>
     </div>
 </div>

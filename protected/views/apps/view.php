@@ -326,19 +326,3 @@ if(!$model->lastPackage)
         padding-right: 6px;
     }
 </style>
-
-<script>
-    var ratio = 0.5625;
-    $(function() {
-        $(window).on("resize", iframeScaler);
-        $(window).load(iframeScaler);
-        function iframeScaler(){
-            $("iframe").each(function() {
-                console.log(1);
-//                var childWidth = $(this).width(); // width of child iframe
-//                var childHeight = $(this).height(); // child height
-//                console.log(childWidth,childHeight);
-            });
-        }
-    });
-</script>

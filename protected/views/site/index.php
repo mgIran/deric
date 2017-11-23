@@ -117,21 +117,21 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/owl
         </div>
     </div>
 <?php }?>
-    <div class="app-box">
-        <div class="top-box">
-            <div class="title pull-right">
-                <h2>تازه های آموزشی</h2>
-            </div>
-            <a class="pull-left btn btn-success more-app" href="<?php echo $this->createUrl('/apps/educations');?>">بیشتر</a>
-        </div>
-        <?php $this->widget('zii.widgets.CListView', array(
-            'id'=>'newest-educations',
-            'dataProvider'=>$newestEducationDataProvider,
-            'itemView'=>'_app_item',
-            'template'=>'{items}',
-            'itemsCssClass'=>'app-carousel'
-        ));?>
-    </div>
+<!--    <div class="app-box">-->
+<!--        <div class="top-box">-->
+<!--            <div class="title pull-right">-->
+<!--                <h2>تازه های آموزشی</h2>-->
+<!--            </div>-->
+<!--            <a class="pull-left btn btn-success more-app" href="--><?php //echo $this->createUrl('/apps/educations');?><!--">بیشتر</a>-->
+<!--        </div>-->
+<!--        --><?php //$this->widget('zii.widgets.CListView', array(
+//            'id'=>'newest-educations',
+//            'dataProvider'=>$newestEducationDataProvider,
+//            'itemView'=>'_app_item',
+//            'template'=>'{items}',
+//            'itemsCssClass'=>'app-carousel'
+//        ));?>
+<!--    </div>-->
     <div class="app-box suggested-list">
         <div class="top-box">
             <div class="title pull-right">
