@@ -136,12 +136,7 @@ if(!$model->lastPackage)
                     else:
                         ?>
                         <div class="image-item" data-toggle="modal" data-index="<?= $key ?>" data-target="#carousesl-modal">
-                            <div class="item-video">
-                                <?= $image->iframe ?>
-                            </div>
-<!--                            <a href="--><?//= Yii::app()->createAbsoluteUrl('/uploads/apps/images/'.$image->image) ?><!--"><img-->
-<!--                                    src=""-->
-<!--                                    alt="--><?//= $model->title ?><!--"></a>-->
+                            <?= $image->iframe ?>
                         </div>
                         <?
                     endif;

@@ -144,6 +144,9 @@
         margin-bottom: 20px;
         padding: 0 45px;
     }
+    .app-inner{
+        padding: 15px 10px !important;
+    }
     .app-inner .app-body > .app-details > .detail{
         padding-left: 35px;
     }

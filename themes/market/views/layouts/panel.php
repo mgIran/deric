@@ -18,7 +18,7 @@
 
     $cs->registerCssFile($baseUrl.'/css/bootstrap.min.css');
     $cs->registerCssFile($baseUrl.'/css/font-awesome.css');
-    $cs->registerCssFile($baseUrl.'/css/bootstrap-theme.css?2');
+    $cs->registerCssFile($baseUrl.'/css/bootstrap-theme.css?2.2');
     $cs->registerCssFile($baseUrl.'/css/animate.min.css');
     $cs->registerCssFile($baseUrl.'/css/persian-datepicker-0.4.5.min.css');
     $cs->registerCssFile($baseUrl.'/css/persian-datepicker-custom.css');
