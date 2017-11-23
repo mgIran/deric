@@ -2513,8 +2513,9 @@ header.mobile.search-open .mobile-search {
     overflow-y: auto !important;
 }
 
-.owl-theme.owl-rtl .owl-stage-outer{
+.app-inner .owl-theme.owl-rtl .owl-stage-outer{
+    padding-bottom: 15px;
     display: inline-block !important;
-    overflow-x: scroll!important;
+    overflow-x: auto !important;
     max-width: 100% !important;
 }

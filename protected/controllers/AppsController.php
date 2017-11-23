@@ -28,7 +28,7 @@ class AppsController extends Controller
                 'roles' => array('admin'),
             ),
             array('allow',
-                'actions' => array('discount', 'search', 'view', 'download', 'programs', 'games', 'educations', 'developer', 'top', 'bestselling'),
+                'actions' => array('free','discount', 'search', 'view', 'download', 'programs', 'games', 'educations', 'developer', 'top', 'bestselling'),
                 'users' => array('*'),
             ),
             array('allow',
@@ -624,6 +624,35 @@ class AppsController extends Controller
             'free' => $free,
             'title' => (!is_null($title)) ? $title : null,
             'pageTitle' => $pageTitle
+        ));
+    }
+
+    public function actionFree()
+    {
+        Yii::app()->theme = 'market';
+        $this->layout = 'public';
+
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('confirm=:confirm');
+        $criteria->addCondition('deleted=:deleted');
+        $criteria->addCondition('status=:status');
+        $criteria->addCondition('platform_id=:platform');
+        $criteria->addCondition('price=0');
+        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
+        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
+        $criteria->params = array(
+            ':confirm' => 'accepted',
+            ':deleted' => 0,
+            ':status' => 'enable',
+            ':platform' => $this->platform,
+        );
+
+        $free = new CActiveDataProvider('Apps', array(
+            'criteria' => $criteria,
+        ));
+
+        $this->render('free_apps_list', array(
+            'free' => $free,
         ));
     }
 
