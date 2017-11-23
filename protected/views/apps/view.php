@@ -168,16 +168,16 @@ if(!$model->lastPackage)
                         }
                     });
                 ");
-                Yii::app()->clientScript->registerScript('app-images-carousel',"
-                    $('.images-carousel').owlCarousel({
-                        autoWidth:true,
-                        margin:10,
-                        rtl:true,
-                        dots:false,
-                        video: true,
-                        items:1
-                    });
-                ");
+//                Yii::app()->clientScript->registerScript('app-images-carousel',"
+//                    $('.images-carousel').owlCarousel({
+//                        autoWidth:true,
+//                        margin:10,
+//                        rtl:true,
+//                        dots:false,
+//                        video: true,
+//                        items:1
+//                    });
+//                ");
             }
             ?>
             <section>

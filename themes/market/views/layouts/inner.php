@@ -8,7 +8,7 @@
     <meta name="keywords" content="<?= $this->keywords ?>">
     <meta name="description" content="<?= $this->description?> ">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title><?= $this->siteName.(!empty($this->pageTitle)?' - '.$this->pageTitle:'') ?></title>
+    <title><?= (!empty($this->pageTitle)?$this->pageTitle.' - ':'').$this->siteName ?></title>
     <link rel="shortcut icon" href="<?= Yii::app()->createAbsoluteUrl('themes/market/images/favicon.png'); ?>">
     <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl;?>/css/fontiran.css">
     <?php

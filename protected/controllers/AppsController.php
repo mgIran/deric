@@ -61,6 +61,10 @@ class AppsController extends Controller
             throw new CHttpException(404, 'برنامه موردنظر موجود نیست.');
         if((Yii::app()->user->isGuest || (Yii::app()->user->roles !='admin' && Yii::app()->user->roles !='validator')) && ($model->confirm != 'accepted' || !$model->lastPackage))
             throw new CHttpException(404, 'برنامه موردنظر موجود نیست.');
+        
+        $this->pageTitle = $model->title;
+        $this->description = mb_substr(strip_tags($model->description),0,150,"UTF-8");
+
         $this->app = $model;
         $model->seen = $model->seen + 1;
         $model->save();

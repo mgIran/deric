@@ -71,26 +71,26 @@ class Controller extends CController
 
     public function beforeRender($view)
     {
-        $this->description = Yii::app()->db->createCommand()
+        $this->description = !$this->description?Yii::app()->db->createCommand()
             ->select('value')
             ->from('ym_site_setting')
             ->where('name = "site_description"')
-            ->queryScalar();
-        $this->keywords = Yii::app()->db->createCommand()
+            ->queryScalar():$this->description;
+        $this->keywords = !$this->keywords?Yii::app()->db->createCommand()
             ->select('value')
             ->from('ym_site_setting')
             ->where('name = "keywords"')
-            ->queryScalar();
-        $this->siteName = Yii::app()->db->createCommand()
+            ->queryScalar():$this->keywords;
+        $this->siteName = !$this->siteName?Yii::app()->db->createCommand()
             ->select('value')
             ->from('ym_site_setting')
             ->where('name = "site_title"')
-            ->queryScalar();
-        $this->pageTitle = Yii::app()->db->createCommand()
+            ->queryScalar():$this->siteName;
+        $this->pageTitle = !$this->pageTitle?Yii::app()->db->createCommand()
             ->select('value')
             ->from('ym_site_setting')
             ->where('name = "default_title"')
-            ->queryScalar();
+            ->queryScalar():$this->pageTitle;
         $this->categories = array(
             'programs' => AppCategories::model()->findAll('parent_id=1'),
             'games' => AppCategories::model()->findAll('parent_id=2'),
