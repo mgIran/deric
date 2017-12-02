@@ -16,6 +16,7 @@
  * @property string $repeatPassword
  * @property string $oldPassword
  * @property string $newPassword
+ * @property string $verifyCode
  *
  * The followings are the available model relations:
  * @property AppBuys[] $appBuys
@@ -48,6 +49,7 @@ class Users extends CActiveRecord
     public $oldPassword;
     public $newPassword;
     public $roleId;
+    public $verifyCode;
 
     /**
      * @return array validation rules for model attributes.
@@ -73,10 +75,20 @@ class Users extends CActiveRecord
             array('role_id', 'length', 'max' => 10),
             array('status', 'length', 'max' => 8),
             array('create_date', 'length', 'max' => 20),
+            array('verifyCode', 'activeCaptcha', 'on' => 'create'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('roleId, create_date, status, verification_token, change_password_request_count ,fa_name ,email ,statusFilter', 'safe', 'on' => 'search'),
         );
+    }
+
+    public function activeCaptcha()
+    {
+        $code = Yii::app()->controller->createAction('captcha')->verifyCode;
+        if (empty($code))
+            $this->addError('verifyCode', 'کد امنیتی نمی تواند خالی باشد.');
+        elseif ($code != $this->verifyCode)
+            $this->addError('verifyCode', 'کد امنیتی نامعتبر است.');
     }
 
     /**
@@ -124,6 +136,7 @@ class Users extends CActiveRecord
             'newPassword' => 'کلمه عبور جدید',
             'create_date' => 'تاریخ ثبت نام',
             'status' => 'وضعیت کاربر',
+            'verifyCode' => 'کد امنیتی',
             'verification_token' => 'Verification Token',
             'change_password_request_count' => 'تعداد درخواست تغییر کلمه عبور',
         );

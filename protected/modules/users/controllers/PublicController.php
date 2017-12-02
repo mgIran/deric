@@ -21,16 +21,34 @@ class PublicController extends Controller
     {
         return array(
             array('allow',  // allow all users to perform 'index' and 'views' actions
-                'actions'=>array('dashboard','logout','setting','notifications'),
+                'actions' => array('dashboard', 'logout', 'setting', 'notifications'),
                 'users' => array('@'),
             ),
             array('allow',  // allow all users to perform 'index' and 'views' actions
-                'actions'=>array('register','login','verify','forgetPassword','changePassword'),
+                'actions' => array('captcha', 'register', 'login', 'verify', 'forgetPassword', 'changePassword'),
                 'users' => array('*'),
             ),
             array('deny',  // deny all users
-                'users'=>array('*'),
+                'users' => array('*'),
             ),
+        );
+    }
+
+    public function actions()
+    {
+        return array(
+            // captcha action renders the CAPTCHA image displayed on the contact page
+            'captcha' => array(
+                'class' => 'CCaptchaAction',
+                'backColor' => 0xFFFFFF,
+                'foreColor' => 0x7e55a1,
+                'height' => 36,
+                'minLength' => 7,
+                'maxLength' => 7,
+                'padding' => 0,
+                'offset' => 0,
+                'testLimit' => 1
+            )
         );
     }
 

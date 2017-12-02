@@ -22,9 +22,12 @@
                 $('.loading-container').fadeIn();
                 return true;
             }",
-            'afterValidate' => "js:function(form) {
+            'afterValidate' => "js:function(form,data,hasError) {
                 $('.loading-container').stop().hide();
-                return true;
+                if(!hasError)
+                    return true;
+                $(\"#register-form .captcha a\").click();    
+                $(\"#register-form #Users_verifyCode\").val(\"\");
             }",
         ),
     )); ?>
@@ -37,6 +40,16 @@
         <?php echo $form->passwordField($model,'password',array('class'=>'transition','placeholder'=>'کلمه عبور')); ?>
         <?php echo $form->error($model,'password'); ?>
         <span class="transition icon-key"></span>
+    </div>
+    <div class="row captcha">
+        <?php $this->widget('CCaptcha',array(
+            'captchaAction' => '/users/public/captcha',
+        )); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->textField($model, 'verifyCode',array('class'=>"form-control",'placeholder'=>$model->getAttributeLabel('verifyCode'))); ?>
+        <?php echo $form->error($model,'verifyCode'); ?>
+        <span class="transition icon-lock" style="margin-top: 10px;"></span>
     </div>
     <div class="row">
         <input class="transition" type="submit" value="ثبت نام">
