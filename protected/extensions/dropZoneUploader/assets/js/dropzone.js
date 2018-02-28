@@ -123,8 +123,8 @@
       paramName: "file",
       createImageThumbnails: true,
       maxThumbnailFilesize: 10,
-      thumbnailWidth: 120,
-      thumbnailHeight: 120,
+      thumbnailWidth: 150,
+      thumbnailHeight: 150,
       filesizeBase: 1000,
       maxFiles: null,
       params: {},
@@ -267,7 +267,7 @@
             node.innerHTML = this.filesize(file.size);
           }
           if (this.options.addRemoveLinks) {
-            file._removeLink = Dropzone.createElement("<a class=\"dz-remove fa fa-remove icon icon-remove\" href=\"javascript:undefined;\" data-dz-remove>" + this.options.dictRemoveFile + "</a>");
+            file._removeLink = Dropzone.createElement("<a class=\"dz-remove icon icon-remove fa fa-remove\" href=\"javascript:undefined;\" data-dz-remove>" + this.options.dictRemoveFile + "</a>");
             file.previewElement.appendChild(file._removeLink);
           }
           removeFileEvent = (function(_this) {
