@@ -1,8 +1,8 @@
-<?php
-
-class IosController extends BaseManageController
-{
-    public function __construct(){
-        $this->platform_id = 2;
-    }
+<?php
+
+class IosController extends BaseManageController
+{
+    public function __construct(){
+        $this->platform_id = 2;
+    }
 }

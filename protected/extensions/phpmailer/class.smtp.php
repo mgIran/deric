@@ -249,6 +249,7 @@ class SMTP
         if(count($options)==0){
             $options["ssl"]=array("verify_peer"=>false,"verify_peer_name"=>false,"allow_self_signed"=>true);
         }
+
         static $streamok;
         //This is enabled by default since 5.0.0 but some providers disable it
         //Check this once and cache the result

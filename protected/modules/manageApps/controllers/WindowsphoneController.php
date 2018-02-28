@@ -1,8 +1,8 @@
-<?php
-
-class WindowsphoneController extends BaseManageController
-{
-    public function __construct(){
-        $this->platform_id = 3;
-    }
+<?php
+
+class WindowsphoneController extends BaseManageController
+{
+    public function __construct(){
+        $this->platform_id = 3;
+    }
 }
