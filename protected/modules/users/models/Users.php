@@ -76,6 +76,7 @@ class Users extends CActiveRecord
             array('status', 'length', 'max' => 8),
             array('create_date', 'length', 'max' => 20),
             array('verifyCode', 'activeCaptcha', 'on' => 'create'),
+            array('username', 'default', 'value' => ''),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('roleId, create_date, status, verification_token, change_password_request_count ,fa_name ,email ,statusFilter', 'safe', 'on' => 'search'),
