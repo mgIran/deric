@@ -21,11 +21,8 @@
                 <tbody>
                 <?php foreach($model->appBuys as $buy):?>
                     <tr>
-                        <td>
-                            <a href="<?= $buy->app->getViewUrl() ?>">
-                                <?php echo CHtml::encode($buy->app->title);?>
-                            </a>
-                        </td>
+                        <td><a href="<?= $buy->app->getViewUrl() ?>">
+                            <?php echo CHtml::encode($buy->app->title);?></a></td>
                         <td><?php echo Controller::parseNumbers(number_format($buy->app_price)).' تومان';?></td>
                         <td><?php echo Controller::parseNumbers(number_format($buy->discount_amount)).' تومان';?></td>
                         <td class="text-info"><?php echo Controller::parseNumbers(number_format($buy->pay_amount)).' تومان';?></td>

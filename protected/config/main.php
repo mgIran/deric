@@ -218,7 +218,7 @@ return array(
 		// @todo change webmail of emails
 		'adminEmail'=>'webmaster@rahbod.com',
         'mailTheme'=>
-			'<div style="border: 1px solid #dadada; border-radius: 4px;display: block;overflow: hidden;" ><h2 style="margin-bottom:0;box-sizing:border-box;display: block;width: 100%;background-color: #364760;line-height:60px;color:#fff;font-size: 24px;text-align: right;padding-right: 50px">سیسن اپ<span style="font-size: 14px;color:#f0f0f0"> - مرجع انواع نرم افزار واقعیت مجازی</span></h2>
+			'<div style="border: 1px solid #dadada; border-radius: 4px;display: block;overflow: hidden;" ><h2 style="margin-bottom:0;box-sizing:border-box;display: block;width: 100%;background-color: #364760;line-height:60px;color:#fff;font-size: 24px;text-align: right;padding-right: 50px">سیسن اپ<span style="font-size: 14px;color:#f0f0f0"> - مرجع برنامه های واقعیت مجازی و واقعیت افزوده</span></h2>
              <div style="display: inline-block;width: 100%;font-family:tahoma;line-height: 28px;">
                 <div style="direction:rtl;display:block;overflow:hidden;border:1px solid #efefef;text-align: center;padding:15px;">{MessageBody}</div>
              </div>

@@ -1,6 +1,6 @@
-<?php
-/* @var $this AppsController */
-/* @var $model Apps */
-?>
-
-test
+<?php
+/* @var $this AppsController */
+/* @var $model Apps */
+?>
+
+test
