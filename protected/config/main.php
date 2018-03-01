@@ -151,7 +151,7 @@ return array(
             'showScriptName'=>false,
             'appendParams'=>true,
 			'rules'=>array(
-				'<action:(logout|login|register|dashboard)>' => 'users/public/<action>',
+				'<action:(logout|login|googleLogin|register|dashboard)>' => 'users/public/<action>',
                 'android' => 'site/index/platform/android',
                 'ios' => 'site/index/platform/ios',
 //                'windowsphone' => 'site/index/platform/windowsphone',
@@ -215,6 +215,10 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
+        'googleWebKey' => [
+            'client_id' => "1084482258689-rlsvbalgtlaqasp7bfbm3ijdlnsj85gf.apps.googleusercontent.com",
+            'client_secret' => "1zjCMeirAGC0p-_RX4aTestl"
+        ],
 		// @todo change webmail of emails
 		'adminEmail'=>'webmaster@rahbod.com',
         'mailTheme'=>
