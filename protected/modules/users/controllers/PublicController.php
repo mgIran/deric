@@ -25,7 +25,7 @@ class PublicController extends Controller
                 'users' => array('@'),
             ),
             array('allow',  // allow all users to perform 'index' and 'views' actions
-                'actions' => array('captcha', 'register', 'login', 'verify', 'forgetPassword', 'changePassword'),
+                'actions' => array('captcha', 'register', 'login', 'googleLogin', 'verify', 'forgetPassword', 'changePassword'),
                 'users' => array('*'),
             ),
             array('deny',  // deny all users
@@ -372,5 +372,14 @@ class PublicController extends Controller
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    public function actionGoogleLogin()
+    {
+        if(isset($_GET['return-url']))
+            Yii::app()->user->returnUrl = $_GET['return-url'];
+        $googleAuth = new GoogleOAuth();
+        $model = new UserLoginForm('OAuth');
+        $googleAuth->login($model);
     }
 }
