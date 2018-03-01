@@ -270,9 +270,7 @@ class SiteController extends Controller
 
     // temporary actions
     public function actionRunSql(){
-        $sql = "ALTER TABLE `ym_user_details`
-DROP COLUMN `avatar`,
-ADD COLUMN `avatar`  varchar(255) NULL AFTER `earning`;";
+        $sql = "";
         $flag = Yii::app()->db->createCommand($sql)
                ->execute();
         var_dump($flag);exit;

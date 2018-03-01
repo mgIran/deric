@@ -13,6 +13,7 @@
  * @property string $status
  * @property string $verification_token
  * @property integer $change_password_request_count
+ * @property integer $auth_mode
  * @property string $repeatPassword
  * @property string $oldPassword
  * @property string $newPassword
@@ -77,6 +78,7 @@ class Users extends CActiveRecord
             array('create_date', 'length', 'max' => 20),
             array('verifyCode', 'activeCaptcha', 'on' => 'create'),
             array('username', 'default', 'value' => ''),
+            array('auth_mode', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('roleId, create_date, status, verification_token, change_password_request_count ,fa_name ,email ,statusFilter', 'safe', 'on' => 'search'),
