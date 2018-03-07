@@ -1,211 +1,119 @@
 <?
 /* @var $this SiteController */
-/* @var $newestProgramDataProvider CActiveDataProvider */
-/* @var $newestGameDataProvider CActiveDataProvider */
-/* @var $newestEducationDataProvider CActiveDataProvider */
-/* @var $suggestedDataProvider CActiveDataProvider */
-/* @var $specialAdvertise SpecialAdvertises */
-/* @var $advertise CActiveDataProvider */
-/* @var $topProgramDataProvider CActiveDataProvider */
-/* @var $bestsellingProgramDataProvider CActiveDataProvider */
+/* @var $dynamicRows RowsHomepage[] */
+/* @var $latestGamesDP CActiveDataProvider */
+/* @var $latestProgramsDP CActiveDataProvider */
+/* @var $topDP CActiveDataProvider */
+/* @var $rows CActiveDataProvider[] */
+/* @var $slider Advertises[] */
+/* @var $specialAd SpecialAdvertises */
 
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/css/owl.carousel.css');
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/css/owl.theme.default.min.css');
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/jquery.mousewheel.min.js');
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/owl.carousel.min.js');
+$slider= null;
 ?>
 
-    <div class="app-box">
-        <div class="top-box">
-            <div class="title pull-right">
-                <h2>جدیدترین برنامه ها</h2>
-            </div>
-            <a class="pull-left btn btn-success more-app" href="<?php echo $this->createUrl('/apps/programs');?>">بیشتر</a>
-        </div>
-        <?php $this->widget('zii.widgets.CListView', array(
-            'dataProvider'=>$newestProgramDataProvider,
-            'id'=>'newest-programs',
-            'itemView'=>'_app_item',
-            'template'=>'{items}',
-            'itemsCssClass'=>'app-carousel'
-        ));?>
-    </div>
-    <div class="app-box">
-        <div class="top-box">
-            <div class="title pull-right">
-                <h2>جدیدترین بازی ها</h2>
-            </div>
-            <a class="pull-left btn btn-success more-app" href="<?php echo $this->createUrl('/apps/games');?>">بیشتر</a>
-        </div>
-        <?php $this->widget('zii.widgets.CListView', array(
-            'id'=>'newest-games',
-            'dataProvider'=>$newestGameDataProvider,
-            'itemView'=>'_app_item',
-            'template'=>'{items}',
-            'itemsCssClass'=>'app-carousel'
-        ));?>
-    </div>
-    <?php if($advertise->totalItemCount):?>
-        <?php $this->widget('zii.widgets.CListView', array(
-            'dataProvider'=>$advertise,
-            'id'=>'advertises',
-            'itemView'=>'_advertise_item',
-            'template'=>'{items}',
-            'itemsCssClass'=>'advertise-carousel'
-        ));?>
-    <?php endif;?>
-    <div class="app-box">
-        <div class="top-box">
-            <div class="title pull-right">
-                <h2>برترین ها</h2>
-            </div>
-            <a class="pull-left btn btn-success more-app" href="<?php echo $this->createUrl('/apps/top');?>">بیشتر</a>
-        </div>
-        <?php $this->widget('zii.widgets.CListView', array(
-            'dataProvider'=>$topProgramDataProvider,
-            'id'=>'top-programs',
-            'itemView'=>'_app_item',
-            'template'=>'{items}',
-            'itemsCssClass'=>'app-carousel'
-        ));?>
-    </div>
-    <div class="app-box">
-        <div class="top-box">
-            <div class="title pull-right">
-                <h2>پرفروش ترین ها</h2>
-            </div>
-            <a class="pull-left btn btn-success more-app" href="<?php echo $this->createUrl('/apps/bestselling');?>">بیشتر</a>
-        </div>
-        <?php $this->widget('zii.widgets.CListView', array(
-            'dataProvider'=>$bestsellingProgramDataProvider,
-            'id'=>'bestselling-programs',
-            'itemView'=>'_app_item',
-            'template'=>'{items}',
-            'itemsCssClass'=>'app-carousel'
-        ));?>
-    </div>
+<?php $this->renderPartial('/site/_slider', compact('advertises')) ?>
+<?php $this->renderPartial('/site/_quick_access') ?>
 
-<?php if($specialAdvertise) {?>
-    <div class="banner-box">
-        <div class="banner-carousel">
-            <div class="banner-item">
-                <a class="absolute-link" href="<?php echo $specialAdvertise->app->getViewUrl();?>"></a>
-                <div class="fade-overly"></div>
-                <?
-                Yii::app()->clientScript->registerCss('fade-overly', "
-                    .content .banner-box .banner-carousel .banner-item{
-                        background-color: {$specialAdvertise->fade_color};
-                    }
-                    .content .banner-box .banner-carousel .banner-item .fade-overly{
-                        background: -moz-linear-gradient(left,{$specialAdvertise->fade_color} 0%, rgba(0,0,0,0) 100%);
-                        background: -webkit-linear-gradient(left, {$specialAdvertise->fade_color} 0%, rgba(0,0,0,0) 100%);
-                        background: -o-linear-gradient(left, {$specialAdvertise->fade_color} 0%, rgba(0,0,0,0) 100%);
-                        background: -ms-linear-gradient(left, {$specialAdvertise->fade_color} 0%, rgba(0,0,0,0) 100%);
-                        background: linear-gradient(to right, {$specialAdvertise->fade_color} 0%, rgba(0,0,0,0) 100%);
-                    }
-                ");
-                ?>
-                <?= $this->renderPartial('/apps/_vertical_app_item', array('data' => $specialAdvertise->app)) ?>
-                <?
-                if($specialAdvertise->cover && file_exists(Yii::getPathOfAlias('webroot').'/uploads/advertisesCover/'.$specialAdvertise->cover)) {
-                    ?>
-                    <img src="<?= $this->createAbsoluteUrl('/uploads/advertisesCover/'.$specialAdvertise->cover) ?>">
-                    <?
-                }
-                ?>
+<?php foreach ($dynamicRows as $dynamicRow):
+    $dp = Apps::model()->findAll($dynamicRow->getConstCriteria(Apps::getValidApps($this->platform)));
+    if($dp):?>
+        <section>
+            <div class="see">
+                <div class="row">
+                    <div class="see-all col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <a class="link-grid" href="#"><span>مشاهده همه</span><span class="grid"></span></a>
+                        <a class="novelty" href="#"><?= $dynamicRow->title ?></a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-<?php }?>
-<!--    <div class="app-box">-->
-<!--        <div class="top-box">-->
-<!--            <div class="title pull-right">-->
-<!--                <h2>تازه های آموزشی</h2>-->
-<!--            </div>-->
-<!--            <a class="pull-left btn btn-success more-app" href="--><?php //echo $this->createUrl('/apps/educations');?><!--">بیشتر</a>-->
-<!--        </div>-->
-<!--        --><?php //$this->widget('zii.widgets.CListView', array(
-//            'id'=>'newest-educations',
-//            'dataProvider'=>$newestEducationDataProvider,
-//            'itemView'=>'_app_item',
-//            'template'=>'{items}',
-//            'itemsCssClass'=>'app-carousel'
-//        ));?>
-<!--    </div>-->
-    <div class="app-box suggested-list">
-        <div class="top-box">
-            <div class="title pull-right">
-                <h2>پیشنهاد ما به شما</h2>
+            <div class="game">
+                <div class="imgs">
+                    <div id="demo2" class="is-carousel"  data-items="8" data-loop="1" data-dots="0" data-nav="1" data-mouse-drag="1" data-responsive='{"1200":{"items":"8"},"992":{"items":"7"},"768":{"items":"4"},"650":{"items":"3"},"0":{"items":"1"}}'>
+                        <?php foreach ($dp as $item):?>
+                        <div class="games-item">
+                            <div class="thumb"><a href="<?= $item->getViewUrl() ?>"><img src="<?php echo Yii::app()->getBaseUrl(true).'/uploads/apps/icons/'.CHtml::encode($item->icon);?>" alt="<?= CHtml::encode($item->title) ?>"></a></div>
+                            <div class="text">
+                                <h5 class="title"><a href="<?= $item->getViewUrl() ?>"><?= CHtml::encode($item->title) ?><span class="paragraph-end"></span></a></h5>
+                                <div class="free">
+                                    <?php if($item->price==0):?>
+                                        <a href="<?php echo Yii::app()->createUrl('/apps/free')?>">رایگان</a>
+                                    <?php else:?>
+                                        <?
+                                        if($item->hasDiscount()):
+                                            ?>
+                                            <span class="text-danger text-line-through center-block"><?= Controller::parseNumbers(number_format($item->price, 0)).' تومان'; ?></span>
+                                            <span ><?= Controller::parseNumbers(number_format($item->offPrice, 0)).' تومان' ; ?></span>
+                                        <?
+                                        else:
+                                            ?>
+                                            <span ><?= $item->price?Controller::parseNumbers(number_format($item->price, 0)).' تومان':'رایگان'; ?></span>
+                                        <?
+                                        endif;
+                                        ?>
+                                    <?php endif;?>
+                                </div>
+                                <div class="star">
+                                    <?= Controller::printRateStars($item->getRate()) ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
-        </div>
-        <?php $this->widget('zii.widgets.CListView', array(
-            'id'=>'newest-educations',
-            'dataProvider'=>$suggestedDataProvider,
-            'itemView'=>'_app_item',
-            'template'=>'{items}',
-            'itemsCssClass'=>'app-carousel'
-        ));?>
-    </div>
-<?
-Yii::app()->clientScript->registerScript('carousels','
-    var owl = $(".app-carousel");
-    owl.owlCarousel({
-        responsive:{
-            0:{
-                items : 2,
-            },
-            410:{
-                items : 3,
-            },
-            580:{
-                items : 3
-            },
-            800:{
-                items : 4
-            },
-            1130:{
-                items : 5
-            },
-            1370:{
-                items : 6
-            }
-        },
-        lazyLoad :true,
-        margin :0,
-        rtl:true,
-        nav:true,
-        dots:false,
-        navText : ["","<span class=\'icon-chevron-left\'></span>"]
-    });
+        </section>
+    <?php endif;
+endforeach;
+?>
 
-    $(".advertise-carousel").owlCarousel({
-        responsive:{
-            0:{
-                items : 1,
-            },
-            410:{
-                items : 2,
-            },
-            580:{
-                items : 4
-            },
-            800:{
-                items : 4
-            },
-            1130:{
-                items : 4
-            },
-            1370:{
-                items : 4
-            }
-        },
-        lazyLoad :true,
-        margin :0,
-        rtl:true,
-        nav:false,
-        dots:true,
-        loop:true,
-        autoplay:true
-    });
-'
-);
+<?php
+
+?>
+<section class="baner">
+    <div class="baner-box">
+        <div class="baner-box-to">
+            <div class="baner-item">
+                <div class="media">
+                    <div class="media-right photo">
+                        <img src="images/baner-small.png" class="media-object media-img">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading"><a href="#">ترن هوایی</a></h5>
+                        <div class="btn downloady"><a href="#">دانلود</a></div>
+                        <p class="text-justify texts hidden-xs hidden-sm">لورم ایپسوم مپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می‌باشد. لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                        <p class="text-justify texts visible-xs">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای ...</p>
+                        <p class="text-justify texts visible-sm">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می‌باشد.</p>
+                        <div class="votes">
+                            <div class="free">رایگان</div>
+                            <div class="star">
+                                <i class="icon"></i>
+                                <i class="icon"></i>
+                                <i class="icon"></i>
+                                <i class="icon"></i>
+                                <i class="icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="details">
+                <div class="det-box">
+                    <span class="glyphicon d-load"></span><span class="text-box">3333 دانلود</span>
+                </div>
+                <div class="det-box hidden-xs hidden-sm hidden-md">
+                    <span class="glyphicon a-roid"></span><span class="text-box">اندروید</span>
+                </div>
+                <div class="det-box hidden-xs">
+                    <span class="glyphicon v-lume"></span><span class="text-box">حجم:33 مگا بایت</span>
+                </div>
+                <div class="det-box">
+                    <a href="#"><span class="glyphicon d-loper"></span>توسعه دهنده</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

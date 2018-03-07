@@ -1,272 +1,718 @@
-@media all and (max-width: 850px) {
-    .sidebar ul.sidebar-dropdown > li{
-        padding-right: 15px;
-    }
-    .sidebar > div > div{
-        padding-right: 40px;
-    }
-    .sidebar > div [class*="icon-"]{
-        right: 10px;
-    }
-}
-@media all and (max-width: 991px) {
-    header {
-        background-color: #fff;
-    }
-    .main{
-        width: 100% !important;
-    }
-    .logo-box {
-        width: 240px;
-    }
-
-    .os-menu{
-        display: block;
-    }
-    .os-menu > div {
+@media screen and (max-width: 767px) {
+    .header{
         position: relative;
+        height: 165px;
+    }
+    .header .navbar-header .sisen-brand{
         padding: 0;
+    }
+    .header .navbar-header .sisen-brand h5{
+        font-size: 10px;
+    }
+    .header .icons .icon-android,
+    .header .icons .icon-ios,
+    .header .icons .lists{
+        width: 33.333%;
+        float: right;
+    }
+    .header .icons .icon-android, .header .icons div a h5{
+        font-size: 12px;
+    }
+    .header .icons .lists{
         margin: 0;
-        height: 45px;
-        line-height: 45px;
     }
-    .nav-tabs > li > a{
-        padding: 10px 5px;
+    .header .icons,
+    .header .guide{
+        background: #00381f;
+        padding: 0 10px;
     }
-    .content{
-        margin-top: 140px;
+    .header .guide .guide-user .downloader .download .download-sisen h5{
+        font-size: 13px;
     }
-}
-@media all and (max-width: 767px) {
-    .app-inner .owl-theme.owl-rtl .owl-stage-outer{
-        overflow-x: scroll !important;
+    .header .hide-menu{
+        width: 100%;
+        right: 0;
+        top: 112px;
     }
-    .content .app-box .app-item{
-        min-width: auto;
-        max-width: none;
-        padding: 0 5px;
+    .header .guide .hide-search{
+        left: 0;
+        width: 100%;
     }
-    .content .app-box .app-item .app-item-content{
-        min-height:220px;
+    .slider{
+        height: 190px;
     }
-    .content .app-box .app-item .pic{
-        padding: 3px;
-        min-width:auto;
-        max-width:none;
-        min-height:auto;
-        max-height:none;
+    .slider #mycarousel .owl-theme .item img{
+        height: 190px;
     }
-    .content .app-box .app-item .pic > div img{
-        width:100%;
+    .slider .item .carousel-caption{
+        bottom: 10px;
     }
-    .content .app-box .app-item .detail .app-title{
-        white-space:normal;
-    }
-    .content .app-box .app-item .detail .app-title .paragraph-end{
-        display: none;
-    }
-    .content .app-box .app-item .detail .app-any .app-rate{
-        display: none;
-    }
-    .footer .nav li.copyright{
-        display: none;
-    }
-    .footer nav{
+    .buttons .buttons-container{
+        padding: 0;
+        height: auto;
         overflow: hidden;
     }
-    .rahbod{
-        float: none !important;
+    .buttons .item{
+        width: 70%;
+        margin: 0 0 10px 0;
+    }
+    .buttons .item .item-link{
+        line-height: 77px;
+    }
+    .see .see-all{
+        margin: 20px 0;
+        padding: 0 30px;
+    }
+    .game .owl-carousel .owl-controls .owl-nav .owl-next,
+    .game .owl-carousel .owl-controls .owl-nav .owl-prev{
+        top: 65px;
+    }
+    .game{
+        height: 265px;
+        padding: 10px 0;
+    }
+    .game .imgs{
+        height: 245px;
+    }
+    .baner{
+        margin: 50px 4px;
+    }
+    .baner .baner-box{
+        border: 1px solid #00381d;
+        height: auto;
+        border-radius: 20px;
+    }
+    .baner .baner-box .baner-box-to{
+        float: none;
+        margin: 0;
+        width: 100%;
+        border-radius: 20px;
+    }
+    .baner .baner-box .baner-box-to .baner-item{
+        height: auto;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .photo{
+        padding: 10px;
         display: block;
-        text-align: center;
-        margin-top: 20px;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .photo .media-img{
+        height: 130px;
+        display: block;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media{
+        position: relative;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .downloady{
+        position: absolute;
+        top: 44%;
+        left: 25%;
+        width: 25%;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .media-heading{
+        position: absolute;
+        top: 0;
+        right: 50%;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .texts{
+        margin: 0 10px;
+        line-height: 22px;
+    }
+    .baner .baner-box .baner-box-to .details .det-box{
+        width: auto;
+        margin: 15px;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .votes {
+        position: absolute;
+        top: 50px;
+        right: 50%;
+        width: 31%;
+        height: 20%;
+    }
+    .baner .baner-box .baner-box-to{
+        height: 100%;
+    }
+    .baner .baner-box .baner-box-to .details{
+        position: relative;
+        padding: 0 38px;
+        bottom: 0;
+    }
+    .baner .baner-box .baner-box-to .details .det-box .d-load,
+    .baner .baner-box .baner-box-to .details .det-box .v-lume,
+    .baner .baner-box .baner-box-to .details .det-box .d-loper{
+        background-size: 19px;
+        width: 19px;
+        height: 19px;
+        margin-left: 1px;
+    }
+    .baner .baner-box .baner-box-to .details .det-box .text-box{
+        font-size: 11px;
     }
     .footer{
         position: relative;
-        margin-top: 20px;
-        clear: both;
+        overflow: hidden;
     }
-    .main,
-    .main-inner{
-        padding-bottom: 0;
+    .footer .logo img{
+        height: 90px;
     }
-    .tab-content{
-        padding: 30px 0;
+    .footer .arm .arm-nahad{
+        width: 46%;
     }
-    .packages-list-container{
-        padding:0;
+    .footer .social .social-il{
+        width: 59%;
     }
-    #packages-list .btn-info{
-        margin-top: 15px;
-        padding: 5px;
-        display: block;
+    .footer .menu-footer{
+        width: 33%;
+        font-size: 11px;
+        padding: 0;
     }
-    .os-menu{
-        top: 60px;
-    }
-    .os-menu > div > a [class*="icon-"]{
-        margin-right: 0;
-        left:50%;
-        right:auto;
-        -webkit-transform: translateX(-50%);
-        -moz-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-        -o-transform: translateX(-50%);
-        transform: translateX(-50%);
-    }
-    .app-carousel .owl-item {
+    .footer .menu-footer li{
+        padding: 0 10px;
+        line-height: 30px;
+        float: none;
+        border: none;
         text-align: center;
     }
-    .app-carousel .app-item {
-        float: none !important;
-    }
-    .logo-box {
-        width: 200px;
-    }
-    header ,
-    header .logo-box,
-    header .mobile-nav,
-    header .mobile-nav.nav > li{
-        height: 60px;
-    }
-    header .logo-box img{
-        height: 50px;
-    }
-    .mobile-search form#mobile-search-form{
-        height: 60px;
-        padding:0;
-    }
-    .mobile-search .form-group input{
-        height: 60px;
-        padding: 0 45px;
-    }
-    .app-like{
-        margin-top: 20px;
-        margin-bottom: 20px;
-        padding: 0 45px;
-    }
-    .app-inner{
-        padding: 15px 10px !important;
-    }
-    .app-inner .app-body > .app-details > .detail{
-        padding-left: 35px;
-    }
-    .content{
-        margin-top:110px;
-        padding-bottom: 0;
-    }
-    .app-inner .pic{
+    .user-footer .menu{
         width: 100%;
-        float: none;
+        margin: 0;
+        display: block;
     }
-    .app-inner .app-heading {
-        position: relative;
+    .user-footer .menu .menu-footer{
+        width: 30%;
+        margin-top: 20px;
+    }
+    .user-footer .menu .menu-footer li{
+        float: right;
+        width: 100%;
+        display: block;
+    }
+    .user-footer .copyright{
         right: 0;
     }
-    .app-inner .app-heading > h2{
-        font-size: 1.5em;
-    }
-    .app-inner .app-body{
-        margin-top: 0;
-    }
-    .header-links{
+    .header .guide .login-panel{
+        left: 0;
         width: 100%;
+    }
+    .register-page .register-container{
+        width: 100%;
+    }
+    .register-page .register-page-to{
+        width: 90%;
+    }
+    .register-page{
+        position: relative;
+        height: auto;
+    }
+    .register-footer{
+        position: relative;
+    }
+    .register-page .register-page-to .robat .checkbox-line{
+        width: 71%;
+    }
+    .game-gallery{
+        height: auto;
+        position: relative;
+        overflow: hidden;
+        float: right;
         padding: 0;
-        height: 30vh;
-        display: table-row;
     }
-    .header-links a{
-        float: none;
-        display: table-cell;
-        width: 1%;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 1.4em;
+    .game-gallery .img-gallery{
+        padding: 0;
+        height: auto;
     }
-    #login-page .logo-box {
+    .game-gallery .img-gallery .gallery .games-item{
+        width: 49%;
+        padding: 5px;
+        margin: 10px 0;
+    }
+    .game-title{
+        margin: 50px 0 20px 0;
+    }
+    .game-images{
+        margin: 0 20px;
+    }
+    .text-p{
+        padding: 0 20px;
+    }
+    .changes .last-change .opinion{
         width: 100%;
     }
-    #login-page .login-form{
+    .changes .last-change .opinion .opinion-to .opinion-item .like .like-down a,
+    .changes .last-change .opinion .opinion-to .opinion-item .like .like-up a{
+        padding: 0 5px;
+    }
+    .changes .access .rating-container{
+        margin-right: 0;
+    }
+    .changes .access .rating-container .inner{
+        padding: 0;
+    }
+    .changes .access .rating-container .inner .rating{
+        margin-right: 0;
+        width: 50%;
+    }
+    .changes .access .rating-container .inner .rating .rating-stars{
+        font-size: 8px;
+    }
+    .changes .access .rating-container .inner .rating .rating-users {
+        margin-top: 15px;
+    }
+    .changes{
+        padding: 0 20px;
+    }
+    .changes .access{
+        padding: 0;
+        margin-top: 20px;
+    }
+    .changes .access h5{
+        padding-right: 10px;
+    }
+    .changes .access ul{
+        padding-right: 20px;
+    }
+    .changes .last-change .opinion .opinion-to .opinion-item .like .like-down{
+        margin-bottom: 2px;
+    }
+    .changes .last-change .opinion .opinion-to .opinion-item p{
+        margin: 10px 0;
+    }
+    .changes .last-change .scoring .last{
+        line-height: 20px;
+    }
+    .changes .access .baner-two{
+        margin-bottom: 25px;
+    }
+    .changes .access .baner-two .baner-box{
+        height: auto;
+    }
+    .baner-two .baner-box .baner-box-to .details .det-box{
+        margin: 12px;
+    }
+    .changes .access .baner-two .baner-box .baner-box-to .baner-item{
+        height: auto;
+    }
+    .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .votes{
+        width: 32%;
+        height: 18%;
+    }
+    .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .texts{
+        line-height: 26px;
+    }
+    .baner-two .baner-box .baner-box-to .baner-item .media .media-body .downloady{
+        top: 44%;
+        width: 27%;
+        left: 23%;
+    }
+    .media-game .media-game-to .img-media{
+        width: 65%;
+        display: block;
+        padding: 0;
+    }
+    .media-game .media-game-to .media-b, .media-game .media-game-to .media-b2{
         width: 100%;
-        min-width:auto;
     }
-}
-@media all and (max-width: 650px) {
-    .nav.nav-tabs{
-        margin-top: 30px;
+    .media-game .media-game-to .media-b{
+        margin-top: 15px;
     }
-}
-@media all and (max-width: 400px) {
-    header .mobile-nav.nav > li{
-        width: 40px;
+    .media-game .media-game-to .media-dn{
+        display: block;
+        width: auto;
+        height: 0;
     }
-    .content .app-box .app-carousel{
-        text-align: center;
+    .media-game .media-game-to .media-dn .downloady{
+        padding: 9px 0;
     }
-    .content .app-box .app-carousel .app-item{
+    .game-images .father-scroll{
+        overflow: hidden;
+        width: 100%;
+    }
+    .game-images .game-images-to{
+        width: 100%;
+        height: auto;
+    }
+    .game-images .game-images-to .img-scroll{
         float: none;
     }
-    .hidden-phone{
-        display: none;
-    }
-}
-@media all and (max-width: 330px) {
-    .mobile-navbar.navbar{
-        width: 250px;
-    }
-    header .mobile-nav.nav > li{
-        width: 40px;
-    }
-    .content .app-box .app-carousel{
-        text-align: center;
-    }
-    .content .app-box .app-carousel .app-item{
-        float: none;
-    }
-    .hidden-phone{
-        display: none;
-    }
+
 }
 
-@media all and (min-width: 768px) {
-    .footer{
-        max-height: 80px !important;
-        overflow: hidden !important;
+@media (min-width: 768px) and (max-width: 991px) {
+    .header .navbar-header .sisen-brand{
+        padding: 0;
     }
-    .sidebar {
+    .header .navbar-header .sisen-brand .visible-sm{
+        display: inline-block !important;
+        font-size: 13px;
+    }
+    .header .icons .icon-android, .header .icons .icon-ios,
+    .header .icons .icon-android, .header .icons .icon-android,
+    .header .icons .lists{
+         width: 28%;
+    }
+    .header .icons .icon-android h5,
+    .header .icons .icon-ios h5,
+    .header .icons .lists h5{
+        font-size: 13px;
+    }
+    .header .guide{
+        padding: 0;
+    }
+    .header .guide .guide-user .user{
+        left: 0;
+        top: 0;
+        width: 23%;
+    }
+    .header .guide .guide-user .search-user{
+        width: 23%;
+    }
+    .header .guide .login-proces{
+        width: 75%;
+    }
+    .header .guide .guide-user .downloader{
+        width: 44%;
+    }
+    .header .guide .guide-user .downloader .download .download-sisen h5{
+        margin: 1px 4px;
+        width: 57%;
+        font-size: 12px;
+        line-height: 14px;
+    }
+    .header .guide .guide-user .downloader .download .download-sisen img{
+        bottom: 14px;
+    }
+    .header .guide .hide-search{
+        width: 100%;
+        left: 0;
+        margin-left: 2px;
+    }
+    .header .guide .hide-search form{
+        overflow: hidden;
+        height: 49px;
+    }
+    .header .guide .hide-search form .text-search{
+        width: 75%;
+    }
+    .header .guide .hide-search form .link-svg-search{
+        width: 25%;
+    }
+    .header .guide .hide-search form .link-svg-search .svg-search{
+        background-size: 26px;
+        width: 26px;
+        height: 26px;
+    }
+    .header .hide-menu{
+        right: 40%;
+    }
+    .buttons .buttons-container{
+        padding: 0;
+    }
+    .buttons .item{
+        width: 19%;
+        margin: 0;
+    }
+    .baner {
+        margin: 50px 20px;
+    }
+    .baner .baner-box .baner-box-to{
+        margin: 15px;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .photo {
+        padding: 10px;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .photo .media-img{
+        height: 135px;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .texts{
+        line-height: 20px;
+
+    }
+    .baner .baner-box .baner-box-to .baner-item{
+        height: 240px;
+    }
+    .baner .baner-box .baner-box-to .details .det-box{
+        width: 32%;
+        margin: 9px 0 10px 0;
+    }
+    .baner .baner-box .baner-box-to .details .det-box .text-box{
+        font-size: 11px;
+    }
+    .baner .baner-box .baner-box-to .details .det-box .v-lume{
+        margin-left: 1px;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .votes{
+        line-height: 30px;
+        width: 26%;
+    }
+    .footer .arm .arm-nahad{
+        width: 19%;
+    }
+    .footer .social .social-il {
+        width: 24%;
+    }
+    .footer .menu-footer{
+        width: 72%;
+    }
+    .consumer .hrefs .dashbord .dashbord-body .db-to-2{
+        display: block;
+        float: none;
+    }
+    .consumer .panel .collapse-one{
+        padding: 15px 10px;
+    }
+    .header .guide .login-panel{
+        left: 5px;
+        width: 155%;
+    }
+    .user-footer .menu{
+        right: 19%;
+    }
+    .user-footer .copyright{
+        right: 28%;
+    }
+    .register-page .register-page-to{
+        width: 90%;
+    }
+    .register-page .register-page-to{
+        margin: 30px auto 90px auto;
+    }
+    .game-gallery{
+        height: auto;
+        position: relative;
+        overflow: hidden;
+    }
+    .game-gallery .img-gallery {
+        padding: 0 12px;
+        height: auto;
+    }
+    .game-gallery .img-gallery .gallery .games-item {
+        width: 24.5%;
+        padding: 10px;
+    }
+    .media-game .media-game-to{
+        padding: 20px 0;
+    }
+    .media-game .media-game-to .media-dn{
         width: 20%;
     }
-
-    .logo-box {
-        width: 20%;
+    .media-game .media-game-to .media-dn .downloady{
+        width: 80%;
+        padding: 11px 0;
     }
-
-    #login-page .logo-box {
+    .media-game .media-game-to .media-b,
+    .media-game .media-game-to .media-b2{
+        width: 25%;
+    }
+    .media-game .media-game-to .img-media{
+        width: 27%;
+    }
+    .changes .last-change .scoring .last{
+        line-height: 20px;
+    }
+    .changes .access .rating-container{
+        margin-right: 0;
+    }
+    .changes .access .rating-container .inner{
+        padding: 1em 0;
+    }
+    .changes .access .rating-container .inner .rating{
+        width: 41%;
+        margin-right: 9%;
+    }
+    .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .texts{
+        line-height: 18px;
+        width: 315px;
+        margin: 0 7px;
+    }
+    .baner .baner-box .baner-box-to .details .det-box{
+        margin: 0;
+    }
+    .media-body, .media-left, .media-right{
+        display: block;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .media-heading{
+        position: absolute;
+        top: 0;
+        right: 50%;
+    }
+    .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .votes{
+        position: absolute;
+        top: 18%;
+        height: 25%;
+        right: 50%;
+        width: 29%;
+    }
+    .baner-two .baner-box .baner-box-to .baner-item .media .media-body .downloady{
+        position: absolute;
+        top: 46%;
+        left: 25%;
+        width: 25%;
+        padding: 5px 6px;
+    }
+    .baner-two .baner-box .baner-box-to .details{
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+    }
+    .baner-two .baner-box .baner-box-to .details .det-box{
+        width: 49%;
+        padding-bottom: 5px;
+    }
+    .changes .last-change .opinion .opinion-to .opinion-item .like .liked{
+        margin-bottom: 2px;
+    }
+    .changes .last-change .opinion .opinion-to .opinion-item p{
+        margin: 10px 0;
+    }
+    .game-images{
+        margin: 0 10px;
+    }
+    .game-images .father-scroll{
         width: 100%;
     }
+
 }
 
-@media all and (min-width: 992px) {
-    .navbar ,
-    .main{
+@media (min-width: 992px) and (max-width: 1200px) {
+    .header .navbar-header .sisen-brand{
+        padding: 0;
+    }
+    .header .navbar-header .sisen-brand h5{
+        font-size: 10px;
+    }
+    .header .icons .icon-ios{
+        width: 25%;
+    }
+    .header .guide{
+        padding: 0;
+    }
+    .header .guide .guide-user .user,
+    .header .guide .guide-user .search-user{
+        width: 20%;
+    }
+    .header .guide .guide-user .downloader .download .download-sisen img{
+        right: 5px;
+    }
+    .header .guide .guide-user .downloader .download .download-sisen h5{
+        font-size: 12px;
+        margin: 0;
+        line-height: 40px;
+        padding-right: 4px;
+    }
+    .header .guide .guide-user .downloader{
+        width: 55%;
+    }
+    .header .guide .hide-search{
+        width: 100%;
+        left: 5px;
+    }
+    .header .guide .hide-search form .text-search{
         width: 80%;
     }
-    .app{
-        width: 65%;
-    }
-    .app-like{
-        width: 35%;
+    .buttons .buttons-container{
         padding: 0;
-        padding-left: 20px;
     }
-    .col-md-offset-1{
-        margin-right: 8.33333%;
+    .buttons .item{
+        margin: 0 10px;
     }
-    .col-md-offset-2{
-        margin-right: 16.6667%;
+    .baner .baner-box .baner-box-to .baner-item .media .photo .media-img{
+        height: 125px;
     }
-    .col-md-offset-3{
-        margin-right: 25%;
+    .baner .baner-box .baner-box-to .baner-item .media .photo{
+        padding: 12px;
     }
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .texts{
+        line-height: 20px;
+    }
+    .baner .baner-box .baner-box-to .details .det-box{
+        margin: 20px 0 12px 0;
+        width: 32%;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .votes{
+        width: 23%;
+        right: 13px;
+        line-height: 2;
+    }
+    .footer .arm .arm-nahad{
+        width: 15%;
+    }
+    .footer .social .social-il {
+        width: 19%;
+    }
+    .footer .menu-footer{
+        width: 55%;
+    }
+    .header .guide .login-panel{
+        width: 120%;
+        left: 15px;
+    }
+    .register-page .register-page-to{
+        margin: 30px auto 90px auto;
+    }
+    .game-gallery .img-gallery .gallery .games-item{
+        padding: 6px;
+    }
+    .game-gallery .img-gallery{
+        padding: 0;
+    }
+    .media-game .media-game-to .media-dn{
+        width: 20%;
+    }
+    .media-game .media-game-to .media-dn .downloady{
+        width: 70%;
+    }
+    .media-game .media-game-to .img-media{
+        width: 22%;
+    }
+    .media-game .media-game-to .media-b,
+    .media-game .media-game-to .media-b2{
+        width: 28%;
+    }
+    .changes .access .rating-container{
+        margin-right: 2em;
+    }
+    .changes .last-change .scoring .last{
+        line-height: 22px;
+    }
+    .changes .access .baner-two .baner-box{
+        height: auto;
+        overflow: hidden;
+    }
+    .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .texts{
+        line-height: 20px;
+    }
+    .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .votes{
+        width: 22%;
+    }
+    .changes .last-change .opinion .opinion-to .opinion-item .like .like-down a,
+    .changes .last-change .opinion .opinion-to .opinion-item .like .like-up a{
+        padding: 0 8px;
+    }
+    .changes .access .baner-two {
+        margin: 75px 0 0 0;
+    }
+    .register-page .register-page-to .robat .logo img{
+        width: 100%;
+        margin: 11px 0;
+    }
+    .register-page .register-page-to .robat .checkbox-line label {
+        margin: 26px 11px;
+    }
+    .game-images{
+        margin: 0 10px;
+    }
+    .game-images .father-scroll{
+        width: 100%;
+    }
+
 }
-@media all and (min-width: 1200px) {
+
+@media (min-width: 1200px){
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .texts{
+        line-height: 23px;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .votes {
+        width: 29%;
+        right: 20px;
+        bottom: -4px;
+    }
 }

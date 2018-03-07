@@ -2,8 +2,6 @@
 Yii::setPathOfAlias('chartjs', dirname(__FILE__).'/../extensions/yii-chartjs');
 Yii::setPathOfAlias('ApkParser', dirname(__FILE__).'/../vendor/ApkParser');
 return array(
-    //'onBeginRequest'=>create_function('$event', 'return ob_start("ob_gzhandler");'),
-    //'onEndRequest'=>create_function('$event', 'return ob_end_flush();'),
 	'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'سیسن اپ',
     'timeZone' => 'Asia/Tehran',
@@ -17,14 +15,15 @@ return array(
         'application.vendor.*',
         'application.models.*',
 		'application.components.*',
+        'ext.yiiSortableModel.models.*',
 		'application.modules.setting.models.*',
 		'application.modules.users.models.*',
-		'application.modules.users.components.*'
+		'application.modules.users.components.*',
+		'ext.dropZoneUploader.UploadedFiles',
 	),
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'1',
@@ -39,6 +38,7 @@ return array(
         'manageApps',
 		'tickets',
 		'advertises',
+		'rows',
 		'comments'=>array(
 			//you may override default config for all connecting models
 			'defaultModelConfig' => array(
@@ -109,13 +109,13 @@ return array(
 				'BooksFiles' => false,
 			)
 		),
-		'session' => array(
-			'class' => 'YmDbHttpSession',
-			'autoStart' => false,
-			'connectionID' => 'db',
-			'sessionTableName' => 'ym_sessions',
-			'timeout' => 1800
-		),
+//		'session' => array(
+//			'class' => 'YmDbHttpSession',
+//			'autoStart' => false,
+//			'connectionID' => 'db',
+//			'sessionTableName' => 'ym_sessions',
+//			'timeout' => 1800
+//		),
 		'mellat' => array(
 			'class'=> 'ext.mellatPayment.MellatPayment',
 			'terminalId' => '',

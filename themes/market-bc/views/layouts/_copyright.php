@@ -1,0 +1,1 @@
+&copy; <?php echo date('Y');?> <strong>Sisen App</strong>. All rights reserved.

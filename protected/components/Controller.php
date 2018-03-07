@@ -42,6 +42,34 @@ class Controller extends CController
     public $app = NULL;
     public $active_gateway = NULL;
 
+    public $quickAccesses = [
+        [
+            'label' => 'بازی های هیجانی',
+            'url' => '/',
+            'img' => 'Untitled-1.png',
+        ],
+        [
+            'label' => 'بازی های ترسناک',
+            'url' => '/',
+            'img' => 'Untitled-2.png',
+        ],
+        [
+            'label' => 'پلیر ویدیو 360 درجه',
+            'url' => '/',
+            'img' => 'Untitled-3.png',
+        ],
+        [
+            'label' => 'ترن هوایی',
+            'url' => '/',
+            'img' => 'Untitled-4.png',
+        ],
+        [
+            'label' => 'گردشگری',
+            'url' => '/',
+            'img' => 'Untitled-5.png',
+        ],
+    ];
+
     public function init()
     {
         parent::init();
@@ -122,7 +150,6 @@ class Controller extends CController
                         array('label' => '<i class="fa fa-circle-o"></i>تخفیفات اندروید', 'url' => Yii::app()->createUrl('/manageApps/android/discount/')),
                         array('label' => '<i class="fa fa-circle-o"></i>تخفیفات آی او اس', 'url' => Yii::app()->createUrl('/manageApps/ios/discount/')),
 //                        array('label' => '<i class="fa fa-circle-o"></i>بخش ویندوز فون', 'url' => Yii::app()->createUrl('/manageApps/windowsphone/admin/')),
-                        array('label' => '<i class="fa fa-circle-o"></i>تبلیغات', 'url' => Yii::app()->createUrl('/advertises/manage/admin/')),
                         array('label' => '<i class="fa fa-circle-o"></i>نظرات', 'url' => Yii::app()->createUrl('/comments/comment/adminApps')),
                     )
                 ),
@@ -137,6 +164,17 @@ class Controller extends CController
                     )
                 ),
                 array(
+                    'label' => '<i class="fa fa-ticket"></i><span>تبلیغات</span> <i class="fa fa-angle-left pull-left"></i>',
+                    'url' => '#',
+                    'itemOptions' => array('class' => 'treeview', 'tabindex' => "-1"),
+                    'submenuOptions' => array('class' => 'treeview-menu'),
+                    'items' => array(
+                        array('label' => '<i class="fa fa-circle-o"></i>تبلیغات معمولی', 'url' => Yii::app()->createUrl('/advertises/manage/admin/')),
+                        array('label' => '<i class="fa fa-circle-o"></i>تبلیغات ویژه', 'url' => Yii::app()->createUrl('/advertises/manage/adminSpecial/')),
+                        array('label' => '<i class="fa fa-circle-o"></i>تبلیغات داخل برنامه', 'url' => Yii::app()->createUrl('/advertises/manage/adminInApp/')),
+                    )
+                ),
+                array(
                     'label' => '<i class="fa fa-money"></i><span>امور مالی</span> <i class="fa fa-angle-left pull-left"></i>',
                     'url' => '#',
                     'itemOptions' => array('class' => 'treeview', 'tabindex' => "-1"),
@@ -146,6 +184,16 @@ class Controller extends CController
                         array('label' => '<i class="fa fa-circle-o"></i>گزارش فروش', 'url' => Yii::app()->createUrl('/apps/reportSales')),
                         array('label' => '<i class="fa fa-circle-o"></i>گزارش درآمد', 'url' => Yii::app()->createUrl('/apps/reportIncome')),
                         array('label' => '<i class="fa fa-circle-o"></i>ریز تراکنش ها', 'url' => Yii::app()->createUrl('/apps/transactions')),
+                    )
+                ),
+                array(
+                    'label' => '<i class="fa fa-bars"></i><span>ردیف های داینامیک</span> <i class="fa fa-angle-left pull-left"></i>',
+                    'url' => '#',
+                    'itemOptions' => array('class' => 'treeview', 'tabindex' => "-1"),
+                    'submenuOptions' => array('class' => 'treeview-menu'),
+                    'items' => array(
+                        array('label' => '<i class="fa fa-circle-o"></i>مدیریت ردیف های دلخواه', 'url' => Yii::app()->createUrl('/rows/manage/admin')),
+                        array('label' => '<i class="fa fa-circle-o"></i>مدیریت ردیف های ثابت', 'url' => Yii::app()->createUrl('/rows/manage/const')),
                     )
                 ),
                 array(

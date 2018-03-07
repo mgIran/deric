@@ -27,126 +27,54 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        Yii::import('rows.models.*');
         Yii::app()->theme = 'market';
         $this->layout = '//layouts/public';
 
-        // get newest programs
+        /* last data query
+         // get newest programs
         $catIds = AppCategories::model()->getCategoryChilds(1);
-        $criteria = new CDbCriteria();
-        $criteria->with = 'images';
-        $criteria->addInCondition('category_id', $catIds);
-        $criteria->addCondition('platform_id=:platform_id');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->params[':platform_id'] = $this->platform;
-        $criteria->params[':status'] = 'enable';
-        $criteria->params[':confirm'] = 'accepted';
-        $criteria->params[':deleted'] = 0;
-        $criteria->limit = 20;
-        $criteria->order = 'id DESC';
-        $newestProgramDataProvider = new CActiveDataProvider('Apps', array('criteria' => $criteria));
+        $criteria = Apps::getValidApps($this->platform, $catIds);
+        $newestProgramDP = new CActiveDataProvider('Apps', array('criteria' => $criteria));
 
         // get newest games
         $catIds = AppCategories::model()->getCategoryChilds(2);
-        $criteria = new CDbCriteria();
-        $criteria->addInCondition('category_id', $catIds);
-        $criteria->addCondition('platform_id=:platform_id');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->params[':platform_id'] = $this->platform;
-        $criteria->params[':status'] = 'enable';
-        $criteria->params[':confirm'] = 'accepted';
-        $criteria->params[':deleted'] = 0;
-        $criteria->limit = 20;
-        $criteria->order = 'id DESC';
+        $criteria = Apps::getValidApps($this->platform, $catIds);
         $newestGameDataProvider = new CActiveDataProvider('Apps', array('criteria' => $criteria));
 
 //        // get newest educations
 //        $catIds = AppCategories::model()->getCategoryChilds(3);
-//        $criteria = new CDbCriteria();
-//        $criteria->addInCondition('category_id', $catIds);
-//        $criteria->addCondition('platform_id=:platform_id');
-//        $criteria->addCondition('status=:status');
-//        $criteria->addCondition('confirm=:confirm');
-//        $criteria->addCondition('deleted=:deleted');
-//        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-//        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-//        $criteria->params[':platform_id'] = $this->platform;
-//        $criteria->params[':status'] = 'enable';
-//        $criteria->params[':confirm'] = 'accepted';
-//        $criteria->params[':deleted'] = 0;
-//        $criteria->limit = 20;
-//        $criteria->order = 'id DESC';
+//        $criteria = Apps::getValidApps($this->platform, $catIds);
 //        $newestEducationDataProvider = new CActiveDataProvider('Apps', array('criteria' => $criteria));
 
         // get suggested list
         $visitedCats = CJSON::decode(base64_decode(Yii::app()->request->cookies['VC']));
-        $criteria = new CDbCriteria();
-        $criteria->addInCondition('category_id', $visitedCats);
-        $criteria->addCondition('platform_id=:platform_id');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->order = 'install DESC, seen DESC';
-        $criteria->params[':platform_id'] = $this->platform;
-        $criteria->params[':status'] = 'enable';
-        $criteria->params[':confirm'] = 'accepted';
-        $criteria->params[':deleted'] = 0;
-        $criteria->limit = 20;
-        $criteria->order = 'id DESC';
+        $criteria = Apps::getValidApps($this->platform, $visitedCats);
         $suggestedDataProvider = new CActiveDataProvider('Apps', array('criteria' => $criteria));
 
         // get top programs
         $catIds = AppCategories::model()->getCategoryChilds(1);
-        $criteria = new CDbCriteria();
+        $criteria = Apps::getValidApps($this->platform, $catIds);
         $criteria->select = 't.*, AVG(ratings.rate) as avgRate';
+        $criteria->addCondition('ratings.rate IS NOT NULL');
         $criteria->with = array('images', 'ratings');
         $criteria->together = true;
-        $criteria->addInCondition('category_id', $catIds);
-        $criteria->addCondition('platform_id=:platform_id');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->addCondition('ratings.rate IS NOT NULL');
-        $criteria->params[':platform_id'] = $this->platform;
-        $criteria->params[':status'] = 'enable';
-        $criteria->params[':confirm'] = 'accepted';
-        $criteria->params[':deleted'] = 0;
-        $criteria->limit = 20;
         $criteria->order = 'avgRate DESC, t.id DESC';
         $criteria->group = 't.id';
         $topProgramDataProvider = new CActiveDataProvider('Apps', array('criteria' => $criteria));
 
         // get bestselling programs
         $catIds = AppCategories::model()->getCategoryChilds(1);
-        $criteria = new CDbCriteria();
+        $criteria = Apps::getValidApps($this->platform, $catIds);
         $criteria->with = array('images', 'appBuys' => array('joinType' => 'RIGHT OUTER JOIN'));
         $criteria->together = true;
-        $criteria->addInCondition('category_id', $catIds);
-        $criteria->addCondition('platform_id=:platform_id');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->params[':platform_id'] = $this->platform;
-        $criteria->params[':status'] = 'enable';
-        $criteria->params[':confirm'] = 'accepted';
-        $criteria->params[':deleted'] = 0;
-        $criteria->limit = 20;
         $criteria->order = 'COUNT(appBuys.id) DESC';
         $criteria->group = 'appBuys.app_id';
         $bestsellingProgramDataProvider = new CActiveDataProvider('Apps', array('criteria' => $criteria));
+         */
+
+        // const rows
+        $dynamicRows = RowsHomepage::model()->findAll(RowsHomepage::getActiveRows());
 
         // get special advertise
         Yii::import('advertises.models.*');
@@ -154,17 +82,18 @@ class SiteController extends Controller
         $criteria = new CDbCriteria;
         $criteria->addCondition('status = 1');
         $criteria->order = 'create_date DESC';
-        $advertises=new CActiveDataProvider('Advertises', array('criteria'=>$criteria));
+        $advertises = Advertises::model()->findAll($criteria);
 
-        $this->render('index', array(
-            'newestProgramDataProvider' => $newestProgramDataProvider,
-            'newestGameDataProvider' => $newestGameDataProvider,
-//            'newestEducationDataProvider' => $newestEducationDataProvider,
-            'suggestedDataProvider' => $suggestedDataProvider,
-            'specialAdvertise' => $specialAdvertise,
-            'advertise' => $advertises,
-            'topProgramDataProvider' => $topProgramDataProvider,
-            'bestsellingProgramDataProvider' => $bestsellingProgramDataProvider,
+        $this->render('index', compact(
+//            'newestProgramDataProvider',
+//            'newestGameDataProvider',
+////            'newestEducationDataProvider' => $newestEducationDataProvider,
+//            'suggestedDataProvider',
+//            'specialAdvertise',
+//            'topProgramDataProvider',
+//            'bestsellingProgramDataProvider',
+            'advertises',
+            'dynamicRows'
         ));
     }
 

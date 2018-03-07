@@ -133,8 +133,7 @@ class Apps extends CActiveRecord
 			'bookmarker' => array(self::MANY_MANY, 'Users', 'ym_user_app_bookmark(app_id,user_id)'),
 			'packages' => array(self::HAS_MANY, 'AppPackages', 'app_id'),
 			'ratings' => array(self::HAS_MANY, 'AppRatings', 'app_id'),
-			'specialAdvertise' => array(self::BELONGS_TO, 'SpecialAdvertises', 'id'),
-			'advertise' => array(self::BELONGS_TO, 'Advertises', 'id'),
+			'advertise' => array(self::BELONGS_TO, 'AppAdvertises', 'id'),
 		);
 	}
 
@@ -352,7 +351,7 @@ class Apps extends CActiveRecord
 	 * @param array $visitedCats
 	 * @return CDbCriteria
 	 */
-	public function getValidApps($platform = null, $visitedCats = array())
+	public static function getValidApps($platform = null, $visitedCats = array())
 	{
 		$criteria = new CDbCriteria();
 		$criteria->addCondition('t.status=:status');
@@ -366,11 +365,11 @@ class Apps extends CActiveRecord
 		if($visitedCats)
 			$criteria->addInCondition('category_id', $visitedCats);
 		if($platform) {
-			$criteria->addCondition('platform_id=:platform_id');
+			$criteria->addCondition('t.platform_id=:platform_id');
 			$criteria->params[':platform_id'] = $platform;
 		}
 
-		$criteria->order = 'id DESC';
+		$criteria->order = 't.id DESC';
 		return $criteria;
 	}
 	
