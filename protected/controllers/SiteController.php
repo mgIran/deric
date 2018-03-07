@@ -267,4 +267,12 @@ class SiteController extends Controller
         else
             throw new CHttpException(404, "Response Code not sent.");
     }
+
+    // temporary actions
+    public function actionRunSql(){
+        $sql = "";
+        $flag = Yii::app()->db->createCommand($sql)
+               ->execute();
+        var_dump($flag);exit;
+    }
 }
