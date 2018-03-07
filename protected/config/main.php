@@ -19,7 +19,8 @@ return array(
 		'application.components.*',
 		'application.modules.setting.models.*',
 		'application.modules.users.models.*',
-		'application.modules.users.components.*'
+		'application.modules.users.components.*',
+        'ext.dropZoneUploader.UploadedFiles'
 	),
 
 	'modules'=>array(

@@ -21,7 +21,7 @@ class PublicController extends Controller
     {
         return array(
             array('allow',  // allow all users to perform 'index' and 'views' actions
-                'actions' => array('dashboard', 'logout', 'setting', 'notifications'),
+                'actions' => array('dashboard', 'logout', 'setting', 'notifications','upload', 'deleteUpload'),
                 'users' => array('@'),
             ),
             array('allow',  // allow all users to perform 'index' and 'views' actions
@@ -48,7 +48,32 @@ class PublicController extends Controller
                 'padding' => 0,
                 'offset' => 0,
                 'testLimit' => 1
-            )
+            ),
+            'upload' => array(
+                'class' => 'ext.dropZoneUploader.actions.AjaxUploadAction',
+                'uploadDir' => '/uploads/users/avatar',
+                'attribute' => 'avatar',
+                'rename' => 'random',
+                'validateOptions' => array(
+                    'acceptedTypes' => array('jpg','jpeg','png')
+                ),
+                'insert' => true,
+                'module' => 'users',
+                'modelName' => 'UserDetails',
+                'findAttributes' => 'array("user_id" => $_POST["user_id"])',
+                'scenario' => 'upload_photo',
+                'storeMode' => 'field',
+                'afterSaveActions' => array(
+                    'resize' => array('width'=>500,'height'=>500)
+                )
+            ),
+            'deleteUpload' => array(
+                'class' => 'ext.dropZoneUploader.actions.AjaxDeleteUploadedAction',
+                'modelName' => 'UserDetails',
+                'attribute' => 'avatar',
+                'uploadDir' => '/uploads/users/avatar',
+                'storedMode' => 'field'
+            ),
         );
     }
 
@@ -135,6 +160,7 @@ class PublicController extends Controller
      */
     public function actionDashboard()
     {
+        //var_dump(Users::model()->findByPk(Yii::app()->user->getId()));exit;
         Yii::app()->theme = 'market';
         $this->layout = '//layouts/panel';
         $model=Users::model()->findByPk(Yii::app()->user->getId());

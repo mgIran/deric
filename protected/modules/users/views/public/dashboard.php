@@ -1,6 +1,6 @@
 <?php
 /* @var $this PublicController */
-/* @var $model Users */
+/* @var $model User */
 $tab ='credit-tab';
 if(isset($_GET['tab']))
     $tab = $_GET['tab'];
@@ -24,6 +24,14 @@ if(isset($_GET['tab']))
             'model'=>$model,
         ))?>
     </div>
+
+    <div id="bookmarks-tab" class="tab-pane fade <?= ($tab && $tab=="profile-tab"?'in active':'hidden') ?>">
+        <h3 class="page-name">تغییر مشخصات کاربری</h3>
+        <?php $this->renderPartial('_profile',array(
+            'model'=>$model,
+        ))?>
+    </div>
+
     <div id="setting-tab" class="tab-pane fade <?= ($tab && $tab=="setting-tab"?'in active':'hidden') ?>">
         <h3 class="page-name">تنظیمات</h3>
         <h4 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">تغییر کلمه عبور</h4>
