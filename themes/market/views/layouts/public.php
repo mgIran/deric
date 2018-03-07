@@ -17,26 +17,46 @@
     Yii::app()->clientScript->registerCoreScript('jquery');
 
     $cs->registerCssFile($baseUrl.'/css/bootstrap.min.css');
-    $cs->registerCssFile($baseUrl.'/css/bootstrap-rtl.min.css');
     $cs->registerCssFile($baseUrl.'/css/font-awesome.css');
     $cs->registerCssFile($baseUrl.'/css/animate.min.css');
+    $cs->registerCssFile($baseUrl.'/css/svg.css');
     $cs->registerCssFile($baseUrl.'/css/bootstrap-theme.css?2.2');
     $cs->registerCssFile($baseUrl.'/css/responsive-theme.css?2.2');
 
     $cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.nicescroll.min.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.countdown.min.js');
-    $cs->registerScriptFile($baseUrl.'/js/jquery.script.js');
+    $cs->registerScriptFile($baseUrl.'/js/scripts.js');
     ?>
 </head>
-<body>
+<body<?php if($this->platform==2):?> class="ios"<?php elseif($this->platform==3):?> class="windows-phone"<?php endif;?>>
+
 <?= $this->renderPartial('//layouts/_header'); ?>
+<?= $this->renderPartial('//layouts/_mobile_header'); ?>
+<?= $this->renderPartial('//layouts/_platforms'); ?>
+<?= $this->renderPartial('//layouts/_sidebar'); ?>
+<?= $this->renderPartial('//layouts/_navbar'); ?>
 <div class="main">
     <section class="content row">
-        <?php $this->renderPartial('//layouts/_flashMessage'); ?>
+        <?php
+        if(Yii::app()->user->hasFlash('success'))
+            echo '<div class=\'alert alert-success rtl fade in\'>
+                    <button class=\'close close-sm\' type=\'button\' data-dismiss=\'alert\'><i class=\'icon-remove\'></i></button>
+                    '.Yii::app()->user->getFlash('success').'
+                </div>';
+        else if(Yii::app()->user->hasFlash('failed'))
+            echo '<div class=\'alert alert-danger rtl fade in\'>
+                    <button class=\'close close-sm\' type=\'button\' data-dismiss=\'alert\'><i class=\'icon-remove\'></i></button>
+                    '.Yii::app()->user->getFlash('failed').'
+                </div>';
+        ?>
         <?php echo $content; ?>
-        <?php $this->renderPartial('//layouts/_footer'); ?>
+        <?= $this->renderPartial('//layouts/_footer'); ?>
     </section>
 </div>
 </body>
 </html>
+<?php //Yii::app()->clientScript->registerScript('set-height-to-main', "
+//    if($('.main').height() < $(window).height())
+//        $('.main').height($(window).height()-130);
+//", CClientScript::POS_LOAD);?>
