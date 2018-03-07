@@ -78,11 +78,10 @@ class SiteController extends Controller
 
         // get special advertise
         Yii::import('advertises.models.*');
-        $specialAdvertise = SpecialAdvertises::model()->findActive();
         $criteria = new CDbCriteria;
         $criteria->addCondition('status = 1');
         $criteria->order = 'create_date DESC';
-        $advertises = Advertises::model()->findAll($criteria);
+        $advertises = AppAdvertises::model()->findAll($criteria);
 
         $this->render('index', compact(
 //            'newestProgramDataProvider',

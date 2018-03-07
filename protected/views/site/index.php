@@ -5,8 +5,7 @@
 /* @var $latestProgramsDP CActiveDataProvider */
 /* @var $topDP CActiveDataProvider */
 /* @var $rows CActiveDataProvider[] */
-/* @var $slider Advertises[] */
-/* @var $specialAd SpecialAdvertises */
+/* @var $slider AppAdvertises[] */
 
 
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/css/owl.carousel.css');
