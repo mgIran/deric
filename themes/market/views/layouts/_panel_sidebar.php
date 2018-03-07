@@ -33,6 +33,12 @@
                 </a>
             </li>
             <li>
+                <a href="<?php echo Yii::app()->createUrl("/dashboard?tab=profile-tab");?>">
+                    <i class="icon setting-icon"></i>
+                    <span> تغییر مشخصات کاربری</span>
+                </a>
+            </li>
+            <li>
                 <a href="<?php echo Yii::app()->createUrl("/dashboard?tab=setting-tab");?>">
                     <i class="icon setting-icon"></i>
                     <span>تنظیمات</span>

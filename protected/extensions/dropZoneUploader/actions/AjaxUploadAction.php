@@ -86,7 +86,10 @@ class AjaxUploadAction extends CAction
     public function run()
     {
         $this->init();
+
+
         if (Yii::app()->request->isAjaxRequest) {
+
             $validFlag = true;
             $uploadDir = Yii::getPathOfAlias("webroot").$this->uploadDir;
             if (!is_dir($uploadDir))
@@ -177,9 +180,11 @@ class AjaxUploadAction extends CAction
                                     $imager = new Imager();
                                     $imageInfo = $imager->getImageInfo($uploadDir.DIRECTORY_SEPARATOR.$model->{$this->attribute});
                                     if ($imageInfo['width'] > $this->afterSaveActions['resize']['width'] || $imageInfo['height'] > $this->afterSaveActions['resize']['height'])
+                                    {
                                         $imager->resize($uploadDir.DIRECTORY_SEPARATOR.$model->{$this->attribute},
                                             $uploadDir.DIRECTORY_SEPARATOR.$model->{$this->attribute},
                                             $this->afterSaveActions['resize']['width'], $this->afterSaveActions['resize']['height']);
+                                    }
                                 }
 
                                 // create thumbnail
@@ -187,6 +192,7 @@ class AjaxUploadAction extends CAction
                                     isset($this->afterSaveActions['thumbnail']['width']) &&
                                     isset($this->afterSaveActions['thumbnail']['height'])
                                 ) {
+
                                     $thumbnailPath = $uploadDir.DIRECTORY_SEPARATOR.$this->afterSaveActions['thumbnail']['width'].'x'.$this->afterSaveActions['thumbnail']['height'];
                                     if (!is_dir($thumbnailPath))
                                         mkdir($thumbnailPath, 0777, true);

@@ -1,6 +1,7 @@
 <?php
 class AjaxDeleteUploadedAction extends CAction
 {
+
     const STORED_JSON_MODE = 'json';
     const STORED_FIELD_MODE = 'field';
     const STORED_RECORD_MODE = 'record';
@@ -32,6 +33,7 @@ class AjaxDeleteUploadedAction extends CAction
     public $storedMode;
 
     private function init(){
+
         if (!$this->uploadDir)
             throw new CException('{uploadDir} main files folder path is not specified.', 500);
         if (!$this->attribute)
@@ -44,6 +46,7 @@ class AjaxDeleteUploadedAction extends CAction
     {
         /* @var $model CActiveRecord */
         $this->init();
+
         if (Yii::app()->request->isAjaxRequest) {
             $deleteFlag = false;
             $uploadDir = Yii::getPathOfAlias("webroot").$this->uploadDir;

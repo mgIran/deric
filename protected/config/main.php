@@ -2,6 +2,8 @@
 Yii::setPathOfAlias('chartjs', dirname(__FILE__).'/../extensions/yii-chartjs');
 Yii::setPathOfAlias('ApkParser', dirname(__FILE__).'/../vendor/ApkParser');
 return array(
+    //'onBeginRequest'=>create_function('$event', 'return ob_start("ob_gzhandler");'),
+    //'onEndRequest'=>create_function('$event', 'return ob_end_flush();'),
 	'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'سیسن اپ',
     'timeZone' => 'Asia/Tehran',
