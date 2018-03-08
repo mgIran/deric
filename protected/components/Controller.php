@@ -45,7 +45,7 @@ class Controller extends CController
     public $quickAccesses = [
         [
             'label' => 'بازی های هیجانی',
-            'url' => '/',
+            'url' => '/apps/programs/6/اخبار+و+مجلات',
             'img' => 'Untitled-1.png',
         ],
         [
@@ -81,6 +81,10 @@ class Controller extends CController
 
     public function beforeAction($action)
     {
+        if(isset($_GET['develop']))
+            Yii::app()->user->setState('develop', true);
+        if($this->route != 'site/underConstruction' && !Yii::app()->user->hasState('develop'))
+            $this->redirect(['/site/underConstruction']);
         if(Yii::app()->request->getQuery('platform') || (!Yii::app()->request->getQuery('platform') && !Yii::app()->user->hasState('platform'))) {
             $queryPlatform = Yii::app()->request->getQuery('platform');
             if(is_null($queryPlatform))
@@ -515,9 +519,9 @@ class Controller extends CController
      */
     public static function printRateStars($rate)
     {
-        $starFull = '<span class="icon-star active"></span>';
-        $starHalf = '<span class="icon-star-half-empty active"></span>';
-        $starEmpty = '<span class="icon-star-empty"></span>';
+        $starFull = '<span class="icon"></span>';
+        $starHalf = '<span class="icon half-empty"></span>';
+        $starEmpty = '<span class="icon empty"></span>';
 
         $rateInteger = floor($rate);
         $rateHalf = ($rate - $rateInteger) >= 0.5 ? true : false;

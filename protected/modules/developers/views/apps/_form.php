@@ -31,7 +31,11 @@
         </div>
 
         <div class="form-group">
-            <?php echo $form->dropDownList($model,'category_id',AppCategories::model()->sortList(),array('prompt'=>'لطفا دسته مورد نظر را انتخاب کنید *','class'=>'form-control')); ?>
+            <?php echo $form->dropDownList($model,'category_id',AppCategories::model()->sortList(),array(
+                'prompt'=>'لطفا دسته مورد نظر را انتخاب کنید *',
+                'class'=>'form-control selectpicker',
+                'data'
+            )); ?>
             <?php echo $form->error($model,'category_id'); ?>
         </div>
 

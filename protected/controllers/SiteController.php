@@ -78,10 +78,8 @@ class SiteController extends Controller
 
         // get special advertise
         Yii::import('advertises.models.*');
-        $criteria = new CDbCriteria;
-        $criteria->addCondition('status = 1');
-        $criteria->order = 'create_date DESC';
-        $advertises = AppAdvertises::model()->findAll($criteria);
+        $commonAdvertises  = AppAdvertises::model()->findAll(AppAdvertises::CommonQuery($this->platform));
+        $specialAdvertises = AppAdvertises::model()->findAll(AppAdvertises::SpecialQuery($this->platform));
 
         $this->render('index', compact(
 //            'newestProgramDataProvider',
@@ -91,7 +89,8 @@ class SiteController extends Controller
 //            'specialAdvertise',
 //            'topProgramDataProvider',
 //            'bestsellingProgramDataProvider',
-            'advertises',
+            'commonAdvertises',
+            'specialAdvertises',
             'dynamicRows'
         ));
     }

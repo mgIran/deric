@@ -28,7 +28,7 @@ class AppsController extends Controller
                 'roles' => array('admin'),
             ),
             array('allow',
-                'actions' => array('free','discount', 'search', 'view', 'download', 'programs', 'games', 'educations', 'developer', 'top', 'bestselling'),
+                'actions' => array('free','discount', 'search', 'view', 'download', 'developer', 'bestselling'),
                 'users' => array('*'),
             ),
             array('allow',
@@ -78,24 +78,11 @@ class AppsController extends Controller
                 $bookmarked = true;
         }
         // Get similar apps
-        $criteria = new CDbCriteria();
+        $criteria = Apps::getValidApps($model->platform_id,[$model->category_id]);
         $criteria->addCondition('id!=:id');
-        $criteria->addCondition('category_id=:cat_id');
-        $criteria->addCondition('platform_id=:platform_id');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->order = 'install DESC, seen DESC';
         $criteria->params[':id'] = $model->id;
-        $criteria->params[':cat_id'] = $model->category_id;
-        $criteria->params[':platform_id'] = $model->platform_id;
-        $criteria->params[':status'] = 'enable';
-        $criteria->params[':confirm'] = 'accepted';
-        $criteria->params[':deleted'] = 0;
         $criteria->limit = 20;
-        $criteria->order = 'id DESC';
+        $criteria->order = 'install DESC, seen DESC';
         $similar = new CActiveDataProvider('Apps', array('criteria' => $criteria));
         $this->render('view', array(
             'model' => $model,
@@ -479,36 +466,6 @@ class AppsController extends Controller
 
     /**
      * Show programs list
-     */
-    public function actionPrograms($id = null, $title = null)
-    {
-        if (is_null($id))
-            $id = 1;
-        $this->showCategory($id, $title, 'برنامه ها');
-    }
-
-    /**
-     * Show games list
-     */
-    public function actionGames($id = null, $title = null)
-    {
-        if (is_null($id))
-            $id = 2;
-        $this->showCategory($id, $title, 'بازی ها');
-    }
-
-    /**
-     * Show educations list
-     */
-    public function actionEducations($id = null, $title = null)
-    {
-        if (is_null($id))
-            $id = 3;
-        $this->showCategory($id, $title, 'آموزش ها');
-    }
-
-    /**
-     * Show programs list
      *
      * @param $title string
      * @param $id integer
@@ -517,11 +474,7 @@ class AppsController extends Controller
     {
         Yii::app()->theme = 'market';
         $this->layout = 'public';
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('platform_id=:platform');
+        $criteria = Apps::getValidApps($this->platform);
         if (isset($_GET['t']) and $_GET['t'] == 1) {
             $criteria->addCondition('developer_team=:dev');
             $developer_id=$pageTitle = $title;
@@ -531,16 +484,7 @@ class AppsController extends Controller
             $pageTitle = UserDetails::model()->findByAttributes(array('user_id' => $id));
             $pageTitle=$pageTitle->nickname;
         }
-        $criteria->params = array(
-            ':confirm' => 'accepted',
-            ':deleted' => 0,
-            ':status' => 'enable',
-            ':platform' => $this->platform,
-            ':dev' => $developer_id,
-        );
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->order = 'id DESC';
+        $criteria->params[':dev'] = $developer_id;
         $dataProvider = new CActiveDataProvider('Apps', array(
             'criteria' => $criteria,
         ));
@@ -560,45 +504,18 @@ class AppsController extends Controller
         Yii::app()->theme = 'market';
         $this->layout = 'public';
 
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('platform_id=:platform');
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->params = array(
-            ':confirm' => 'accepted',
-            ':deleted' => 0,
-            ':status' => 'enable',
-            ':platform' => $this->platform,
-        );
 
         $categories = AppCategories::model()->getCategoryChilds($id);
-        $criteria->addInCondition('category_id', $categories);
-        $criteria->order = 'id DESC';
+        $criteria = Apps::getValidApps($this->platform,$categories);
+        $criteria->order = 't.id DESC';
         $criteria->limit = '40';
         $latest = new CActiveDataProvider('Apps', array(
             'criteria' => $criteria,
         ));
 
 
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('platform_id=:platform');
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->params = array(
-            ':confirm' => 'accepted',
-            ':deleted' => 0,
-            ':status' => 'enable',
-            ':platform' => $this->platform,
-        );
-
         $categories = AppCategories::model()->getCategoryChilds($id);
-        $criteria->addInCondition('category_id', $categories);
+        $criteria = Apps::getValidApps($this->platform,$categories);
         $criteria->addCondition('ratings.rate IS NOT NULL');
         $criteria->select = array('t.*', 'AVG(ratings.rate) AS avgRate');
         $criteria->with[] = 'ratings';
@@ -610,8 +527,9 @@ class AppsController extends Controller
             'criteria' => $criteria,
         ));
 
+
         $categories = AppCategories::model()->getCategoryChilds($id);
-        $criteria->addInCondition('category_id', $categories);
+        $criteria = Apps::getValidApps($this->platform,$categories);
         $criteria->addCondition('price = 0');
         $criteria->order = 'id DESC';
         $criteria->limit = '40';
@@ -940,6 +858,15 @@ class AppsController extends Controller
         ));
     }
 
+    public function actionRow($id)
+    {
+        Yii::import('rows.models.*');
+        $row = RowsHomepage::model()->find($id);
+        if(!$row)
+            $this->redirect(Yii::app()->getBaseUrl(true));
+        $dp = Apps::model()->findAll($row->getConstCriteria(Apps::getValidApps($this->platform)));
+    }
+
     /**
      * Show apps list of category
      */
@@ -1011,72 +938,6 @@ class AppsController extends Controller
                 Yii::app()->end();
             }
         }
-    }
-
-    public function actionTop()
-    {
-        Yii::app()->theme = 'market';
-        $this->layout = 'public';
-
-        $catIds = AppCategories::model()->getCategoryChilds(1);
-        $criteria = new CDbCriteria();
-        $criteria->select = 't.*, AVG(ratings.rate) as avgRate';
-        $criteria->with = array('images', 'ratings');
-        $criteria->together = true;
-        $criteria->addInCondition('category_id', $catIds);
-        $criteria->addCondition('platform_id=:platform_id');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->addCondition('ratings.rate IS NOT NULL');
-        $criteria->params[':platform_id'] = $this->platform;
-        $criteria->params[':status'] = 'enable';
-        $criteria->params[':confirm'] = 'accepted';
-        $criteria->params[':deleted'] = 0;
-        $criteria->limit = 20;
-        $criteria->order = 'avgRate DESC, t.id DESC';
-        $criteria->group = 't.id';
-        $dataProvider = new CActiveDataProvider('Apps', array('criteria' => $criteria));
-
-        $this->render('_app_list_manual', array(
-            'dataProvider' => $dataProvider,
-            'title' => null,
-            'pageTitle' => 'برترین ها'
-        ));
-    }
-
-    public function actionBestselling()
-    {
-        Yii::app()->theme = 'market';
-        $this->layout = 'public';
-
-        $catIds = AppCategories::model()->getCategoryChilds(1);
-        $criteria = new CDbCriteria();
-        $criteria->with = array('images', 'appBuys' => array('joinType' => 'RIGHT OUTER JOIN'));
-        $criteria->together = true;
-        $criteria->addInCondition('category_id', $catIds);
-        $criteria->addCondition('platform_id=:platform_id');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->params[':platform_id'] = $this->platform;
-        $criteria->params[':status'] = 'enable';
-        $criteria->params[':confirm'] = 'accepted';
-        $criteria->params[':deleted'] = 0;
-        $criteria->limit = 20;
-        $criteria->order = 'COUNT(appBuys.id) DESC';
-        $criteria->group = 'appBuys.app_id';
-        $dataProvider = new CActiveDataProvider('Apps', array('criteria' => $criteria));
-
-        $this->render('_app_list_manual', array(
-            'dataProvider' => $dataProvider,
-            'title' => null,
-            'pageTitle' => 'پرفروش ترین ها'
-        ));
     }
 
     /**

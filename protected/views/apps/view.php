@@ -41,6 +41,7 @@ if(!$model->lastPackage)
                 <span ><?= Controller::parseNumbers($model->install) ?>&nbsp;نصب فعال</span>
             </div>
             <div class="row-fluid">
+            <div class="row-fluid">
                 <svg class="svg svg-coin green"><use xlink:href="#coin"></use></svg>
                 <?
                 if($model->hasDiscount()):
