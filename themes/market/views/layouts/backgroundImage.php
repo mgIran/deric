@@ -26,15 +26,31 @@ $cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
 $cs->registerScriptFile($baseUrl.'/js/scripts.js');
 ?>
 </head>
-<body id="login-page">
-<div class="container">
-    <div class="logo-box">
-        <a href="<?= Yii::app()->createAbsoluteUrl('//'); ?>">
-        <img class="logo" src="<?= Yii::app()->theme->baseUrl; ?>/images/rahbod.svg" alt="Rahbod" >
-        </a>
+<body id="bg">
+<?= $this->renderPartial('//layouts/_header'); ?>
+<section class="content">
+    <div class="register-page">
+        <div class="register-container">
+            <div class="register-page-to relative">
+                <?php $this->renderPartial('//layouts/_flashMessage'); ?>
+                <?= $content ?>
+            </div>
+        </div>
     </div>
-    <?= $content; ?>
+</section>
+<div class="footer register-footer">
+    <div class="menu">
+        <ul class="menu-footer">
+            <li><a href="#">حریم شخصی</a></li>
+            <li><a href="#">شرایط استفاده</a></li>
+            <li><a href="#">توسعه دهندگان</a></li>
+            <li><a href="#">درباره ما</a></li>
+            <li><a href="#">تماس با ما</a></li>
+        </ul>
+    </div>
+    <div class="copyright">
+        <div class="text-center">کپی رایت @ سیسن اپ - 2018-1396 - تمامی حقوق محفوظ است.</div>
+    </div>
 </div>
-<div class="mask"></div>
 </body>
 </html>

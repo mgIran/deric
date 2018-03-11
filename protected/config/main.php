@@ -203,11 +203,11 @@ return array(
                 ),
 			),
 		),
-//        'clientScript'=>array(
+        'clientScript'=>array(
 //            'class'=>'ext.minScript.components.ExtMinScript',
-//            'coreScriptPosition' => CClientScript::POS_HEAD,
-//            'defaultScriptFilePosition' => CClientScript::POS_END,
-//        ),
+            'coreScriptPosition' => CClientScript::POS_HEAD,
+            'defaultScriptFilePosition' => CClientScript::POS_END,
+        ),
     ),
     'controllerMap' => array(
         'min' => array(
