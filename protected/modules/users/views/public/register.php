@@ -1,7 +1,7 @@
 <?php
 /* @var $this Controller */
 /* @var $form CActiveForm */
-/* @var $model UserLoginForm */
+/* @var $model Users */
 ?>
 <div class="header-reg-green">
     <h5><strong>ثبت نام در <?= Yii::app()->name ?></strong></h5>
