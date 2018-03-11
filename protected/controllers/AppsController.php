@@ -45,11 +45,11 @@ class AppsController extends Controller
     {
         Yii::import('users.models.*');
         Yii::app()->theme = "market";
-        if((int)$id)
+        if ((int)$id)
             $model = $this->loadModel($id);
-        else{
+        else {
             $model = Apps::model()->findByAttributes(array('title' => urldecode($id)));
-            if($model === null){
+            if ($model === null) {
                 $criteria = new CDbCriteria();
                 $criteria->with[] = 'packages';
                 $criteria->together = true;
@@ -57,13 +57,13 @@ class AppsController extends Controller
                 $model = Apps::model()->find($criteria);
             }
         }
-        if($model === null)
+        if ($model === null)
             throw new CHttpException(404, 'برنامه موردنظر موجود نیست.');
-        if((Yii::app()->user->isGuest || (Yii::app()->user->roles !='admin' && Yii::app()->user->roles !='validator')) && ($model->confirm != 'accepted' || !$model->lastPackage))
+        if ((Yii::app()->user->isGuest || (Yii::app()->user->roles != 'admin' && Yii::app()->user->roles != 'validator')) && ($model->confirm != 'accepted' || !$model->lastPackage))
             throw new CHttpException(404, 'برنامه موردنظر موجود نیست.');
-        
+
         $this->pageTitle = $model->title;
-        $this->description = mb_substr(strip_tags($model->description),0,150,"UTF-8");
+        $this->description = mb_substr(strip_tags($model->description), 0, 150, "UTF-8");
 
         $this->app = $model;
         $model->seen = $model->seen + 1;
@@ -78,12 +78,12 @@ class AppsController extends Controller
                 $bookmarked = true;
         }
         // Get similar apps
-        $criteria = Apps::getValidApps($model->platform_id,[$model->category_id]);
+        $criteria = Apps::getValidApps($model->platform_id, [$model->category_id]);
         $criteria->addCondition('id!=:id');
         $criteria->params[':id'] = $model->id;
         $criteria->limit = 20;
         $criteria->order = 'install DESC, seen DESC';
-        $similar = new CActiveDataProvider('Apps', array('criteria' => $criteria));
+        $similar = Apps::model()->findAll($criteria);
         $this->render('view', array(
             'model' => $model,
             'similar' => $similar,

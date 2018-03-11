@@ -8,7 +8,7 @@ if($model->type == AppAdvertises::SPECIAL_ADVERTISE)
 if($model->type == AppAdvertises::IN_APP_ADVERTISE)
     $adminUrl = 'adminInApp';
 $this->breadcrumbs=array(
-	'لیست تبلیغات'=>array('admin'),
+	'لیست تبلیغات'=>array($adminUrl),
 	'افزودن تبلیغ '.$model->typeLabels[$model->type],
 );
 ?>

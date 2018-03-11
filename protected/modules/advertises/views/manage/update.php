@@ -2,9 +2,13 @@
 /* @var $this ManageController */
 /* @var $model AppAdvertises */
 /* @var $cover array */
-
+$adminUrl = 'admin';
+if($model->type == AppAdvertises::SPECIAL_ADVERTISE)
+    $adminUrl = 'adminSpecial';
+if($model->type == AppAdvertises::IN_APP_ADVERTISE)
+    $adminUrl = 'adminInApp';
 $this->breadcrumbs=array(
-	'لیست تبلیغات'=>array('admin'),
+	'لیست تبلیغات'=>array($adminUrl),
 	'ویرایش',
 );
 ?>

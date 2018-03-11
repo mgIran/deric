@@ -138,7 +138,7 @@ class Apps extends CActiveRecord
             'bookmarker' => array(self::MANY_MANY, 'Users', 'ym_user_app_bookmark(app_id,user_id)'),
             'packages' => array(self::HAS_MANY, 'AppPackages', 'app_id'),
             'ratings' => array(self::HAS_MANY, 'AppRatings', 'app_id'),
-            'advertise' => array(self::BELONGS_TO, 'AppAdvertises', 'id'),
+            'advertise' => array(self::HAS_ONE, 'AppAdvertises', 'app_id'),
             'categories' => array(self::MANY_MANY, 'AppCategories', '{{app_category_rel}}(app_id,category_id)'),
         );
     }

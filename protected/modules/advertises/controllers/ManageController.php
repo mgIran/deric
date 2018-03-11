@@ -89,7 +89,7 @@ class ManageController extends Controller
     {
         $model = new AppAdvertises('special_advertise');
         $model->type = AppAdvertises::SPECIAL_ADVERTISE;
-        $this->create($model);
+        $this->create($model, 'adminSpecial');
     }
 
     /**
@@ -100,7 +100,7 @@ class ManageController extends Controller
     {
         $model = new AppAdvertises('common_advertise');
         $model->type = AppAdvertises::COMMON_ADVERTISE;
-        $this->create($model);
+        $this->create($model, 'admin');
     }
 
     /**
@@ -111,11 +111,11 @@ class ManageController extends Controller
     {
         $model = new AppAdvertises('in_app_advertise');
         $model->type = AppAdvertises::IN_APP_ADVERTISE;
-        $this->create($model);
+        $this->create($model, 'adminInApp');
     }
 
 
-    private function create($model)
+    private function create($model, $redirect)
     {
         $cover = array();
         if (isset($_GET['platform_id']))
@@ -130,7 +130,7 @@ class ManageController extends Controller
             if ($model->save()) {
                 $cover->move($this->advertisePath);
                 Yii::app()->user->setFlash('success', 'اطلاعات با موفقیت ثبت شد.');
-                $this->redirect(array('admin'));
+                $this->redirect(array($redirect));
             } else
                 Yii::app()->user->setFlash('failed', 'در ثبت اطلاعات خطایی رخ داده است! لطفا مجددا تلاش کنید.');
         }

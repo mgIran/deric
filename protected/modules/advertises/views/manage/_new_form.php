@@ -10,7 +10,7 @@ if($model->isNewRecord) {
     $criteria = Apps::model()->getValidApps($model->platform_id);
     $criteria->together = true;
     $criteria->with[] = 'advertise';
-    $criteria->addCondition('advertise.app_id IS NULL');
+    $criteria->addCondition('advertise.id IS NULL');
     $apps = Apps::model()->findAll($criteria);
 }
 ?>

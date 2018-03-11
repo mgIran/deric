@@ -912,22 +912,34 @@ a{
     margin: 0 40px;
 }
 .game-images .father-scroll{
+    /*direction: ltr;*/
     position: relative;
+    width: 100%;
+    margin: 30px 0;
     overflow: hidden;
-    height: 275px;
-    width: 1270px;
-    direction: ltr;
+    overflow-x: auto !important;
+    white-space: nowrap;
+    padding-bottom: 10px;
+    display: block;
+    height: 328px;
 }
 .game-images .game-images-to{
-    height: 260px;
-    overflow: hidden;
     margin: 0 -3px;
-    width: 3000px;
 }
 .game-images .game-images-to .img-scroll{
-    float: left;
+    border:4px solid transparent;
+    vertical-align: top;
+    position: relative;
+    display: inline;
+    width: auto;
+    height: 318px;
+}
+.game-images .game-images-to .img-scroll img{
+    vertical-align: top;
+    top: 0;
+    height: 318px;
+    width: auto;
     display: inline-block;
-    border:4px solid #fff
 }
 .text-p,
 .changes{

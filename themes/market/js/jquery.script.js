@@ -121,14 +121,14 @@ $(function () {
         autohidemode: 'leave'
     });
 
-    $(".father-scroll").niceScroll({
+    /*$(".father-scroll").niceScroll({
         cursorcolor: "#00381d",
         cursorwidth: "8px",
         background: "rgba(204,215,210,0.3)",
         cursorborder: "1px solid #00381d",
         cursorborderradius: 4,
         autohidemode: 'leave'
-    });
+    });*/
 
     $("#demoon").rateYo({
         starWidth: "30px",
