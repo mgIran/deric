@@ -534,35 +534,49 @@ class AppsController extends Controller
         Yii::app()->theme = 'market';
         $this->layout = 'public';
 
+        $queries = ['latest' => 'جدیدترین', 'bestRates' => 'برترین', 'free' => 'رایگان'];
         Yii::import('rows.models.*');
-        $latest = new RowsHomepage();
-        $latest->title='جدیدترین ها';
-        $latest->const_query=1;
-        $latest->query='latest';
+        if(!in_array($title, array_keys($queries))) {
+            $latest = new RowsHomepage();
+            $latest->title = 'جدیدترین ها';
+            $latest->const_query = 1;
+            $latest->query = 'latest';
 
-        $topRates = new RowsHomepage();
-        $topRates->title='برترین ها';
-        $topRates->const_query=1;
-        $topRates->query='bestRates';
+            $topRates = new RowsHomepage();
+            $topRates->title = 'برترین ها';
+            $topRates->const_query = 1;
+            $topRates->query = 'bestRates';
 
-        $free = new RowsHomepage();
-        $free->title='رایگان ها';
-        $free->const_query=1;
-        $free->query='free';
+            $free = new RowsHomepage();
+            $free->title = 'رایگان ها';
+            $free->const_query = 1;
+            $free->query = 'free';
 
-        $dynamicRows = [
-            'latest' => $latest,
-            'topRates' => $topRates,
-            'free' => $free,
-        ];
+            $dynamicRows = [
+                'latest' => $latest,
+                'topRates' => $topRates,
+                'free' => $free,
+            ];
 
+            $this->render('apps_list', array(
+                'dynamicRows' => $dynamicRows,
+                'id' => $id,
+                'title' => (!is_null($title)) ? $title : null,
+                'pageTitle' => $pageTitle
+            ));
+        }else{
+            $category = AppCategories::model()->find($id);
+            $row = new RowsHomepage();
+            $row->title = $queries[$title].' '.$category->title;
+            $row->const_query = 1;
+            $row->query = $title;
 
-        $this->render('apps_list', array(
-            'dynamicRows' => $dynamicRows,
-            'id' => $id,
-            'title' => (!is_null($title)) ? $title : null,
-            'pageTitle' => $pageTitle
-        ));
+            $this->render('single_apps_list', array(
+                'dataProvider' => Apps::model()->findAll($row->getConstCriteria(Apps::getValidApps($this->platform, [$id]))),
+                'title' => $row->title,
+                'pageTitle' => $pageTitle
+            ));
+        }
     }
 
     public function actionFree()

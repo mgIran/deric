@@ -524,6 +524,7 @@ a{
     margin-bottom: 12px;
     margin-top: 12px;
     position: relative;
+    white-space: nowrap;
 }
 .game .games-item .text .title a{
     color: #000;

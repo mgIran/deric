@@ -309,14 +309,15 @@ if($model->multimedia):
             <?php endif;?>
             <?php
             $this->renderPartial('_rating',array(
-                'rating' => $rating
+                'model' => $model,
+                'rating' => $rating,
             ));
             ?>
             <?php
             Yii::import('advertises.models.*');
             $criteria=AppAdvertises::InAppQuery($this->platform);
-//                $criteria->addCondition('(app_id IS NULL OR app_id <> :id)');
-//                $criteria->params[':id'] = $model->id;
+            $criteria->addCondition('(app_id IS NULL OR app_id <> :id)');
+            $criteria->params[':id'] = $model->id;
             $inAppAdvertises = AppAdvertises::model()->findAll($criteria);
             if($inAppAdvertises):
                 $data = count($inAppAdvertises)>1?$inAppAdvertises[array_rand($inAppAdvertises)]:$inAppAdvertises[0];
@@ -388,33 +389,7 @@ if($similar):
         <div class="imgs">
             <div id="demo2" class="is-carousel"  data-items="8" data-loop="1" data-dots="0" data-nav="1" data-mouse-drag="1" data-responsive='{"1200":{"items":"8"},"992":{"items":"7"},"768":{"items":"4"},"650":{"items":"3"},"0":{"items":"1"}}'>
                 <?php foreach ($similar as $item):?>
-                    <div class="games-item">
-                        <div class="thumb"><a href="<?= $item->getViewUrl() ?>"><img src="<?php echo Yii::app()->getBaseUrl(true).'/uploads/apps/icons/'.CHtml::encode($item->icon);?>" alt="<?= CHtml::encode($item->title) ?>"></a></div>
-                        <div class="text">
-                            <h5 class="title"><a href="<?= $item->getViewUrl() ?>"><?= CHtml::encode($item->title) ?><span class="paragraph-end"></span></a></h5>
-                            <div class="free">
-                                <?php if($item->price==0):?>
-                                    <a href="<?php echo Yii::app()->createUrl('/apps/free')?>">رایگان</a>
-                                <?php else:?>
-                                    <?
-                                    if($item->hasDiscount()):
-                                        ?>
-                                        <span class="text-danger text-line-through center-block"><?= Controller::parseNumbers(number_format($item->price, 0)).' تومان'; ?></span>
-                                        <span ><?= Controller::parseNumbers(number_format($item->offPrice, 0)).' تومان' ; ?></span>
-                                    <?
-                                    else:
-                                        ?>
-                                        <span ><?= $item->price?Controller::parseNumbers(number_format($item->price, 0)).' تومان':'رایگان'; ?></span>
-                                    <?
-                                    endif;
-                                    ?>
-                                <?php endif;?>
-                            </div>
-                            <div class="star">
-                                <?= Controller::printRateStars($item->getRate()) ?>
-                            </div>
-                        </div>
-                    </div>
+                   <?php $this->renderPartial('//site/_app_item', ['data' => $item]) ?>
                 <?php endforeach; ?>
             </div>
         </div>

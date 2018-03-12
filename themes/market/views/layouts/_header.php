@@ -51,37 +51,46 @@
                 <?php
                 if(!Yii::app()->user->isGuest && Yii::app()->user->type == 'user'):
                 ?>
-                    <div class="user-section">
-
-                        <div class="avatar">
-                            <span class="icon icon-user"></span>
-                            <div class="tri-1"></div>
-                            <div class="tri-2"></div>
-                        </div>
-                        <div class="user-menu">
-                            <div class="inner">
-                                <div class="avatar">
-                                    <span class="icon icon-user"></span>
-                                </div>
-                                <div class="user-detail">
-                                    <span class="name"><?= $this->userDetails->getShowName(); ?></span>
-                                    <span class="type"><?= $this->userDetails->roleLabels[Yii::app()->user->roles] ?></span>
-                                    <span class="type">اعتبار : <?= Controller::parseNumbers(number_format($this->userDetails->credit, 0)) ?> تومان</span>
-                                </div>
-                                <footer>
-                                    <a class="btn btn-default" href="<?= Yii::app()->createUrl('/dashboard') ?>">پنل کاربری</a>
-                                    <?
-                                    if(Yii::app()->user->roles == 'developer'):
-                                        ?>
-                                        <a class="btn btn-default" href="<?= Yii::app()->createUrl('/developers/panel') ?>">پنل توسعه دهندگان</a>
-                                    <?
-                                    endif;
-                                    ?>
-                                    <a class="btn btn-danger pull-left" href="<?= Yii::app()->createUrl('logout') ?>">خروج</a>
-                                </footer>
-                            </div>
-                        </div>
+                    <div class="login-process">
+                        <div class="login"><a href="<?= Yii::app()->createUrl('/dashboard') ?>">پنل کاربری</a></div>
+                        <? if(Yii::app()->user->roles == 'developer'):?>
+                        <div class="border"></div>
+                        <div class="login"><a href="<?= Yii::app()->createUrl('/developers/panel') ?>">پنل توسعه دهندگان</a></div>
+                        <? endif;?>
+                        <div class="border"></div>
+                        <div class="register"><a class="btn btn-danger pull-left" href="<?= Yii::app()->createUrl('logout') ?>">خروج</a></div>
                     </div>
+<!--                    <div class="user-section">-->
+<!---->
+<!--                        <div class="avatar">-->
+<!--                            <span class="icon icon-user"></span>-->
+<!--                            <div class="tri-1"></div>-->
+<!--                            <div class="tri-2"></div>-->
+<!--                        </div>-->
+<!--                        <div class="user-menu">-->
+<!--                            <div class="inner">-->
+<!--                                <div class="avatar">-->
+<!--                                    <span class="icon icon-user"></span>-->
+<!--                                </div>-->
+<!--                                <div class="user-detail">-->
+<!--                                    <span class="name">--><?//= $this->userDetails->getShowName(); ?><!--</span>-->
+<!--                                    <span class="type">--><?//= $this->userDetails->roleLabels[Yii::app()->user->roles] ?><!--</span>-->
+<!--                                    <span class="type">اعتبار : --><?//= Controller::parseNumbers(number_format($this->userDetails->credit, 0)) ?><!-- تومان</span>-->
+<!--                                </div>-->
+<!--                                <footer>-->
+<!--                                    <a class="btn btn-default" href="--><?//= Yii::app()->createUrl('/dashboard') ?><!--">پنل کاربری</a>-->
+<!--                                    --><?//
+//                                    if(Yii::app()->user->roles == 'developer'):
+//                                        ?>
+<!--                                        <a class="btn btn-default" href="--><?//= Yii::app()->createUrl('/developers/panel') ?><!--">پنل توسعه دهندگان</a>-->
+<!--                                    --><?//
+//                                    endif;
+//                                    ?>
+<!--                                    <a class="btn btn-danger pull-left" href="--><?//= Yii::app()->createUrl('logout') ?><!--">خروج</a>-->
+<!--                                </footer>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 <?php
                 else:
                 ?>
