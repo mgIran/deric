@@ -21,6 +21,7 @@ return array(
 		'application.modules.setting.models.*',
 		'application.modules.users.models.*',
 		'application.modules.users.components.*',
+		'application.modules.advertises.models.*',
 		'ext.dropZoneUploader.UploadedFiles',
 	),
 

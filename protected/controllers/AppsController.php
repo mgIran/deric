@@ -28,7 +28,7 @@ class AppsController extends Controller
                 'roles' => array('admin'),
             ),
             array('allow',
-                'actions' => array('free','discount', 'search', 'view', 'download', 'developer', 'bestselling'),
+                'actions' => array('free','discount', 'search', 'view', 'download', 'developer', 'games', 'programs'),
                 'users' => array('*'),
             ),
             array('allow',
@@ -497,6 +497,36 @@ class AppsController extends Controller
     }
 
     /**
+     * Show programs list
+     */
+    public function actionPrograms($id = null, $title = null)
+    {
+        if(is_null($id))
+            $id = 1;
+        $this->showCategory($id, $title, 'برنامه ها');
+    }
+
+    /**
+     * Show games list
+     */
+    public function actionGames($id = null, $title = null)
+    {
+        if(is_null($id))
+            $id = 2;
+        $this->showCategory($id, $title, 'بازی ها');
+    }
+
+    /**
+     * Show educations list
+     */
+    public function actionEducations($id = null, $title = null)
+    {
+        if(is_null($id))
+            $id = 3;
+        $this->showCategory($id, $title, 'آموزش ها');
+    }
+
+    /**
      * Show apps list of category
      */
     public function showCategory($id, $title, $pageTitle)
@@ -504,43 +534,32 @@ class AppsController extends Controller
         Yii::app()->theme = 'market';
         $this->layout = 'public';
 
+        Yii::import('rows.models.*');
+        $latest = new RowsHomepage();
+        $latest->title='جدیدترین ها';
+        $latest->const_query=1;
+        $latest->query='latest';
 
-        $categories = AppCategories::model()->getCategoryChilds($id);
-        $criteria = Apps::getValidApps($this->platform,$categories);
-        $criteria->order = 't.id DESC';
-        $criteria->limit = '40';
-        $latest = new CActiveDataProvider('Apps', array(
-            'criteria' => $criteria,
-        ));
+        $topRates = new RowsHomepage();
+        $topRates->title='برترین ها';
+        $topRates->const_query=1;
+        $topRates->query='bestRates';
 
+        $free = new RowsHomepage();
+        $free->title='رایگان ها';
+        $free->const_query=1;
+        $free->query='free';
 
-        $categories = AppCategories::model()->getCategoryChilds($id);
-        $criteria = Apps::getValidApps($this->platform,$categories);
-        $criteria->addCondition('ratings.rate IS NOT NULL');
-        $criteria->select = array('t.*', 'AVG(ratings.rate) AS avgRate');
-        $criteria->with[] = 'ratings';
-        $criteria->together = true;
-        $criteria->order = 'avgRate DESC';
-        $criteria->limit = '40';
-        $criteria->group = 't.id';
-        $topRates = new CActiveDataProvider('Apps', array(
-            'criteria' => $criteria,
-        ));
-
-
-        $categories = AppCategories::model()->getCategoryChilds($id);
-        $criteria = Apps::getValidApps($this->platform,$categories);
-        $criteria->addCondition('price = 0');
-        $criteria->order = 'id DESC';
-        $criteria->limit = '40';
-        $free = new CActiveDataProvider('Apps', array(
-            'criteria' => $criteria,
-        ));
-
-        $this->render('apps_list', array(
+        $dynamicRows = [
             'latest' => $latest,
             'topRates' => $topRates,
             'free' => $free,
+        ];
+
+
+        $this->render('apps_list', array(
+            'dynamicRows' => $dynamicRows,
+            'id' => $id,
             'title' => (!is_null($title)) ? $title : null,
             'pageTitle' => $pageTitle
         ));

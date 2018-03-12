@@ -179,6 +179,7 @@ class RowsHomepage extends SortableCActiveRecord
         if(!$query) $query = $this->query;
         $criteria = $criteria?$criteria:new CDbCriteria();
         switch ($query) {
+            case 'latest':
             case 'latestGames':
             case 'latestPrograms':
                 $criteria->order = 't.id DESC';
@@ -196,6 +197,9 @@ class RowsHomepage extends SortableCActiveRecord
                 $criteria->together = true;
                 $criteria->order = 'COUNT(appBuys.id) DESC';
                 $criteria->group = 'appBuys.app_id';
+                break;
+            case 'free':
+                $criteria->compare('t.price', 0);
                 break;
             default:
                 break;

@@ -1,6 +1,8 @@
 <?php
 /** @var $this Controller */
 /** @var $commonAdvertises AppAdvertises[] */
+if(!isset($commonAdvertises))
+    $commonAdvertises  = AppAdvertises::model()->findAll(AppAdvertises::CommonQuery($this->platform));
 if($commonAdvertises):
 ?>
 <div class="slider">

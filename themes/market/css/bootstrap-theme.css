@@ -1340,19 +1340,25 @@ a{
 }
 .register-page .register-page-to .form-item{
     width: 87%;
-    margin: auto;
-    border-bottom: 1px solid #fff;
-    padding: 25px 0 0 0;
+    margin: 25px auto 0;
+    position: relative;
 }
 .register-page .register-page-to .form-item .box-item{
     background: transparent;
     border: none;
+    border-bottom: 1px solid #fff;
     color: #fff;
     box-shadow: none;
     display: inline-block;
-    width: auto;
+    width: 100%;
     float: right;
-    padding: 0 10px;
+    padding: 0;
+    padding-right: 30px;
+}
+.register-page .register-page-to .form-item .glyphicon{
+    position: absolute;
+    right: 0;
+    top: 5px;
 }
 .register-page .register-page-to .form-item input::placeholder{
     color: #fff;
@@ -1375,10 +1381,13 @@ a{
 }
 .register-page .register-page-to .robat{
     position: relative;
-    width: 75%;
+    width: 150px;
     margin: 25px auto;
-    background: #fff;
-    height: 75px;
+    height: auto;
+    display: block;
+    overflow: hidden;
+}
+.register-page .register-page-to .robat img{
     border-radius: 5px;
 }
 .register-page .register-page-to .robat .checkbox-line{
@@ -1795,4 +1804,10 @@ a{
 }
 .relative{
     position: relative;
+}
+.input-group .errorMessage{
+    display: block;
+}
+.errorMessage{
+    color: #e80000;
 }

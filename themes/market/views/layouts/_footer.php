@@ -7,14 +7,14 @@
         <b>سیسن اپ، بزرگترین مرجع دانلود برنامه ها و بازی های واقعیت مجازی</b>
     </div>
     <div class="arm">
-        <div class="arm-nahad">footer-logo.png
-            <a class="right" href="#">
-                <img src="images/logo-right.png">
-            </a>
-            <a class="left" href="#">
-                <img src="images/logo-left.png">
-            </a>
-        </div>
+<!--        <div class="arm-nahad">footer-logo.png-->
+<!--            <a class="right" href="#">-->
+<!--                <img src="images/logo-right.png">-->
+<!--            </a>-->
+<!--            <a class="left" href="#">-->
+<!--                <img src="images/logo-left.png">-->
+<!--            </a>-->
+<!--        </div>-->
     </div>
     <div class="social">
         <div class="social-il">

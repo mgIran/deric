@@ -50,18 +50,23 @@ $rating = $model->calculateRating();
             </div>
             <div class="media-body media-b2">
                 <div class="empty hidden-xs"></div>
-                <div class="text-media"><a href="<?php echo $this->createUrl('apps/'.((strpos($model->category->path,'2-')!==false)?'games':'programs').'/'.$model->category->id.'/'.urlencode($model->category->title));?>">
-                        <i class="glyphicon category"></i><span>دسته : <?= $model->category?$model->category->title:'' ?></span>
-                    </a>
+                <div class="text-media">
+                        <i class="glyphicon category"></i><span>دسته:
+                        <a href="<?php echo $model->category->getViewUrl() ?>">
+                            <?= $model->category?$model->category->title:'' ?>
+                        </a>
+                    </span>
                 </div>
                 <div class="text-media"><i class="glyphicon file-size"></i><span>حجم : 20 مگابایت</span></div>
-                <div class="text-media"><i class="glyphicon version"></i><span>نسخه : <?= $model->lastPackage->version ?></span></div>
+                <div class="text-media"><i class="glyphicon version"></i><span>نسخه: <?= $model->lastPackage->version ?></span></div>
             </div>
             <div class="media-dn">
-                <div class="btn downloady"><?php if($model->price>0):?>
-                        <a class="btn btn-success btn-install hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/buy/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">نصب</a>
+                <div class="btn downloady">
+                    <a class="hidden-sm hidden-xs" href="#" data-toggle="modal" data-target="#install-modal">نصب</a>
+                    <?php if($model->price>0):?>
+                        <a class="hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/buy/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">نصب</a>
                     <?php else:?>
-                        <a class="btn btn-success btn-install hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">نصب</a>
+                        <a class="hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">نصب</a>
                     <?php endif;?>
                 </div>
             </div>

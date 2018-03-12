@@ -51,22 +51,23 @@
     <?php echo $form->passwordField($model,'password',array('class'=>'form-control box-item','placeholder'=>'کلمه عبور')); ?>
     <?php echo $form->error($model,'password'); ?>
 </div>
-<div class="row captcha">
-    <?php $this->widget('CCaptcha',array(
-        'captchaAction' => '/users/public/captcha',
-    )); ?>
-</div>
-<div class="row">
-    <?php echo $form->textField($model, 'verifyCode',array('class'=>"form-control",'placeholder'=>$model->getAttributeLabel('verifyCode'))); ?>
-    <?php echo $form->error($model,'verifyCode'); ?>
-    <span class="transition icon-lock" style="margin-top: 10px;"></span>
+<div class="robat">
+    <div class="captcha text-center">
+        <?php $this->widget('CCaptcha',array(
+            'captchaAction' => '/users/public/captcha',
+        )); ?>
+    </div>
+    <div class="input-group form-item">
+        <?php echo $form->textField($model, 'verifyCode',array('class'=>"form-control box-item",'placeholder'=>$model->getAttributeLabel('verifyCode'))); ?>
+        <?php echo $form->error($model,'verifyCode'); ?>
+    </div>
 </div>
 <div class="register-btn">
-    <button type="submit" class="btn"><b>ثبت نام</b></button>
+    <button type="submit" class="btn"><b>ورود</b></button>
 </div>
 <?php $this->endWidget(); ?>
 <div class="before">
-    <p>قبلا ثبت نام کرده اید؟<a href="<?php echo $this->createUrl('/login');?>">ورود به حساب کاربری</a></p>
+    <p>تازه وارد هستید؟<a href="<?php echo $this->createUrl('/register');?>">ثبت نام کنید.</a></p>
 </div>
 
 <?php $this->renderPartial('//layouts/_loading') ?>
