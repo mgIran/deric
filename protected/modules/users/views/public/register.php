@@ -38,11 +38,11 @@ $form=$this->beginWidget('CActiveForm', array(
             }",
     ),
 )); ?>
-<div class="input-group form-item">
-    <span class="glyphicon username"></span>
-    <?php echo $form->textField($model,'username',array('class'=>'form-control box-item','placeholder'=>'نام کاربری')); ?>
-    <?php echo $form->error($model,'username'); ?>
-</div>
+<!--<div class="input-group form-item">-->
+<!--    <span class="glyphicon username"></span>-->
+<!--    --><?php //echo $form->textField($model,'username',array('class'=>'form-control box-item','placeholder'=>'نام کاربری')); ?>
+<!--    --><?php //echo $form->error($model,'username'); ?>
+<!--</div>-->
 <div class="input-group form-item">
     <span class="glyphicon email-icon"></span>
     <?php echo $form->textField($model,'email',array('class'=>'form-control box-item','placeholder'=>'پست الکترونیکی')); ?>

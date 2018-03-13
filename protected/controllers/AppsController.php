@@ -1,5 +1,5 @@
 <?php
-
+Yii::import('rows.models.*');
 class AppsController extends Controller
 {
     public $layout = '//layouts/inner';
@@ -535,7 +535,6 @@ class AppsController extends Controller
         $this->layout = 'public';
 
         $queries = ['latest' => 'جدیدترین', 'bestRates' => 'برترین', 'free' => 'رایگان'];
-        Yii::import('rows.models.*');
         if(!in_array($title, array_keys($queries))) {
             $latest = new RowsHomepage();
             $latest->title = 'جدیدترین ها';
@@ -584,27 +583,14 @@ class AppsController extends Controller
         Yii::app()->theme = 'market';
         $this->layout = 'public';
 
-        $criteria = new CDbCriteria();
-        $criteria->addCondition('confirm=:confirm');
-        $criteria->addCondition('deleted=:deleted');
-        $criteria->addCondition('status=:status');
-        $criteria->addCondition('platform_id=:platform');
-        $criteria->addCondition('price=0');
-        $criteria->addCondition('(SELECT COUNT(app_images.id) FROM ym_app_images app_images WHERE app_images.app_id=t.id) != 0');
-        $criteria->addCondition('(SELECT COUNT(app_packages.id) FROM ym_app_packages app_packages WHERE app_packages.app_id=t.id) != 0');
-        $criteria->params = array(
-            ':confirm' => 'accepted',
-            ':deleted' => 0,
-            ':status' => 'enable',
-            ':platform' => $this->platform,
-        );
-
-        $free = new CActiveDataProvider('Apps', array(
-            'criteria' => $criteria,
-        ));
+        $row = new RowsHomepage();
+        $row->title = 'رایگان ها';
+        $row->const_query = 1;
+        $row->query = 'free';
 
         $this->render('free_apps_list', array(
-            'free' => $free,
+            'dataProvider' => Apps::model()->findAll($row->getConstCriteria(Apps::getValidApps($this->platform))),
+            'title' => $row->title,
         ));
     }
 
