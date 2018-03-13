@@ -5,17 +5,17 @@
  * @var $isDevReply boolean
  */
 ?>
-
 <div class="form row">
 <?php $form=$this->beginWidget('CActiveForm', array(
         'id'=>$this->id,
 )); ?>
-    <?php 
-        echo $form->hiddenField($newComment, 'owner_name'); 
-        echo $form->hiddenField($newComment, 'owner_id'); 
+    <?php
+        echo $form->hiddenField($newComment, 'owner_name');
+        echo $form->hiddenField($newComment, 'owner_id');
         echo $form->hiddenField($newComment, 'parent_comment_id', array('class'=>'parent_comment_id'));
     ?>
     <?php if(Yii::app()->user->isGuest == true):?>
+    <div class="row">
         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?php echo $form->textField($newComment,'user_name', array('size'=>40 ,'class'=>'form-control','placeholder' => $newComment->getAttributeLabel('user_name'))); ?>
             <?php echo $form->error($newComment,'user_name'); ?>
@@ -24,10 +24,11 @@
             <?php echo $form->textField($newComment,'user_email', array('size'=>40,'class'=>'form-control','placeholder' => $newComment->getAttributeLabel('user_email'))); ?>
             <?php echo $form->error($newComment,'user_email'); ?>
         </div>
+    </div>
     <?php endif; ?>
 
     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?php echo $form->textArea($newComment, 'comment_text', array('cols' => 60, 'rows' => 5,'class'=>'form-control','dir'=>'auto','placeholder' => 'نظر خود را بنویسید ...')); ?>
+        <?php echo $form->textArea($newComment, 'comment_text', array('cols' => 60, 'rows' => 5,'class'=>'textarea','dir'=>'auto','placeholder' => 'بررسی ها و نظرات خود را بنویسید...')); ?>
         <?php echo $form->error($newComment, 'comment_text'); ?>
     </div>
 
@@ -57,9 +58,9 @@
         </div>
     <?php endif;?>
 
-    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?php echo CHtml::button(Yii::t($this->_config['translationCategory'],'Add '.$this->_config['moduleObjectName']),
-            array('data-url'=>Yii::app()->createAbsoluteUrl($this->postCommentAction),'class'=> 'btn btn-success pull-left comment-submit-form-btn'));
+    <div class="ersal col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <?php echo CHtml::button('ارسال',
+            array('data-url'=>Yii::app()->createAbsoluteUrl($this->postCommentAction),'class'=> 'link-ersal comment-submit-form-btn'));
         ?>
     </div>
 <?php $this->endWidget(); ?>

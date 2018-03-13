@@ -113,6 +113,9 @@ if($model->multimedia):
         </div>
     </div>
 <? endif; ?>
+<?php
+if(!empty($model->description)):
+?>
 <div class="text-p">
     <h5><b>توضیحات</b></h5>
     <p class="text-right"><?php
@@ -124,6 +127,9 @@ if($model->multimedia):
         echo $purifier->purify($model->description);
         ?></p>
 </div>
+<?php
+endif;
+?>
 <div class="changes">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 last-change">
@@ -131,168 +137,10 @@ if($model->multimedia):
                 <h5><b>آخرین تغییرات</b></h5>
                 <?php echo $purifier->purify($model->change_log) ?>
             <?php endif; ?>
-            <div class="scoring">
-                <h5 class="first"><b>امتیازدهی و نظرات</b></h5>
-                <h5 class="last">برای ارسال نظر و امتیازدهی باید عضو سایت باشید.<a href="#">وارد شوید</a> یا <a href="#">ثبت نام کنید...</a></h5>
-                <textarea class="textarea" placeholder="بررسی ها و نظرات خود را بنویسید..."></textarea>
-                <div class="ersal"><a class="link-ersal" href="#">ارسال</a></div>
-            </div>
-            <div class="opinion">
-                <div class="opinion-container">
-                    <h5><b>نظرات</b></h5>
-                    <div class="opinion-to nicescroll" data-cursorcolor="#00381d" data-cursorborder="none" data-railpadding='js:{"top":5,"right":5,"bottom":0,"left":5}' data-autohidemode="leave">
-                        <div class="opinion-item">
-                            <div class="profile">
-                                <div class="profile-bg empty">
-                                    <b>A</b>
-                                </div>
-                            </div>
-                            <h6><b>احسان قراگوزلو</b></h6>
-                            <div class="votes">
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                            </div>
-                            <p>من این بازی را دانلود کرده ام.پیشنهاد میکنم شما هم دانلود کنید. مرسی سیسین </p>
-                            <div class="like">
-                                <div class="liked like-down">
-                                    <a href="#">
-                                        <i class="glyphicon like-down-icon"></i>
-                                        <span class="hidden-sm hidden-xs">0</span>
-                                    </a>
-                                </div>
-                                <div class="liked like-up">
-                                    <a href="#">
-                                        <i class="glyphicon like-up-icon"></i>
-                                        <span class="hidden-sm hidden-xs">333</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="opinion-item">
-                            <div class="profile">
-                                <div class="profile-bg photograph">
-                                </div>
-                            </div>
-                            <h6><b>احسان قراگوزلو</b></h6>
-                            <div class="votes">
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                            </div>
-                            <p>من این بازی را دانلود کرده ام. مرسی سیسین </p>
-                            <div class="like">
-                                <div class="liked like-down">
-                                    <a href="#">
-                                        <i class="glyphicon like-down-icon"></i>
-                                        <span class="hidden-sm hidden-xs">0</span>
-                                    </a>
-                                </div>
-                                <div class="liked like-up">
-                                    <a href="#">
-                                        <i class="glyphicon like-up-icon"></i>
-                                        <span class="hidden-sm hidden-xs">333</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="opinion-item">
-                            <div class="profile">
-                                <div class="profile-bg empty">
-                                    <b>A</b>
-                                </div>
-                            </div>
-                            <h6><b>احسان قراگوزلو</b></h6>
-                            <div class="votes">
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                            </div>
-                            <p>من این بازی را دانلود کرده ام. مرسی سیسین </p>
-                            <div class="like">
-                                <div class="liked like-down">
-                                    <a href="#">
-                                        <i class="glyphicon like-down-icon"></i>
-                                        <span class="hidden-sm hidden-xs">0</span>
-                                    </a>
-                                </div>
-                                <div class="liked like-up">
-                                    <a href="#">
-                                        <i class="glyphicon like-up-icon"></i>
-                                        <span class="hidden-sm hidden-xs">333</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="opinion-item">
-                            <div class="profile">
-                                <div class="profile-bg empty">
-                                    <b>A</b>
-                                </div>
-                            </div>
-                            <h6><b>احسان قراگوزلو</b></h6>
-                            <div class="votes">
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                            </div>
-                            <p>من این بازی را دانلود کرده ام. مرسی سیسین </p>
-                            <div class="like">
-                                <div class="liked like-down">
-                                    <a href="#">
-                                        <i class="glyphicon like-down-icon"></i>
-                                        <span class="hidden-sm hidden-xs">0</span>
-                                    </a>
-                                </div>
-                                <div class="liked like-up">
-                                    <a href="#">
-                                        <i class="glyphicon like-up-icon"></i>
-                                        <span class="hidden-sm hidden-xs">333</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="opinion-item">
-                            <div class="profile">
-                                <div class="profile-bg empty">
-                                    <b>A</b>
-                                </div>
-                            </div>
-                            <h6><b>احسان قراگوزلو</b></h6>
-                            <div class="votes">
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                                <i class="glyphicon hvh-star"></i>
-                            </div>
-                            <p>من این بازی را دانلود کرده ام. مرسی سیسین </p>
-                            <div class="like">
-                                <div class="liked like-down">
-                                    <a href="#">
-                                        <i class="glyphicon like-down-icon"></i>
-                                        <span class="hidden-sm hidden-xs">0</span>
-                                    </a>
-                                </div>
-                                <div class="liked like-up">
-                                    <a href="#">
-                                        <i class="glyphicon like-up-icon"></i>
-                                        <span class="hidden-sm hidden-xs">333</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            <!--Comments-->
+            <? $this->widget('comments.widgets.ECommentsListWidget', array('model' => $model)); ?>
+            <!--End Comments-->
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 access">
             <?php

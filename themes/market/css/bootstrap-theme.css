@@ -554,11 +554,11 @@ a{
     margin-bottom: 5px;
 }
 .game .games-item .text .star,
-.baner .baner-box .baner-box-to .baner-item .media .media-body .votes .star{
+.votes .star{
     display: inline-block;
     float: left;
 }
-.game .games-item .text .star .icon{
+.star .icon{
     background: url("../svg/star.svg") no-repeat center;
     background-size: 12px;
     width: 12px;
@@ -947,6 +947,9 @@ a{
     position: relative;
     padding: 0 40px;
 }
+.changes h5{
+    margin-top: 45px;
+}
 .changes .last-change ul{
     padding-right: 10px;
 }
@@ -958,7 +961,7 @@ a{
     padding: 5px 0;
 }
 .changes .last-change .scoring .first{
-    margin: 15px 0;
+    margin: 45px 0 0;
 }
 .changes .last-change .scoring .textarea{
     resize: vertical;
@@ -1113,9 +1116,9 @@ a{
     height: 300px;
 }
 .changes .last-change .opinion{
-    height: 300px;
+    display: block;
     overflow: hidden;
-    margin-top: 16%;
+    margin-top: 15px;
     position: relative;
 }
 .changes .last-change .opinion .opinion-to {
@@ -1156,11 +1159,14 @@ a{
 .changes .last-change .opinion .opinion-to .opinion-item h6{
     padding-top: 7px;
 }
-.changes .last-change .opinion .opinion-to .opinion-item .votes .hvh-star{
-    background: url("../svg/star.svg") no-repeat center;
-    background-size: 12px;
-    width: 12px;
-    height: 12px;
+.changes .last-change .opinion .opinion-to .opinion-item .votes{
+    display: block;
+    overflow: hidden;
+    text-align: right;
+}
+.changes .last-change .opinion .opinion-to .opinion-item .votes .star{
+    float: right;
+    direction: ltr !important;
 }
 .changes .last-change .opinion .opinion-to .opinion-item .like{
     width: 33%;
@@ -1811,4 +1817,17 @@ a{
 }
 .errorMessage{
     color: #e80000;
+}
+
+.opinion .admin-panel{
+    display: block;
+    overflow: hidden;
+    margin: 5px 0;
+}
+
+.opinion .admin-panel > a{
+    display: inline-block;
+}
+.opinion .admin-panel > a:hover {
+    text-decoration: underline !important;
 }

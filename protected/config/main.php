@@ -81,6 +81,7 @@ return array(
 				'class'=>'Users',
 				'nameProperty'=>'userDetails.fa_name',
 				'emailProperty'=>'email',
+				'rateProperty'=>'rate.rate',
 			),
 		)
 	),

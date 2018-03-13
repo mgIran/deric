@@ -120,6 +120,7 @@ class Users extends CActiveRecord
             'transactions' => array(self::HAS_MANY, 'UserTransactions', 'user_id'),
             'role' => array(self::BELONGS_TO, 'UserRoles', 'role_id'),
             'bookmarkedApps' => array(self::MANY_MANY, 'Apps', '{{user_app_bookmark}}(user_id,app_id)'),
+            'rate' => array(self::BELONGS_TO, 'AppRatings', 'id')
         );
     }
 
