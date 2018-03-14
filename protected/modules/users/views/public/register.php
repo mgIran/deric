@@ -78,3 +78,10 @@ $form=$this->beginWidget('CActiveForm', array(
 </div>
 
 <?php $this->renderPartial('//layouts/_loading') ?>
+
+<script>
+    $(function () {
+        $("#register-form .captcha a").click();
+        $("#register-form #Users_verifyCode").val("");
+    })
+</script>

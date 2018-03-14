@@ -29,16 +29,24 @@
                 return true;
             }",
         'afterValidate' => "js:function(form,data,hasError) {
-                $('.loading-container').stop().hide();
-                $(\"#login-btn\").val(\"در حال انتقال ...\");
-                return true;
-            }",
+            if(hasError){
+                $(\"#login-form .captcha a\").click();    
+                $(\"#login-form #UserLoginForm_verifyCode\").val(\"\");
+            }
+            $('.loading-container').stop().hide();
+            $(\"#login-btn\").val(\"در حال انتقال ...\");
+            return true;
+        }",
         'afterValidateAttribute' => 'js:function(form, attribute, data, hasError) {
-                if(data.UserLoginForm_authenticate_field != undefined)
-                    $("#validate-message").text(data.UserLoginForm_authenticate_field[0]).removeClass("hidden");
-                else
-                    $("#validate-message").addClass("hidden");
-            }',
+            if(hasError){
+                $("#login-form .captcha a").click();    
+                $("#login-form #UserLoginForm_verifyCode").val("");
+            }
+            if(data.UserLoginForm_authenticate_field != undefined)
+                $("#validate-message").text(data.UserLoginForm_authenticate_field[0]).removeClass("hidden");
+            else
+                $("#validate-message").addClass("hidden");
+        }',
     ),
 )); ?>
 <div class="input-group form-item">
@@ -71,3 +79,10 @@
 </div>
 
 <?php $this->renderPartial('//layouts/_loading') ?>
+
+<script>
+    $(function () {
+        $("#login-form .captcha a").click();
+        $("#login-form #Users_verifyCode").val("");
+    })
+</script>

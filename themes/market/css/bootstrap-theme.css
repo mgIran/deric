@@ -557,6 +557,11 @@ a{
 .votes .star{
     display: inline-block;
     float: left;
+    direction: ltr;
+}
+.star{
+    direction: ltr;
+    display: inline-block;
 }
 .star .icon{
     background: url("../svg/star.svg") no-repeat center;
@@ -869,12 +874,6 @@ a{
     width: 20px;
     height: 20px;
     margin-left: 7px;
-}
-.media-game .media-game-to .media-b .text-media .star{
-    background: url("../svg/star.svg") no-repeat center;
-    background-size: 12px;
-    width: 12px;
-    height: 12px;
 }
 .media-game .media-game-to .media-b .text-media .android{
     background: url("../svg/android-logo2.svg") no-repeat center !important;
@@ -1829,5 +1828,15 @@ a{
     display: inline-block;
 }
 .opinion .admin-panel > a:hover {
+    text-decoration: underline !important;
+}
+.captcha a{
+    display: block;
+    margin-top: 5px;
+    color: #fff;
+}
+
+.captcha a:hover {
+    color: #ddd !important;
     text-decoration: underline !important;
 }

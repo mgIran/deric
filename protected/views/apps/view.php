@@ -46,7 +46,7 @@ $rating = $model->calculateRating();
                     endif;
                     ?>
                 </div>
-                <div class="text-media"><span>(<?= Controller::parseNumbers(number_format($rating['totalAvg'])) ?> رای)</span></div>
+                <div class="text-media"><div class="star"><?= Controller::printRateStars($model->rate) ?></div><span>(<?= Controller::parseNumbers(number_format($rating['totalAvg'])) ?> رای)</span></div>
             </div>
             <div class="media-body media-b2">
                 <div class="empty hidden-xs"></div>
