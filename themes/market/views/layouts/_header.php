@@ -144,18 +144,18 @@
                 </div>
                 <div class="list-menu">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 right-list nicscroll" data-cursorcolor="#00381d" data-cursorborder="none"
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 right-list nicescroll" data-cursorcolor="#fff" data-cursorborder="none"
                              data-railpadding='js:{"top":5,"right":5,"bottom":0,"left":5}' data-autohidemode="leave">
-                            <ul>
+                            <ul class="list-unstyled">
                                 <?php foreach($this->categories['games'] as $category):?>
                                     <li><a href="<?php echo Yii::app()->createUrl('/apps/games/'.$category->id.'/'.urlencode($category->title));?>"><?php echo $category->title;?></a></li>
                                 <?php endforeach;?>
                             </ul>
                         </div>
                         <div class="border"></div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 left-list nicscroll" data-cursorcolor="#00381d" data-cursorborder="none"
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 left-list nicescroll" data-cursorcolor="#fff" data-cursorborder="none"
                              data-railpadding='js:{"top":5,"right":5,"bottom":0,"left":5}' data-autohidemode="leave">
-                            <ul class="nice">
+                            <ul class="list-unstyled">
                                 <?php foreach($this->categories['programs'] as $category):?>
                                     <li><a href="<?php echo Yii::app()->createUrl('/apps/programs/'.$category->id.'/'.urlencode($category->title));?>"><?php echo $category->title;?></a></li>
                                 <?php endforeach;?>

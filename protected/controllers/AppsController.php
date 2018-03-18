@@ -28,7 +28,7 @@ class AppsController extends Controller
                 'roles' => array('admin'),
             ),
             array('allow',
-                'actions' => array('free','discount', 'search', 'view', 'download', 'developer', 'games', 'programs'),
+                'actions' => array('all','free','discount', 'search', 'view', 'download', 'developer', 'games', 'programs'),
                 'users' => array('*'),
             ),
             array('allow',
@@ -497,6 +497,37 @@ class AppsController extends Controller
     }
 
     /**
+     * @param $title
+     * @param null $id
+     */
+    public function actionAll($title, $id = null)
+    {
+        Yii::app()->theme = 'market';
+        $this->layout = 'public';
+
+        if ($id) {
+            $dynamicRow = RowsHomepage::model()->find($id);
+            $dp = Apps::model()->findAll($dynamicRow->getConstCriteria(Apps::getValidApps($this->platform, CHtml::listData($dynamicRow->categoryIds, 'id', 'app_category_id'))));
+            $this->pageTitle = Controller::sefLinkRevert($title);
+        } else {
+            $queries = ['latest' => 'جدیدترین', 'bestRates' => 'برترین', 'free' => 'رایگان',
+                'latestGames' => 'جدیدترین بازی ها', 'latestPrograms' => 'جدیدترین برنامه ها'];
+            $row = new RowsHomepage();
+            $row->title = $queries[$title];
+            $row->const_query = 1;
+            $row->query = $title;
+            $dp = Apps::model()->findAll($row->getConstCriteria(Apps::getValidApps($this->platform)));
+            $this->pageTitle = $row->title;
+        }
+
+        $this->render('single_apps_list', array(
+            'dataProvider' => $dp,
+            'title' => $this->pageTitle,
+            'pageTitle' => $this->pageTitle
+        ));
+    }
+
+    /**
      * Show programs list
      */
     public function actionPrograms($id = null, $title = null)
@@ -534,8 +565,10 @@ class AppsController extends Controller
         Yii::app()->theme = 'market';
         $this->layout = 'public';
 
-        $queries = ['latest' => 'جدیدترین', 'bestRates' => 'برترین', 'free' => 'رایگان'];
-        if(!in_array($title, array_keys($queries))) {
+        $queries = ['latest' => 'جدیدترین', 'bestRates' => 'برترین', 'free' => 'رایگان',
+            'latestGames' => 'جدیدترین بازی ها', 'latestPrograms' => 'جدیدترین برنامه ها'];
+
+        if (!in_array($title, array_keys($queries))) {
             $latest = new RowsHomepage();
             $latest->title = 'جدیدترین ها';
             $latest->const_query = 1;
@@ -563,10 +596,10 @@ class AppsController extends Controller
                 'title' => (!is_null($title)) ? $title : null,
                 'pageTitle' => $pageTitle
             ));
-        }else{
+        } else {
             $category = AppCategories::model()->find($id);
             $row = new RowsHomepage();
-            $row->title = $queries[$title].' '.$category->title;
+            $row->title = $queries[$title] . ' ' . $category->title;
             $row->const_query = 1;
             $row->query = $title;
 

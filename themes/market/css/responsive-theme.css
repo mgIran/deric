@@ -89,22 +89,10 @@
         display: block;
     }
     .baner .baner-box .baner-box-to .baner-item .media .photo .media-img{
-        height: 130px;
         display: block;
     }
     .baner .baner-box .baner-box-to .baner-item .media{
         position: relative;
-    }
-    .baner .baner-box .baner-box-to .baner-item .media .media-body .downloady{
-        position: absolute;
-        top: 44%;
-        left: 25%;
-        width: 25%;
-    }
-    .baner .baner-box .baner-box-to .baner-item .media .media-body .media-heading{
-        position: absolute;
-        top: 0;
-        right: 50%;
     }
     .baner .baner-box .baner-box-to .baner-item .media .media-body .texts{
         margin: 0 10px;
@@ -113,13 +101,6 @@
     .baner .baner-box .baner-box-to .details .det-box{
         width: auto;
         margin: 15px;
-    }
-    .baner .baner-box .baner-box-to .baner-item .media .media-body .votes {
-        position: absolute;
-        top: 50px;
-        right: 50%;
-        width: 31%;
-        height: 20%;
     }
     .baner .baner-box .baner-box-to{
         height: 100%;
@@ -413,9 +394,6 @@
     .baner .baner-box .baner-box-to .baner-item .media .photo {
         padding: 10px;
     }
-    .baner .baner-box .baner-box-to .baner-item .media .photo .media-img{
-        height: 135px;
-    }
     .baner .baner-box .baner-box-to .baner-item .media .media-body .texts{
         line-height: 20px;
 
@@ -523,11 +501,6 @@
     .media-body, .media-left, .media-right{
         display: block;
     }
-    .baner .baner-box .baner-box-to .baner-item .media .media-body .media-heading{
-        position: absolute;
-        top: 0;
-        right: 50%;
-    }
     .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .votes{
         position: absolute;
         top: 18%;
@@ -607,9 +580,6 @@
     }
     .buttons .item{
         margin: 0 10px;
-    }
-    .baner .baner-box .baner-box-to .baner-item .media .photo .media-img{
-        height: 125px;
     }
     .baner .baner-box .baner-box-to .baner-item .media .photo{
         padding: 12px;

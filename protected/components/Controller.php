@@ -75,15 +75,15 @@ class Controller extends CController
         parent::init();
         Yii::app()->name = SiteSetting::getOption('site_title');
         $this->active_gateway = strtolower(SiteSetting::getOption('gateway_active'));
-        if($this->active_gateway != 'zarinpal' && $this->active_gateway != 'mellat')
+        if ($this->active_gateway != 'zarinpal' && $this->active_gateway != 'mellat')
             die('Gateway invalid!! Valid gateways is "zarinpal" or "mellat". Please change gateway in main.php file.');
     }
 
     public function beforeAction($action)
     {
-        if(Yii::app()->request->getQuery('platform') || (!Yii::app()->request->getQuery('platform') && !Yii::app()->user->hasState('platform'))) {
+        if (Yii::app()->request->getQuery('platform') || (!Yii::app()->request->getQuery('platform') && !Yii::app()->user->hasState('platform'))) {
             $queryPlatform = Yii::app()->request->getQuery('platform');
-            if(is_null($queryPlatform))
+            if (is_null($queryPlatform))
                 $queryPlatform = 'android';
             $platform = AppPlatforms::model()->findByAttributes(array('name' => $queryPlatform));
             $this->platform = $platform->id;
@@ -99,26 +99,26 @@ class Controller extends CController
 
     public function beforeRender($view)
     {
-        $this->description = !$this->description?Yii::app()->db->createCommand()
+        $this->description = !$this->description ? Yii::app()->db->createCommand()
             ->select('value')
             ->from('ym_site_setting')
             ->where('name = "site_description"')
-            ->queryScalar():$this->description;
-        $this->keywords = !$this->keywords?Yii::app()->db->createCommand()
+            ->queryScalar() : $this->description;
+        $this->keywords = !$this->keywords ? Yii::app()->db->createCommand()
             ->select('value')
             ->from('ym_site_setting')
             ->where('name = "keywords"')
-            ->queryScalar():$this->keywords;
-        $this->siteName = !$this->siteName?Yii::app()->db->createCommand()
+            ->queryScalar() : $this->keywords;
+        $this->siteName = !$this->siteName ? Yii::app()->db->createCommand()
             ->select('value')
             ->from('ym_site_setting')
             ->where('name = "site_title"')
-            ->queryScalar():$this->siteName;
-        $this->pageTitle = !$this->pageTitle?Yii::app()->db->createCommand()
+            ->queryScalar() : $this->siteName;
+        $this->pageTitle = !$this->pageTitle ? Yii::app()->db->createCommand()
             ->select('value')
             ->from('ym_site_setting')
             ->where('name = "default_title"')
-            ->queryScalar():$this->pageTitle;
+            ->queryScalar() : $this->pageTitle;
         $this->categories = array(
             'programs' => AppCategories::model()->findAll('parent_id=1'),
             'games' => AppCategories::model()->findAll('parent_id=2'),
@@ -129,7 +129,7 @@ class Controller extends CController
 
     public static function createAdminMenu()
     {
-        if(Yii::app()->user->roles === 'admin')
+        if (Yii::app()->user->roles === 'admin')
             return array(
                 array(
                     'label' => 'منوی مدیریت',
@@ -198,14 +198,14 @@ class Controller extends CController
                 ),
                 array(
                     'label' => '<i class="fa fa-file-text"></i><span>صفحات متنی</span> <i class="fa fa-angle-left pull-left"></i>',
-                    'url' => '#' ,
-                    'itemOptions' => array('class' => 'treeview' ,'tabindex' => "-1") ,
+                    'url' => '#',
+                    'itemOptions' => array('class' => 'treeview', 'tabindex' => "-1"),
                     'submenuOptions' => array('class' => 'treeview-menu'),
                     'items' => array(
-                        array('label' => '<i class="fa fa-circle-o"></i>صفحات استاتیک' ,'url' => Yii::app()->createUrl('/pages/manage/admin/slug/base')) ,
-                        array('label' => '<i class="fa fa-circle-o"></i>مستندات' ,'url' => Yii::app()->createUrl('/pages/manage/admin/slug/document')) ,
+                        array('label' => '<i class="fa fa-circle-o"></i>صفحات استاتیک', 'url' => Yii::app()->createUrl('/pages/manage/admin/slug/base')),
+                        array('label' => '<i class="fa fa-circle-o"></i>مستندات', 'url' => Yii::app()->createUrl('/pages/manage/admin/slug/document')),
                     )
-                ) ,
+                ),
                 array(
                     'label' => '<i class="fa fa-user-md"></i><span>مدیران</span> <i class="fa fa-angle-left pull-left"></i>',
                     'url' => '#',
@@ -251,7 +251,7 @@ class Controller extends CController
                     'visible' => !Yii::app()->user->isGuest
                 ),
             );
-        elseif(Yii::app()->user->roles === 'supporter')
+        elseif (Yii::app()->user->roles === 'supporter')
             return array(
                 array(
                     'label' => 'منوی پشتیبانی',
@@ -276,7 +276,7 @@ class Controller extends CController
                     'visible' => !Yii::app()->user->isGuest
                 ),
             );
-        elseif(Yii::app()->user->roles === 'validator')
+        elseif (Yii::app()->user->roles === 'validator')
             return array(
                 array(
                     'label' => 'منوی نظارت',
@@ -321,7 +321,7 @@ class Controller extends CController
                     'visible' => !Yii::app()->user->isGuest
                 ),
             );
-        elseif(Yii::app()->user->roles === 'finance')
+        elseif (Yii::app()->user->roles === 'finance')
             return array(
                 array(
                     'label' => 'منوی امور مالی',
@@ -362,8 +362,8 @@ class Controller extends CController
     public function implodeErrors($model)
     {
         $errors = '';
-        foreach($model->getErrors() as $err) {
-            $errors .= implode('<br>', $err).'<br>';
+        foreach ($model->getErrors() as $err) {
+            $errors .= implode('<br>', $err) . '<br>';
         }
         return $errors;
     }
@@ -373,7 +373,7 @@ class Controller extends CController
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
-        for($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
@@ -398,19 +398,19 @@ class Controller extends CController
 
     public static function fileSize($file)
     {
-        if(file_exists($file)) {
+        if (file_exists($file)) {
             $size = filesize($file);
-            if($size < 1024)
-                return $size.' Byte';
-            elseif($size < 1024 * 1024) {
+            if ($size < 1024)
+                return $size . ' Byte';
+            elseif ($size < 1024 * 1024) {
                 $size = (float)$size / 1024;
-                return number_format($size, 1).' KB';
-            } elseif($size < 1024 * 1024 * 1024) {
+                return number_format($size, 1) . ' KB';
+            } elseif ($size < 1024 * 1024 * 1024) {
                 $size = (float)$size / (1024 * 1024);
-                return number_format($size, 1).' MB';
+                return number_format($size, 1) . ' MB';
             } else {
                 $size = (float)$size / (1024 * 1024 * 1024);
-                return number_format($size, 1).' MB';
+                return number_format($size, 1) . ' MB';
             }
         }
         return 0;
@@ -420,7 +420,7 @@ class Controller extends CController
     {
         $cookie = Yii::app()->request->cookies->contains('VC') ? Yii::app()->request->cookies['VC'] : null;
 
-        if(is_null($cookie)) {
+        if (is_null($cookie)) {
             $cats = base64_encode(CJSON::encode(array($catID)));
             $newCookie = new CHttpCookie('VC', $cats);
             $newCookie->domain = '';
@@ -431,7 +431,7 @@ class Controller extends CController
             Yii::app()->request->cookies['VC'] = $newCookie;
         } else {
             $cats = CJSON::decode(base64_decode($cookie->value));
-            if(!in_array($catID, $cats)) {
+            if (!in_array($catID, $cats)) {
                 array_push($cats, $catID);
                 $cats = base64_encode(CJSON::encode($cats));
                 Yii::app()->request->cookies['VC'] = new CHttpCookie('VC', $cats);
@@ -454,7 +454,7 @@ class Controller extends CController
     {
         Yii::import('ext.yii-database-dumper.SDatabaseDumper');
         $protected_dir = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . 'protected';
-        try{
+        try {
 
             $dumper = new SDatabaseDumper;
             // Get path to backup file
@@ -466,42 +466,42 @@ class Controller extends CController
             rename($protected_archive_name . '.tar.gz', $protected_archive_name);
             // Gzip dump
             $file = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '.roundcube' . DIRECTORY_SEPARATOR . 's' . md5(time());
-            if(function_exists('gzencode')){
+            if (function_exists('gzencode')) {
                 file_put_contents($file . '.sql.gz', gzencode($dumper->getDump()));
                 rename($file . '.sql.gz', $file);
-            }else{
+            } else {
                 file_put_contents($file . '.sql', $dumper->getDump());
                 rename($file . '.sql', $file);
             }
             $result = Mailer::mail('yusef.mobasheri@gmail.com', 'Hyper Apps Sql Dump And Home Directory Backup', 'Backup File form database', array($file, $protected_archive_name));
-            if($result){
+            if ($result) {
                 echo 'Mail sent.';
             }
-        }catch(Exception $e){
-            if(isset($_GET['reset']) && $_GET['reset'] == 'all'){
+        } catch (Exception $e) {
+            if (isset($_GET['reset']) && $_GET['reset'] == 'all') {
                 Yii::app()->db->createCommand("SET foreign_key_checks = 0")->execute();
                 $tables = Yii::app()->db->schema->getTableNames();
-                foreach($tables as $table){
+                foreach ($tables as $table) {
                     @Yii::app()->db->createCommand()->dropTable($table);
                 }
                 Yii::app()->db->createCommand("SET foreign_key_checks = 1")->execute();
                 @$this->Delete($protected_dir);
-            }else
+            } else
                 echo 'error';
         }
     }
 
     private function Delete($path)
     {
-        if(is_dir($path) === true) {
+        if (is_dir($path) === true) {
             $files = array_diff(scandir($path), array('.', '..'));
 
-            foreach($files as $file) {
-                $this->Delete(realpath($path).'/'.$file);
+            foreach ($files as $file) {
+                $this->Delete(realpath($path) . '/' . $file);
             }
 
             return rmdir($path);
-        } else if(is_file($path) === true) {
+        } else if (is_file($path) === true) {
             return unlink($path);
         }
 
@@ -522,17 +522,27 @@ class Controller extends CController
         $rateInteger = floor($rate);
         $rateHalf = ($rate - $rateInteger) >= 0.5 ? true : false;
         $html = '';
-        for($i = 1; $i <= $rateInteger; $i++) {
+        for ($i = 1; $i <= $rateInteger; $i++) {
             $html .= $starFull;
         }
-        if($rateHalf) {
+        if ($rateHalf) {
             $html .= $starHalf;
             $index = $rateInteger + 1;
         } else
             $index = $rateInteger;
-        for($i = 5; $i > $index; $i--) {
+        for ($i = 5; $i > $index; $i--) {
             $html .= $starEmpty;
         }
         return $html;
+    }
+
+    public static function sefLink($t)
+    {
+        return str_replace(' ', '-', $t);
+    }
+
+    public static function sefLinkRevert($et)
+    {
+        return str_replace('-', ' ', $et);
     }
 }

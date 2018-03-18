@@ -173,9 +173,6 @@ a{
 .header .hide-menu .title-menu div span{
     font-weight: bold;
 }
-.header .hide-menu .list-menu .left-list{
-    padding-right: 0;
-}
 .header .hide-menu .list-menu .left-list,
 .header .hide-menu .list-menu .right-list{
     padding-top: 5px;
@@ -196,15 +193,16 @@ a{
     text-decoration: none;
 }
 .header .hide-menu .list-menu{
-    margin: 0 20px;
+    padding: 0 15px;
 }
 .header .hide-menu .list-menu .border{
     width: 1px;
-    height: 340px;
     background: #fff;
     position: absolute;
-    left: 55%;
+    left: 50%;
+    margin-left: -1px;
     top: 65px;
+    bottom: 15px;
 }
 .header .icons,
 .header .guide .guide-user{
@@ -554,7 +552,7 @@ a{
     background-color: #eee;
 }
 .game .imgs .is-carousel .games-item{
-    padding: 12px 8px;
+    padding: 12px 10px;
     height: auto;
     position: relative;
     overflow: hidden;
@@ -591,6 +589,7 @@ a{
     display: inline-block;
     color: #82d25f;
     margin-bottom: 5px;
+    font-size: 12px;
 }
 .game .games-item .text .star,
 .votes .star{
@@ -1275,6 +1274,7 @@ a{
 }
 .game-gallery{
     position: relative;
+    min-height: 700px;
 }
 .game-gallery .img-gallery{
     padding: 0 50px;

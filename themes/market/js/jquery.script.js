@@ -6,7 +6,7 @@ $(function () {
                 nav = ($(this).data('nav') == 1) ? true : false,
                 margin = $(this).data('margin'),
                 responsive = $(this).data('responsive'),
-                loop = ($(this).data('loop') == 1) ? true : false,
+                loop = ($(this).data('loop') == 1 && $(this).find(' > div').length>1) ? true : false,
                 autoPlay = ($(this).data('autoplay') == 1) ? true : false,
                 autoPlayHoverPause = ($(this).data('autoplay-hover-pause') == 1) ? true : false,
                 mouseDrag = ($(this).data('mouse-drag') == 1) ? true : false;
@@ -18,7 +18,6 @@ $(function () {
                 });
 
                 $(this).owlCarousel({
-                    autoWidth: true,
                     dots: dots,
                     nav: nav,
                     navText: ["<i class='arrow-icon'></i>", "<i class='arrow-icon'></i>"],
@@ -138,7 +137,51 @@ $(function () {
             onChange: null,
             onSet: null
         });
+
+    $(".nicescroll").each(function () {
+        var options = $(this).data();
+
+        $.each(options, function (key, value) {
+            if (typeof value == "string" && value.indexOf("js:") != -1)
+                options[key] = JSON.parse(value.substr(3));
+        });
+
+        $(this).niceScroll(options);
+    });
 });
 
 
 
+
+
+function setCarouselItemsWidth(carousel, items, margin) {
+    var objKeys = Object.keys(items),
+        itemsCount,
+        itemsMargin,
+        sumMargin,
+        width;
+
+    // Get count of items
+    objKeys.reverse();
+    for (var i = 0; i < objKeys.length; i++) {
+        if ($(window).width() >= objKeys[i]) {
+            itemsCount = items[objKeys[i]];
+            break;
+        }
+    }
+
+    // Get margin
+    objKeys=Object.keys(margin);
+    objKeys.reverse();
+    for (i = 0; i < objKeys.length; i++) {
+        if ($(window).width() >= objKeys[i]) {
+            itemsMargin = margin[objKeys[i]];
+            break;
+        }
+    }
+
+    sumMargin = (itemsCount - 1) * itemsMargin;
+    width = (carousel.width() - sumMargin) / itemsCount;
+
+    carousel.find('.thumbnail-container').width(width).css('margin-left', parseInt(itemsMargin));
+}

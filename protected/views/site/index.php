@@ -19,13 +19,13 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/jqu
 <?php $this->renderPartial('/site/_quick_access') ?>
 
 <?php foreach ($dynamicRows as $dynamicRow):
-    $dp = Apps::model()->findAll($dynamicRow->getConstCriteria(Apps::getValidApps($this->platform)));
+    $dp = Apps::model()->findAll($dynamicRow->getConstCriteria(Apps::getValidApps($this->platform, CHtml::listData($dynamicRow->categoryIds,'id', 'app_category_id'))));
     ?>
     <section>
         <div class="see">
             <div class="row">
                 <div class="see-all col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a class="link-grid" href="#"><span>مشاهده همه</span><span class="grid"></span></a>
+                    <a class="link-grid" href="<?= $this->createUrl('/apps/all/'.($dynamicRow->query?:(Controller::sefLink($dynamicRow->title).'/'.$dynamicRow->id))) ?>"><span>مشاهده همه</span><span class="grid"></span></a>
                     <a class="novelty" href="#"><?= $dynamicRow->title ?></a>
                 </div>
             </div>
