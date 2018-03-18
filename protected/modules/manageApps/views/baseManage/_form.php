@@ -36,7 +36,7 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'category_id'); ?>
-		<?php echo $form->dropDownList($model,'category_id',AppCategories::model()->sortList(), array('class'=> 'form-control')); ?>
+		<?php echo $form->dropDownList($model,'category_id',AppCategories::model()->sortList(), array('class'=> 'form-control selectpicker')); ?>
 		<?php echo $form->error($model,'category_id'); ?>
 	</div>
 

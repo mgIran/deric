@@ -28,6 +28,7 @@
     <![endif]-->
     <?php
     $cs->registerCssFile($baseUrl . '/css/bootstrap.min.css');
+    $cs->registerCssFile($baseUrl.'/css/bootstrap-select.min.css');
     $cs->registerCssFile($baseUrl . '/css/font-awesome.css');
     $cs->registerCssFile($baseUrl . '/css/ionicons.css');
     $cs->registerCssFile($baseUrl . '/css/AdminLTE.css');
@@ -39,6 +40,7 @@
     $cs->registerCoreScript('jquery');
     $cs->registerCoreScript('jquery.ui');
     $cs->registerScriptFile($baseUrl . '/js/bootstrap.min.js');
+    $cs->registerScriptFile($baseUrl . '/js/bootstrap-select.min.js');
     $cs->registerScriptFile($baseUrl . '/plugins/iCheck/icheck.min.js');
     $cs->registerScriptFile($baseUrl . '/js/app.min.js', CClientScript::POS_END);
     $cs->registerScriptFile($baseUrl . '/js/script.js');

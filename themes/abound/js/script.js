@@ -1,4 +1,9 @@
 $(function () {
+    $("select.selectpicker").each(function () {
+        $(this).selectpicker({
+            dropupAuto: false
+        });
+    });
     setInterval(function () {
         $(".callout:not(.message)").fadeOut('fast', function () {
             $(this).remove();

@@ -107,6 +107,12 @@ $(function () {
         $(".hide-menu").fadeOut("slow");
     });
 
+    $("select.selectpicker").each(function () {
+        $(this).selectpicker({
+            dropupAuto: false
+        });
+    });
+
     if ($.fn.niceScroll)
         $(".opinion-to").niceScroll({
             cursorcolor: "#00381d",
