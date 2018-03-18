@@ -505,6 +505,7 @@ a{
     position: absolute;
     right: -50px;
     top: 44px;
+    display: none !important;
 }
 .game .owl-carousel .owl-controls .owl-nav .owl-next{
     background: url("../svg/left-arrow.svg") no-repeat center;
@@ -521,10 +522,9 @@ a{
 }
 .game .imgs{
     overflow: hidden;
-    padding: 0 67px;
+    padding: 0 20px 0 67px;
 }
 .game .is-carousel .games-item{
-    float: right;
     width: 100%;
     display: inline-block;
 }
@@ -551,11 +551,15 @@ a{
     border: 1px solid #888;
     background-color: #eee;
 }
+.game .imgs .is-carousel.owl-carousel.owl-rtl .owl-item{
+    text-align: center !important;
+}
 .game .imgs .is-carousel .games-item{
     padding: 12px 10px;
     height: auto;
     position: relative;
     overflow: hidden;
+    max-width: 160px;
 }
 .game .games-item .text .title{
     margin-bottom: 12px;
@@ -1275,6 +1279,7 @@ a{
 .game-gallery{
     position: relative;
     min-height: 700px;
+    padding-bottom: 50px;
 }
 .game-gallery .img-gallery{
     padding: 0 50px;
@@ -1987,7 +1992,7 @@ a{
     z-index: 5;
 }
 .header .mobail-menu-hide ul li .android{
-    background: url("../svg") no-repeat center;
+    background: url("../svg/android-logo-white.svg") no-repeat center;
     background-size: 23px;
     width: 23px;
     height: 23px;

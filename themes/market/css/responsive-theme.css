@@ -188,7 +188,6 @@
         height: auto;
         position: relative;
         overflow: hidden;
-        float: right;
         padding: 0;
     }
     .game-gallery .img-gallery{
