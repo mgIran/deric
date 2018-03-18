@@ -1,9 +1,23 @@
 @media screen and (max-width: 992px) {
-    .nicescroll{
+    .nicescroll {
         overflow-y: auto !important;
+    }
+
+    .header .hide-menu .list-menu .left-list,
+    .header .hide-menu .list-menu .right-list {
+        max-height: 100%;
     }
 }
 @media screen and (max-width: 767px) {
+    .header .guide .login-process{
+        position: fixed !important;
+        left: 50% !important;
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        transform: translateX(-50%);
+    }
     .header .navbar-header .sisen-brand{
         padding: 0;
     }

@@ -96,7 +96,9 @@ $(function () {
     }).on("click", ".mobail-bar", function () {
         $(".mobail-menu-hide").fadeIn();
         $(".bg-menu").show();
+        $("body").addClass('overflow-fix');
     }).on("click", ".bg-menu", function () {
+        $("body").removeClass('overflow-fix');
         $(".bg-menu").fadeOut();
         $(".mobail-menu-hide").fadeOut();
     }).on("click", ".mobail-cat", function () {

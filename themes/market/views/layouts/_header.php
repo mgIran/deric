@@ -133,7 +133,7 @@
                     <li><a href="<?php echo $this->createUrl('/android');?>"></a><span class="glyphicon android"></span><span class="text">اندروید</span></li>
                     <li><a href="<?php echo $this->createUrl('/ios');?>"></a><span class="glyphicon ios"></span><span class="text">آی او اس</span></li>
                     <li class="mobail-cat"><a href="#"></a><span class="glyphicon category"></span><span class="text">دسته بندی ها</span></li>
-                    <li><a href="<?php echo $this->createUrl('/site/underConstruction');?>"></a><span class="glyphicon android-2"></span><span class="text">دانلود سیسن اپ</span></li>
+                    <li><a href="<?php echo $this->createUrl('/site/underConstrction');?>"></a><span class="glyphicon android-2"></span><span class="text">دانلود سیسن اپ</span></li>
                 </ul>
             </div>
             <div class="bg-menu hidden-lg hidden-md hidden-sm"></div>
