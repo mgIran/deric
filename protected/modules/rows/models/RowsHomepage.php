@@ -187,13 +187,15 @@ class RowsHomepage extends SortableCActiveRecord
             case 'bestRates':
                 $criteria->select = 't.*, AVG(ratings.rate) as avgRate';
                 $criteria->addCondition('ratings.rate IS NOT NULL');
-                $criteria->with = array('images', 'ratings');
+                $criteria->with[] = 'images';
+                $criteria->with[] = 'ratings';
                 $criteria->together = true;
                 $criteria->order = 'avgRate DESC, t.id DESC';
                 $criteria->group = 't.id';
                 break;
             case 'bestSelling':
-                $criteria->with = array('images', 'appBuys' => array('joinType' => 'RIGHT OUTER JOIN'));
+                $criteria->with[] = 'images';
+                $criteria->with['appBuys'] = array('joinType' => 'RIGHT OUTER JOIN');
                 $criteria->together = true;
                 $criteria->order = 'COUNT(appBuys.id) DESC';
                 $criteria->group = 'appBuys.app_id';

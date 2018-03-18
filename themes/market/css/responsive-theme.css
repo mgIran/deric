@@ -13,6 +13,11 @@
     }
 }
 @media screen and (max-width: 767px) {
+    .header .hide-menu{
+        position: fixed;
+        bottom: 0;
+        top: 0;
+    }
     .header .guide .login-process{
         position: fixed !important;
         left: 50% !important;

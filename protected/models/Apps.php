@@ -432,10 +432,8 @@ class Apps extends CActiveRecord
         }
     }
 
-    public function showCategories($link)
+    public function showCategories($link= false)
     {
-
-
         if(!$link)
             $cats = CHtml::listData($this->categories, 'id', 'fullTitle');
         else {

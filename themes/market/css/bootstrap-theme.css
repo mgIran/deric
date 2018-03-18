@@ -20,7 +20,9 @@ a{
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
 }
-
+.content{
+    overflow-x: hidden;
+}
 .header{
     height: 55px;
     background-color: #00381f;
@@ -156,7 +158,6 @@ a{
     top: 70px;
     right: 35%;
     overflow: hidden;
-    bottom: 0;
 }
 .header .hide-menu .title-menu{
     margin: 0 20px;
