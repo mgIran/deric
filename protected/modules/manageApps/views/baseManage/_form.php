@@ -34,10 +34,16 @@
 		<?php echo $form->error($model,'developer_team'); ?>
 	</div>
 
-	<div class="form-group">
-		<?php echo $form->labelEx($model,'category_id'); ?>
-		<?php echo $form->dropDownList($model,'category_id',AppCategories::model()->sortList(), array('class'=> 'form-control selectpicker')); ?>
-		<?php echo $form->error($model,'category_id'); ?>
+<!--	<div class="form-group">-->
+<!--		--><?php //echo $form->labelEx($model,'category_id'); ?>
+<!--		--><?php //echo $form->dropDownList($model,'category_id',AppCategories::model()->sortList(), array('class'=> 'form-control selectpicker', 'multiple' => true)); ?>
+<!--		--><?php //echo $form->error($model,'category_id'); ?>
+<!--	</div>-->
+
+    <div class="form-group">
+		<?php echo $form->labelEx($model,'categoryForm'); ?>
+		<?php echo $form->dropDownList($model,'categoryForm',AppCategories::model()->sortList(), array('class'=> 'form-control selectpicker', 'data-size' => 10,'multiple' => true)); ?>
+		<?php echo $form->error($model,'categoryForm'); ?>
 	</div>
 
 	<div class="form-group">

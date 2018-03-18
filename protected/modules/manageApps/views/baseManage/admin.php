@@ -27,8 +27,8 @@ $this->breadcrumbs=array(
 				),
 				array(
 					'name' => 'category_id',
-					'value' => '$data->category->fullTitle',
-					'filter' => CHtml::activeDropDownList($model,'category_id',AppCategories::model()->sortList(),array('prompt' => 'همه'))
+					'value' => '$data->showCategories()',
+					'filter' => AppCategories::model()->sortList()
 				),
 				array(
 					'name' => 'status',

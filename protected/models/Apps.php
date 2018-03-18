@@ -41,6 +41,7 @@
  * @property Users[] $bookmarker
  * @property AppPackages[] $packages
  * @property AppDiscounts $discount
+ * @property AppCategoryRel[] $categoryRel
  */
 class Apps extends CActiveRecord
 {
@@ -98,14 +99,14 @@ class Apps extends CActiveRecord
         return array(
             array('platform_id', 'required', 'on' => 'insert'),
             array('title', 'unique', 'on' => 'insert'),
-            array('title, category_id, price ,platform_id ,icon, support_email, platform_id', 'required', 'on' => 'admin_insert'),
-            array('title, category_id, price ,platform_id ,icon, support_email', 'required', 'on' => 'update'),
+            array('title, categoryForm, price ,platform_id ,icon, support_email, platform_id', 'required', 'on' => 'admin_insert'),
+            array('title, categoryForm, price ,platform_id ,icon, support_email', 'required', 'on' => 'update'),
             array('support_email', 'email'),
             array('price, size, platform_id', 'numerical'),
             array('seen, install, deleted', 'numerical', 'integerOnly' => true),
             array('description, change_log', 'filter', 'filter' => array($this->_purifier, 'purify')),
             array('title, icon, developer_team', 'length', 'max' => 50),
-            array('developer_id, category_id, platform_id', 'length', 'max' => 10),
+            array('developer_id, platform_id', 'length', 'max' => 10),
             array('status', 'length', 'max' => 7),
             array('download, install', 'length', 'max' => 12),
             array('price, size', 'numerical'),
@@ -114,7 +115,7 @@ class Apps extends CActiveRecord
             array('support_email, support_fa_web, support_en_web', 'length', 'max' => 255),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, title, developer_id, category_id, status, price, icon, description, change_log, permissions, size, confirm, platform_id, developer_team, seen, download, install, deleted ,devFilter,packageFilter, support_phone, support_email, support_fa_web, support_en_web', 'safe', 'on' => 'search'),
+            array('id, title, developer_id, category_id, categoryForm, status, price, icon, description, change_log, permissions, size, confirm, platform_id, developer_team, seen, download, install, deleted ,devFilter,packageFilter, support_phone, support_email, support_fa_web, support_en_web', 'safe', 'on' => 'search'),
             array('description, change_log', 'filter', 'filter' => array($obj = new CHtmlPurifier(), 'purify')),
         );
     }
@@ -140,6 +141,7 @@ class Apps extends CActiveRecord
             'ratings' => array(self::HAS_MANY, 'AppRatings', 'app_id'),
             'advertise' => array(self::HAS_ONE, 'AppAdvertises', 'app_id'),
             'categories' => array(self::MANY_MANY, 'AppCategories', '{{app_category_rel}}(app_id,category_id)'),
+            'categoryRel' => array(self::HAS_MANY, 'AppCategoryRel', 'app_id'),
         );
     }
 
@@ -213,12 +215,16 @@ class Apps extends CActiveRecord
         $criteria->compare('t.status', $this->status);
         $criteria->compare('t.confirm', $this->confirm);
         $criteria->compare('price', $this->price, true);
-        $criteria->compare('categories.category_id', $this->category_id);
         $criteria->compare('support_phone', $this->support_phone, true);
         $criteria->compare('support_email', $this->support_email, true);
         $criteria->compare('support_fa_web', $this->support_fa_web, true);
         $criteria->compare('support_en_web', $this->support_en_web, true);
 
+        if($this->category_id) {
+            $criteria->compare('categoryRel.category_id', $this->category_id);
+            $criteria->together = true;
+            $criteria->with[] = 'categoryRel';
+        }
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
@@ -278,8 +284,7 @@ class Apps extends CActiveRecord
             foreach ($packages as $package)
                 if ($package->id > $this->lastPackage->id)
                     $this->lastPackage = $package;
-
-            $this->categoryForm = $this->categories ? CHtml::listData($this->categories, 'category_id', 'category_id'):[];
+            $this->categoryForm = $this->categories ? CHtml::listData($this->categories, 'id', 'id') : [];
         }
     }
 
@@ -372,7 +377,11 @@ class Apps extends CActiveRecord
         $criteria->params[':confirm'] = 'accepted';
         $criteria->params[':deleted'] = 0;
         if ($visitedCats)
-            $criteria->addInCondition('category_id', $visitedCats);
+        {
+            $criteria->addInCondition('categoryRel.category_id', $visitedCats);
+            $criteria->together = true;
+            $criteria->with[] = 'categoryRel';
+        }
         if ($platform) {
             $criteria->addCondition('t.platform_id=:platform_id');
             $criteria->params[':platform_id'] = $platform;
@@ -413,7 +422,7 @@ class Apps extends CActiveRecord
         parent::afterSave();
         if ($this->categoryForm && is_array($this->categoryForm)) {
             if (!$this->isNewRecord)
-                AppCategoryRel::model()->deleteAll(['app_id' => $this->id]);
+                AppCategoryRel::model()->deleteAll('app_id = :id', ['id'=>$this->id]);
             foreach ($this->categoryForm as $item) {
                 $model = new AppCategoryRel();
                 $model->app_id = $this->id;
@@ -421,5 +430,11 @@ class Apps extends CActiveRecord
                 @$model->save(false);
             }
         }
+    }
+
+    public function showCategories()
+    {
+        $cats = CHtml::listData($this->categories, 'id', 'fullTitle');
+        return implode(', ', $cats);
     }
 }

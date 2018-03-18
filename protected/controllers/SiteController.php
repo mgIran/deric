@@ -202,4 +202,14 @@ class SiteController extends Controller
                ->execute();
         var_dump($flag);exit;
     }
+
+    public function actionConvert(){
+        $apps = Apps::model()->findAll();
+        foreach ($apps as $app){
+            if($app->category_id) {
+                $app->categoryForm = [$app->category_id];
+                @$app->save();
+            }
+        }
+    }
 }
