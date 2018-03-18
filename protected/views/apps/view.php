@@ -132,17 +132,7 @@ endif;
 ?>
 <div class="changes">
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 last-change">
-            <?php if($model->change_log || !empty($model->change_log)):?>
-                <h5><b>آخرین تغییرات</b></h5>
-                <?php echo $purifier->purify($model->change_log) ?>
-            <?php endif; ?>
-
-            <!--Comments-->
-            <? $this->widget('comments.widgets.ECommentsListWidget', array('model' => $model)); ?>
-            <!--End Comments-->
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 access">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 access pull-left">
             <?php
             $model->permissions = CJSON::decode($model->permissions);
             if($model->permissions):?>
@@ -218,6 +208,16 @@ endif;
                     </div>
                 </div>
             <? endif; ?>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 last-change pull-left">
+            <?php if($model->change_log || !empty($model->change_log)):?>
+                <h5><b>آخرین تغییرات</b></h5>
+                <?php echo $purifier->purify($model->change_log) ?>
+            <?php endif; ?>
+
+            <!--Comments-->
+            <? $this->widget('comments.widgets.ECommentsListWidget', array('model' => $model)); ?>
+            <!--End Comments-->
         </div>
     </div>
 </div>

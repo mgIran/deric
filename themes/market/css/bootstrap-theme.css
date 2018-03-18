@@ -156,6 +156,7 @@ a{
     top: 70px;
     right: 35%;
     overflow: hidden;
+    bottom: 0;
 }
 .header .hide-menu .title-menu{
     margin: 0 20px;
@@ -2038,9 +2039,11 @@ a{
 }
 .header .hide-menu .list-menu .close-icon{
     position: absolute;
-    top: 5px;
-    width: 100%;
+    top: 7px;
+    width: auto;
     left: 10px;
+    display: inline-block;
+    padding: 5px;
 }
 .header .hide-menu .list-menu .close-icon .icon-close{
     background: url("../svg/close1.svg") no-repeat center;
@@ -2069,4 +2072,8 @@ a{
     display: block;
     width: 100%;
     overflow: hidden;
+}
+
+.jq-ry-container{
+    margin: 0 auto;
 }
