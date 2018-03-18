@@ -94,6 +94,16 @@ $(function () {
         $(".mobail-menu").toggle(200);
     }).on("click", ".header, .consumer", function () {
         $(".mobail-menu").hide(200);
+    }).on("click", ".mobail-bar", function () {
+        $(".mobail-menu-hide").fadeIn();
+        $(".bg-menu").show();
+    }).on("click", ".bg-menu", function () {
+        $(".bg-menu").fadeOut();
+        $(".mobail-menu-hide").fadeOut();
+    }).on("click", ".mobail-cat", function () {
+        $(".hide-menu").fadeToggle("slow");
+    }).on("click", ".close-icon", function () {
+        $(".hide-menu").fadeOut("slow");
     });
 
     if ($.fn.niceScroll)

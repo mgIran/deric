@@ -64,7 +64,8 @@ class PublicController extends Controller
                 'scenario' => 'upload_photo',
                 'storeMode' => 'field',
                 'afterSaveActions' => array(
-                    'resize' => array('width'=>500,'height'=>500)
+                    'thumbnail' => array('width'=>200,'height'=>200, 'replaceOrigin' => true),
+                    'expression' => 'Yii::app()->user->setState("avatar", {thumburl})'
                 )
             ),
             'deleteUpload' => array(

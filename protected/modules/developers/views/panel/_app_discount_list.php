@@ -1,19 +1,1 @@
-<?php
-/* @var $data AppDiscounts */
-
-?>
-
-<div class="tr">
-    <div class="col-lg-3 col-md3 col-sm-3 col-xs-4"><a target="_blank" href="<?php echo $data->app->getViewUrl();?>"><?php echo $data->app->title;?></a></div>
-    <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs"><?php echo ($data->app->status=='enable')?'فعال':'غیر فعال';?></div>
-    <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs"><?php echo ($data->app->price==0)?'رایگان':Controller::parseNumbers(number_format($data->app->price,0)).' تومان';?></div>
-    <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs"><?= Controller::parseNumbers($data->percent).'%' ?></div>
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><?= Controller::parseNumbers(number_format($data->offPrice)).' تومان' ?></div>
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
-        <?
-        echo Controller::parseNumbers(JalaliDate::date('Y/m/d - H:i',$data->start_date));
-        echo '<br>الی<br>';
-        echo Controller::parseNumbers(JalaliDate::date('Y/m/d - H:i',$data->end_date));
-        ?>
-    </div>
-</div>
+<?php/* @var $data AppDiscounts */$app = $data->app;?><tr>    <td><a target="_blank" href="<?= $app->getViewUrl() ?>"><?php echo $app->title;?></a></td>    <td><?php echo ($app->status=='enable')?'فعال':'غیر فعال';?></td>    <td><?php        if($app->price==0)            echo 'رایگان';        elseif($app->price==-1)            echo 'پرداخت درون برنامه';        else            echo Controller::parseNumbers(number_format($app->price,0)).' تومان';        ?></td>    <td>        <?= Controller::parseNumbers($data->percent).'%' ?>    </td>    <td>        <?= Controller::parseNumbers(number_format($app->offPrice)).' تومان' ?>    </td>    <td>        <?        echo Controller::parseNumbers(JalaliDate::date('Y/m/d - H:i',$data->start_date));        echo '<br>الی<br>';        echo Controller::parseNumbers(JalaliDate::date('Y/m/d - H:i',$data->end_date));        ?>    </td></tr>

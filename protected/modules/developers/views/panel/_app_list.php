@@ -2,20 +2,21 @@
 /* @var $data Apps */
 Yii::import("comments.models.*");
 ?>
-
-<div class="tr">
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5"><a target="_blank" href="<?= $data->getViewUrl() ?>"><?php echo $data->title;?></a></div>
-    <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs"><?php echo ($data->status=='enable')?'فعال':'غیر فعال';?></div>
-    <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs"><?php
+<tr>
+    <td><a target="_blank" href="<?= $data->getViewUrl() ?>"><?php echo $data->title;?></a></td>
+    <td><?php echo ($data->status=='enable')?'فعال':'غیر فعال';?></td>
+    <td><?php
         if($data->price==0)
             echo 'رایگان';
         elseif($data->price==-1)
             echo 'پرداخت درون برنامه';
         else
             echo Controller::parseNumbers(number_format($data->price,0)).' تومان';
-        ?></div>
-    <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs"><?= Controller::parseNumbers(number_format($data->install)) ?></div>
-    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+        ?></td>
+    <td>
+        <?= Controller::parseNumbers(number_format($data->install)) ?>
+    </td>
+    <td>
         <span style="font-size: 16px;">
             <a style="display: block" class="icon-comment <?= $data->getCountNewComment()?"text-success":"text-hide" ?>" href="<?= $this->createUrl('/apps/comments/'.$data->id) ?>"><?= $data->getCountNewComment()?></a>
         </span>
@@ -25,6 +26,8 @@ Yii::import("comments.models.*");
         <span style="font-size: 16px">
             <a class="icon-trash text-danger" href="<?php echo $this->createUrl('/developers/apps/delete/'.$data->id);?>" onclick="if(confirm('آیا از حذف این برنامه اطمینان دارید؟')) window.location ='<?= $data->getViewUrl() ?>';"></a>
         </span>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4"><span class="label <?php if($data->confirm=='accepted')echo 'label-success';elseif($data->confirm=='refused' or $data->confirm=='change_required')echo 'label-danger';elseif($data->confirm=='incomplete')echo 'label-warning';else echo 'label-info';?>"><?php echo $data->confirmLabels[$data->confirm];?></span></div>
-</div>
+    </td>
+    <td>
+        <span class="label <?php if($data->confirm=='accepted')echo 'label-success';elseif($data->confirm=='refused' or $data->confirm=='change_required')echo 'label-danger';elseif($data->confirm=='incomplete')echo 'label-warning';else echo 'label-info';?>"><?php echo $data->confirmLabels[$data->confirm];?></span>
+    </td>
+</tr>

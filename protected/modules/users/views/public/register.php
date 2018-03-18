@@ -4,7 +4,7 @@
 /* @var $model Users */
 ?>
 <div class="header-reg-green">
-    <h5><strong>ثبت نام در <?= Yii::app()->name ?></strong></h5>
+    <h5><strong>ثبت نام در سیسن اپ</strong></h5>
 </div>
 <div class="header-reg-red">
     <a class="link-reg-red" href="<?= Yii::app()->createUrl('/googleLogin') ?>"></a>

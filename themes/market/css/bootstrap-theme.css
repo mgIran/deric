@@ -61,7 +61,7 @@ a{
     height: 55px;
 }
 .header .icons .icon-android .android{
-    background: url("../svg/android-logo.svg") no-repeat center;
+    background: url("../svg/android-logo-white.svg") no-repeat center;
     background-size: 31px;
     width: 31px;
     height: 31px;
@@ -69,7 +69,22 @@ a{
     margin: 12px 0;
 }
 .header .icons .icon-ios .ios{
-    background: url("../svg/apple(1).svg") no-repeat center;
+    background: url("../svg/apple-white.svg") no-repeat center;
+    background-size: 31px;
+    width: 31px;
+    height: 31px;
+    display: inline-block;
+    margin: 12px 0;
+}
+
+.header .icons .icon-ios .link-ios.active .ios{
+    background-image: url("../svg/apple-green.svg");
+}
+.header .icons .icon-android .link-android.active .android{
+    background-image: url("../svg/android-logo.svg");
+}
+.header .icons .icon-ios .ios{
+    background: url("../svg/apple-white.svg") no-repeat center;
     background-size: 31px;
     width: 31px;
     height: 31px;
@@ -77,7 +92,7 @@ a{
     margin: 12px 0;
 }
 .header .icons .icon-ios .link-ios:hover .ios{
-    background: url("../svg/apple(2).svg") no-repeat center;
+    background: url("../svg/apple-green.svg") no-repeat center;
     background-size: 31px;
 }
 .header .icons .lists .link-lists .category{
@@ -111,15 +126,17 @@ a{
 .header .icons .icon-ios h5,
 .header .icons .lists h5{
     display: inline-block;
-    color: #00ff8d;
+    color: #fff !important;
     margin: 2px 0 0 0;
     overflow: hidden;
     padding: 16px 3px;
 }
-.header .icons .icon-ios h5,
 .header .icons .lists h5{
     color: #fff !important;
 }
+
+.header .icons .icon-android .link-android.active h5,
+.header .icons .icon-ios .link-ios.active h5,
 .header .icons .icon-ios .link-ios:hover h5,
 .header .icons .lists .link-lists:hover h5{
     color: #00ff8d !important;
@@ -162,12 +179,12 @@ a{
 .header .hide-menu .list-menu .left-list,
 .header .hide-menu .list-menu .right-list{
     padding-top: 5px;
+    max-height: 330px;
 }
 .header .hide-menu .list-menu .left-list ul,
 .header .hide-menu .list-menu .right-list ul{
     padding-right: 11px;
     color: #fff;
-    max-height: 330px;
 }
 .header .hide-menu .list-menu .left-list ul li,
 .header .hide-menu .list-menu .right-list ul li{
@@ -194,6 +211,28 @@ a{
     height: 55px;
     overflow: hidden;
     position: relative;
+}
+.header .guide .guide-user .mobail-bar{
+    width: 33%;
+    display: inline-block;
+    position: absolute;
+    height: 55px;
+}
+.header .guide .guide-user .mobail-bar a{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+.header .guide .guide-user .mobail-bar .icon-bar{
+    margin: 10px 13px;
+}
+.header .guide .guide-user .mobail-bar .icon-bar{
+    background: url("../svg/menu3.svg") no-repeat center;
+    background-size: 31px;
+    width: 35px;
+    height: 35px;
+    display: inline-block;
 }
 .header .guide .guide-user .downloader{
     width: 50%;
@@ -256,7 +295,7 @@ a{
     margin: 12px auto;
 }
 .header .guide .login-process{
-    width: 60%;
+    width: auto;
     position: absolute;
     background-color: #00381d;
     display: none;
@@ -267,18 +306,19 @@ a{
 .header .guide .login-process .login,
 .header .guide .login-process .register{
     float: right;
-    width: 50%;
+    width: auto;
     display: inline-block;
     margin: 5px 0;
     position: relative;
     height: 32px;
+    min-width: 80px;
+    text-align: center;
 }
 .header .guide .login-process .login a,
 .header .guide .login-process .register a{
     color: #fff;
     text-decoration: none;
     padding: 0 12px;
-    position: absolute;
     width: 100%;
     height: 100%;
     line-height: 28px;
@@ -287,9 +327,8 @@ a{
     background: #fff;
     width: 1px;
     height: 30px;
-    right: 50%;
-    position: absolute;
-    top: 5px;
+    float: right;
+    margin-top: 6px;
 }
 .header .guide .hide-search{
     position: absolute;
@@ -844,6 +883,10 @@ a{
     width: 32%;
     padding: 13px 0;
 }
+.media-game .media-game-to .media-dn .downloady:hover,
+.media-game .media-game-to .media-dn .downloady:active{
+    background-color: #006b3d;
+}
 .media-game .media-game-to .media-dn .downloady a{
     text-decoration: none;
     color: #fff;
@@ -986,6 +1029,11 @@ a{
     padding: 10px 45px;
     text-decoration: none;
     float: left;
+    border: none !important;
+}
+.changes .last-change .scoring .ersal .link-ersal:hover,
+.changes .last-change .scoring .ersal .link-ersal:active{
+    background-color: #005d30;
 }
 .changes .access .rating-container{
     margin: 3em 8em 0 0;
@@ -1031,7 +1079,7 @@ a{
     height: 20px;
 }
 .changes .access .rating-container .inner .rating .rating-users{
-   font-size: 14px;
+    font-size: 14px;
 }
 .changes .access .rating-container .inner .rating .rating-users .icon-user{
     background: url("../svg/pre user.svg") no-repeat center;
@@ -1435,6 +1483,9 @@ a{
     color: #fff;
     margin-right: 5px;
 }
+.before p a:hover{
+    color: rgb(134, 185, 255) !important;
+}
 .register-footer{
     position: relative;
 
@@ -1455,6 +1506,9 @@ a{
     border-radius: 0;
     border: none;
     margin-top: 0;
+}
+.consumer .karbar-panel .panel-item #developer-menu{
+    padding-bottom: 50px;
 }
 .consumer .panel .collapse-one{
     background: #eee;
@@ -1623,9 +1677,7 @@ a{
 }
 .consumer .hrefs .dashbord{
     display: block;
-    width: 80%;
     margin-top: 50px;
-    margin-right: 15px;
 }
 .consumer .hrefs .dashbord .dashbord-header .left-icon{
     background: url("../svg/left-arrow.svg") no-repeat center;
@@ -1647,12 +1699,19 @@ a{
 .consumer .hrefs .dashbord .dashbord-body .db-to-1 span{
     display: block;
 }
-.consumer .hrefs .dashbord .dashbord-body .db-to-1 .confirm{
+.consumer .hrefs .dashbord .dashbord-body .db-to-1 .confirm,
+.btn.btn-primary{
     margin: 13px 0;
-    background: #00381d;
+    background: #00381d !important;
     color: #fff;
     padding: 10px 40px;
     border-radius: 8px;
+}
+
+.btn.btn-primary{
+    border-radius: 4px;
+    padding: 6px 15px;
+    width: auto;
 }
 .consumer .hrefs .dashbord .dashbord-body .db-to-2{
     float: left;
@@ -1839,4 +1898,144 @@ a{
 .captcha a:hover {
     color: #ddd !important;
     text-decoration: underline !important;
+}
+
+
+.side-bar li .icon{
+    background-size: 15px;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 15px;
+}
+.side-bar .credit-icon{
+    background: url("../svg/credit.svg") no-repeat center;
+}
+.side-bar .dashboard-icon{
+    background: url("../svg/dashboard.svg") no-repeat center;
+}
+.side-bar .transaction-icon{
+    background: url("../svg/transaction.svg") no-repeat center;
+}
+.side-bar .cart-icon{
+    background: url("../svg/cart.svg") no-repeat center;
+}
+.side-bar .heart-icon{
+    background: url("../svg/heart.svg") no-repeat center;
+}
+.side-bar .support-icon{
+    background: url("../svg/support.svg") no-repeat center;
+}
+.side-bar .setting-icon{
+    background: url("../svg/setting.svg") no-repeat center;
+}
+.side-bar .phone-icon{
+    background: url("../svg/phone.svg") no-repeat center;
+}
+.side-bar .discount-icon{
+    background: url("../svg/discount.svg") no-repeat center;
+}
+.side-bar .user-icon{
+    background: url("../svg/user.svg") no-repeat center;
+}
+.side-bar .white-user-icon{
+    background: url("../svg/white-user.svg") no-repeat center;
+}
+.side-bar .chart-icon{
+    background: url("../svg/chart.svg") no-repeat center;
+}
+.side-bar .payment-icon{
+    background: url("../svg/payment.svg") no-repeat center;
+}
+.side-bar .books-icon{
+    background: url("../svg/books.svg") no-repeat center;
+}
+
+
+/*New Menu*/
+.header .mobail-menu-hide{
+    z-index: 13;
+    background: #00381d;
+    position: absolute;
+    width: 80%;
+    display: none;
+    left: 0;
+}
+.header .mobail-menu-hide ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 80px 0 196px 0;
+}
+.header .mobail-menu-hide ul li:first-child{
+    border-top: 1px solid;
+}
+.header .mobail-menu-hide ul li{
+    margin: 2px 0;
+    padding: 10px;
+    color: #fff;
+    background: #00381d;
+    position: relative;
+    border-bottom: 1px solid;
+}
+.header .mobail-menu-hide ul li a{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: 5;
+}
+.header .mobail-menu-hide ul li .android{
+    background: url("../svg") no-repeat center;
+    background-size: 23px;
+    width: 23px;
+    height: 23px;
+    margin-left: 7px;
+}
+.header .mobail-menu-hide ul li .ios{
+    background: url("../svg/apple-white.svg") no-repeat center;
+    background-size: 23px;
+    width: 23px;
+    height: 23px;
+    margin-left: 7px;
+}
+.header .mobail-menu-hide ul li .category{
+    background: url("../svg/category.svg") no-repeat center;
+    background-size: 23px;
+    width: 23px;
+    height: 23px;
+    margin-left: 7px;
+}
+.header .mobail-menu-hide ul li .android-2{
+    background: url("../svg/download1.svg") no-repeat center;
+    background-size: 23px;
+    width: 23px;
+    height: 23px;
+    margin-left: 7px;
+}
+.bg-menu{
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: fixed;
+    top: 0;
+    z-index: 12;
+    background: rgba(0, 0, 0, 0.66);
+}
+.header .hide-menu .list-menu .close-icon{
+    position: absolute;
+    top: 5px;
+    width: 100%;
+    left: 10px;
+}
+.header .hide-menu .list-menu .close-icon .icon-close{
+    background: url("../svg/close1.svg") no-repeat center;
+    background-size: 15px;
+    width: 20px;
+    height: 20px;
+    float: left;
+}
+.baner .baner-box .baner-box-to{
+    box-shadow: 1px 2px 10px #000;
 }

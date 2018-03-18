@@ -1,7 +1,7 @@
 <div class="header">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 navbar-header">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 navbar-header">
                 <a href="<?= Yii::app()->getBaseUrl(true)?>" class="navbar-brand sisen-brand">
                     <img src="<?= Yii::app()->createAbsoluteUrl('themes/market/images/logo.png'); ?>">
                     <h1 class="hidden"><?= $this->siteName ?></h1>
@@ -10,15 +10,15 @@
                     <h5 class="visible-sm"><?= $this->pageTitle ?></h5>
                 </a>
             </div>
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 icons">
+            <div class="col-lg-5 col-md-5 col-sm-5 hidden-xs icons">
                 <div class="icon-android">
-                    <a class="link-android" href="<?php echo $this->createUrl('/android');?>">
+                    <a class="link-android <?= $this->platform == 1?'active':'' ?>" href="<?php echo $this->createUrl('/android');?>">
                         <span class="android"></span>
                         <h5>اندروید</h5>
                     </a>
                 </div>
                 <div class="icon-ios">
-                    <a class="link-ios" href="<?php echo $this->createUrl('/ios');?>">
+                    <a class="link-ios <?= $this->platform == 2?'active':'' ?>" href="<?php echo $this->createUrl('/ios');?>">
                         <span class="ios"></span>
                         <h5>آی او اس</h5>
                     </a>
@@ -31,9 +31,9 @@
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-7 guide">
                 <div class="guide-user">
-                    <div class="downloader">
+                    <div class="downloader hidden-xs">
                         <div class="download">
                             <a class="download-sisen" href="<?php echo $this->createUrl('/site/underConstruction');?>">
                                 <h5>دانلود سیسن اپ</h5>
@@ -47,6 +47,10 @@
                     <a class="user" href="#">
                         <span class="glyphicon user-gi"></span>
                     </a>
+                    <div class="mobail-bar hidden-lg hidden-md hidden-sm">
+                        <a href="#"></a>
+                        <span class="glyphicon icon-bar"></span>
+                    </div>
                 </div>
                 <?php
                 if(!Yii::app()->user->isGuest && Yii::app()->user->type == 'user'):
@@ -58,7 +62,7 @@
                         <div class="login"><a href="<?= Yii::app()->createUrl('/developers/panel') ?>">پنل توسعه دهندگان</a></div>
                         <? endif;?>
                         <div class="border"></div>
-                        <div class="register"><a class="btn btn-danger pull-left" href="<?= Yii::app()->createUrl('logout') ?>">خروج</a></div>
+                        <div class="register"><a href="<?= Yii::app()->createUrl('logout') ?>">خروج</a></div>
                     </div>
 <!--                    <div class="user-section">-->
 <!---->
@@ -123,6 +127,16 @@
                     <button type="button" class="glyphicon close svg-close" data-dismiss="hide-search"><i class="glyphicon"></i></button>
                 </div>
             </div>
+
+            <div class="mobail-menu-hide hidden-lg hidden-md hidden-sm">
+                <ul>
+                    <li><a href="#"></a><span class="glyphicon android"></span><span class="text">اندروید</span></li>
+                    <li><a href="#"></a><span class="glyphicon ios"></span><span class="text">آی او اس</span></li>
+                    <li class="mobail-cat"><a href="#"></a><span class="glyphicon category"></span><span class="text">دسته بندی ها</span></li>
+                    <li><a href="#"></a><span class="glyphicon android-2"></span><span class="text">دانلود سیسن اپ</span></li>
+                </ul>
+            </div>
+            <div class="bg-menu hidden-lg hidden-md hidden-sm"></div>
             <div class="hide-menu">
                 <div class="title-menu">
                     <div><a href="<?= $this->createUrl('/apps/games') ?>"><span>بازی ها</span></a></div>
@@ -130,7 +144,8 @@
                 </div>
                 <div class="list-menu">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 right-list">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 right-list nicscroll" data-cursorcolor="#00381d" data-cursorborder="none"
+                             data-railpadding='js:{"top":5,"right":5,"bottom":0,"left":5}' data-autohidemode="leave">
                             <ul>
                                 <?php foreach($this->categories['games'] as $category):?>
                                     <li><a href="<?php echo Yii::app()->createUrl('/apps/games/'.$category->id.'/'.urlencode($category->title));?>"><?php echo $category->title;?></a></li>
@@ -138,7 +153,8 @@
                             </ul>
                         </div>
                         <div class="border"></div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 left-list">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 left-list nicscroll" data-cursorcolor="#00381d" data-cursorborder="none"
+                             data-railpadding='js:{"top":5,"right":5,"bottom":0,"left":5}' data-autohidemode="leave">
                             <ul class="nice">
                                 <?php foreach($this->categories['programs'] as $category):?>
                                     <li><a href="<?php echo Yii::app()->createUrl('/apps/programs/'.$category->id.'/'.urlencode($category->title));?>"><?php echo $category->title;?></a></li>
@@ -151,11 +167,3 @@
         </div>
     </div>
 </div>
-
-<!--<div class="notification--><?php //echo (count($this->userNotifications)==0)?null:' active';?><!--">-->
-<!--    <a href="--><?php //echo $this->createUrl('/users/public/notifications');?><!--" class="icon icon-bell">-->
-<!--        --><?php //if(count($this->userNotifications)!=0):?>
-<!--            <span class="lbl">--><?php //echo count($this->userNotifications);?><!--</span>-->
-<!--        --><?php //endif;?>
-<!--    </a>-->
-<!--</div-->

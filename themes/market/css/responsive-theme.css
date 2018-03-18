@@ -1,42 +1,35 @@
 @media screen and (max-width: 767px) {
-    .header{
-        position: relative;
-        height: 165px;
-    }
     .header .navbar-header .sisen-brand{
         padding: 0;
+    }
+    .header .navbar-header .sisen-brand img{
+        height: 75%;
     }
     .header .navbar-header .sisen-brand h5{
         font-size: 10px;
     }
-    .header .icons .icon-android,
-    .header .icons .icon-ios,
-    .header .icons .lists{
-        width: 33.333%;
-        float: right;
-    }
-    .header .icons .icon-android, .header .icons div a h5{
-        font-size: 12px;
-    }
-    .header .icons .lists{
-        margin: 0;
-    }
-    .header .icons,
-    .header .guide{
-        background: #00381f;
-        padding: 0 10px;
-    }
     .header .guide .guide-user .downloader .download .download-sisen h5{
         font-size: 13px;
+    }
+    .header .guide .login-proces{
+        width: 80%;
     }
     .header .hide-menu{
         width: 100%;
         right: 0;
-        top: 112px;
+        top: 0;
+        z-index: 20;
     }
     .header .guide .hide-search{
         left: 0;
-        width: 100%;
+        width: 320px;
+    }
+    .header .guide{
+        padding-left: 0;
+    }
+    .header .guide .guide-user .search-user,
+    .header .guide .guide-user .user{
+        width: 30%;
     }
     .slider{
         height: 190px;
@@ -191,7 +184,8 @@
     }
     .header .guide .login-panel{
         left: 0;
-        width: 100%;
+        width: 172%;
+        top: 65px;
     }
     .register-page .register-container{
         width: 100%;
@@ -347,7 +341,7 @@
     .header .icons .icon-android, .header .icons .icon-ios,
     .header .icons .icon-android, .header .icons .icon-android,
     .header .icons .lists{
-         width: 28%;
+        width: 28%;
     }
     .header .icons .icon-android h5,
     .header .icons .icon-ios h5,
@@ -709,5 +703,10 @@
 @media (min-width: 1200px){
     .baner .baner-box .baner-box-to .baner-item .media .media-body .texts{
         line-height: 23px;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .votes {
+        width: 29%;
+        right: 20px;
+        bottom: -4px;
     }
 }

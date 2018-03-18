@@ -86,15 +86,11 @@ class AjaxUploadAction extends CAction
     public function run()
     {
         $this->init();
-
-
         if (Yii::app()->request->isAjaxRequest) {
-
             $validFlag = true;
             $uploadDir = Yii::getPathOfAlias("webroot").$this->uploadDir;
             if (!is_dir($uploadDir))
                 mkdir($uploadDir, 0777, true);
-
             if (isset($_FILES[$this->attribute])) {
                 $file = $_FILES[$this->attribute];
                 $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
@@ -180,11 +176,9 @@ class AjaxUploadAction extends CAction
                                     $imager = new Imager();
                                     $imageInfo = $imager->getImageInfo($uploadDir.DIRECTORY_SEPARATOR.$model->{$this->attribute});
                                     if ($imageInfo['width'] > $this->afterSaveActions['resize']['width'] || $imageInfo['height'] > $this->afterSaveActions['resize']['height'])
-                                    {
                                         $imager->resize($uploadDir.DIRECTORY_SEPARATOR.$model->{$this->attribute},
                                             $uploadDir.DIRECTORY_SEPARATOR.$model->{$this->attribute},
                                             $this->afterSaveActions['resize']['width'], $this->afterSaveActions['resize']['height']);
-                                    }
                                 }
 
                                 // create thumbnail
@@ -192,14 +186,34 @@ class AjaxUploadAction extends CAction
                                     isset($this->afterSaveActions['thumbnail']['width']) &&
                                     isset($this->afterSaveActions['thumbnail']['height'])
                                 ) {
-
                                     $thumbnailPath = $uploadDir.DIRECTORY_SEPARATOR.$this->afterSaveActions['thumbnail']['width'].'x'.$this->afterSaveActions['thumbnail']['height'];
+                                    if(isset($this->afterSaveActions['thumbnail']['replaceOrigin']) && $this->afterSaveActions['thumbnail']['replaceOrigin'])
+                                        $thumbnailPath = $uploadDir;
+
                                     if (!is_dir($thumbnailPath))
                                         mkdir($thumbnailPath, 0777, true);
                                     $imager = new Imager();
                                     $imager->createThumbnail($uploadDir.DIRECTORY_SEPARATOR.$model->{$this->attribute},
                                         $this->afterSaveActions['thumbnail']['width'], $this->afterSaveActions['thumbnail']['height'], false,
                                         $thumbnailPath.DIRECTORY_SEPARATOR.$model->{$this->attribute});
+                                }
+
+                                if (isset($this->afterSaveActions['expression'])) {
+                                    $path = $uploadDir.DIRECTORY_SEPARATOR.$model->{$this->attribute};
+                                    $url = Yii::app()->getBaseUrl(true).$this->uploadDir.DIRECTORY_SEPARATOR.$model->{$this->attribute};
+                                    $exp = str_replace('{filename}', "\"$path\"", $this->afterSaveActions['expression']);
+                                    $exp = str_replace('{fileurl}', "\"$url\"", $exp);
+
+                                    if (isset($this->afterSaveActions['thumbnail']) &&
+                                        isset($this->afterSaveActions['thumbnail']['width']) &&
+                                        isset($this->afterSaveActions['thumbnail']['height'])
+                                    ) {
+                                        $thumbUrl = Yii::app()->getBaseUrl(true).$this->uploadDir.'/'.$this->afterSaveActions['thumbnail']['width'].'x'.$this->afterSaveActions['thumbnail']['height'].'/'.$model->{$this->attribute};
+                                        if(isset($this->afterSaveActions['thumbnail']['replaceOrigin']) && $this->afterSaveActions['thumbnail']['replaceOrigin'])
+                                            $thumbUrl = Yii::app()->getBaseUrl(true).$this->uploadDir.'/'.$model->{$this->attribute};
+                                        $exp = str_replace('{thumburl}', "\"$thumbUrl\"", $exp);
+                                    }
+                                    @$this->evaluateExpression($exp);
                                 }
                             }
                         }

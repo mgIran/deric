@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+//        var_dump(Yii::app()->user->getState('avatar'));exit;
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -41,12 +43,13 @@
     <div class="mobail-menu">
         <div class="mobail-body">
             <ul>
-                <li class="clike-user dash"><a href="#" class=""></a><span class="glyphicon i-one"></span>داشبورد</li>
-                <li class="clike-user trans"><a href="#" class=""></a><span class="glyphicon i-two"></span>تراکنش ها</li>
-                <li class="clike-user boy"><a href="#" class=""></a><span class="glyphicon i-three"></span>خریدها</li>
-                <li class="clike-user hert"><a href="#" class=""></a><span class="glyphicon i-four"></span>نشان شده ها</li>
-                <li class="clike-user sup"><a href="#" class=""></a><span class="glyphicon i-five"></span>پشتیبانی</li>
-                <li class="clike-user set"><a href="#" class=""></a><span class="glyphicon i-six"></span>تنظیمات</li>
+                <li class="clike-user dash"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=credit-tab");?>"></a><span class="glyphicon i-one"></span>داشبورد</li>
+                <li class="clike-user trans"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=transactions-tab");?>"></a><span class="glyphicon i-two"></span>تراکنش ها</li>
+                <li class="clike-user boy"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=buys-tab");?>"></a><span class="glyphicon i-three"></span>خریدها</li>
+                <li class="clike-user hert"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=bookmarks-tab");?>"></a><span class="glyphicon i-four"></span>نشان شده ها</li>
+                <li class="clike-user sup"><a href="<?= $this->createUrl('/tickets/manage/'); ?>"></a><span class="glyphicon i-five"></span>پشتیبانی</li>
+                <li class="clike-user sup"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=profile-tab");?>"></a><span class="glyphicon i-five"></span>تغییر مشخصات کاربری</li>
+                <li class="clike-user set"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=setting-tab");?>"></a><span class="glyphicon i-six"></span>تنظیمات</li>
             </ul>
         </div>
         <div class="mobail-heading">
@@ -81,49 +84,55 @@
                         </div>
                     </div>
                 </div>
+                <div class="panel panel-item">
                 <div class="panel-heading head-panel">
                     <h4 class="panel-title bottoms">
-                        <a class="link-head" href="#" data-toggle="collapse" data-target="#user-menu">
+                        <a class="link-head" href="#" data-toggle="collapse7" data-target="#user-menu">
                             <span class="text">کاربری</span>
                             <span class="glyphicon up icon"></span>
                         </a>
                     </h4>
                 </div>
-                <div class="panel panel-item hidden-xs collapse" id="user-menu">
+                <div class="panel panel-item hidden-xs" id="user-menu">
                     <div class="panel">
                         <div class="panel-body collapse-two">
                             <ul>
-                                <li class="clike-user dash"><a href="#" class=""></a><span class="glyphicon i-one"></span>داشبورد</li>
-                                <li class="clike-user trans"><a href="#" class=""></a><span class="glyphicon i-two"></span>تراکنش ها</li>
-                                <li class="clike-user boy"><a href="#" class=""></a><span class="glyphicon i-three"></span>خریدها</li>
-                                <li class="clike-user hert"><a href="#" class=""></a><span class="glyphicon i-four"></span>نشان شده ها</li>
-                                <li class="clike-user sup"><a href="#" class=""></a><span class="glyphicon i-five"></span>پشتیبانی</li>
-                                <li class="clike-user set"><a href="#" class=""></a><span class="glyphicon i-six"></span>تنظیمات</li>
+                                <li class="clike-user dash"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=credit-tab");?>"></a><span class="glyphicon i-one"></span>داشبورد</li>
+                                <li class="clike-user trans"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=transactions-tab");?>"></a><span class="glyphicon i-two"></span>تراکنش ها</li>
+                                <li class="clike-user boy"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=buys-tab");?>"></a><span class="glyphicon i-three"></span>خریدها</li>
+                                <li class="clike-user hert"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=bookmarks-tab");?>"></a><span class="glyphicon i-four"></span>نشان شده ها</li>
+                                <li class="clike-user sup"><a href="<?php echo $this->createUrl('/tickets/manage/'); ?>"></a><span class="glyphicon i-five"></span>پشتیبانی</li>
+                                <li class="clike-user sup"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=profile-tab");?>"></a><span class="glyphicon i-five"></span>تغییر مشخصات کاربری</li>
+                                <li class="clike-user set"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=setting-tab");?>"></a><span class="glyphicon i-six"></span>تنظیمات</li>
                             </ul>
                         </div>
                     </div>
                 </div>
+                </div>
+                <div class="panel panel-item">
                 <div class="panel-heading head-panel">
                     <h4 class="panel-title bottoms">
-                        <a class="link-head" href="#" data-toggle="collapse" data-target="#developer-menu">
+                        <a class="link-head" href="#" data-toggle="collapse7" data-target="#developer-menu">
                             <span class="text">توسعه دهندگان</span>
                             <span class="glyphicon down icon"></span>
                         </a>
                     </h4>
                 </div>
-                <div class="panel panel-item hidden-xs collapse" id="developer-menu">
+                <div class="panel panel-item hidden-xs" id="developer-menu">
                     <div class="panel">
-                        <div class="panel-body collapse-three">
+                        <div class="panel-body collapse-two">
                             <ul>
-                                <li class="clike-user dash"><a href="#" class=""></a><span class="glyphicon i-one"></span>داشبورد</li>
-                                <li class="clike-user trans"><a href="#" class=""></a><span class="glyphicon i-two"></span>تراکنش ها</li>
-                                <li class="clike-user boy"><a href="#" class=""></a><span class="glyphicon i-three"></span>خریدها</li>
-                                <li class="clike-user hert"><a href="#" class=""></a><span class="glyphicon i-four"></span>نشان شده ها</li>
-                                <li class="clike-user sup"><a href="#" class=""></a><span class="glyphicon i-five"></span>پشتیبانی</li>
-                                <li class="clike-user set"><a href="#" class=""></a><span class="glyphicon i-six"></span>تنظیمات</li>
+                                <li class="clike-user phone-icon"><a href="<?php echo $this->createUrl('/developers/panel');?>"></a><span class="glyphicon i-one"></span>برنامه ها</li>
+                                <li class="clike-user discount-icon"><a href="<?php echo $this->createUrl('/developers/panel/discount');?>"></a><span class="glyphicon i-two"></span>تخفیفات</li>
+                                <li class="clike-user user-icon"><a href="<?php echo $this->createUrl('/developers/panel/account');?>"></a><span class="glyphicon i-three"></span>حساب توسعه دهنده</li>
+                                <li class="clike-user chart-icon"><a href="<?php echo $this->createUrl('/developers/panel/sales');?>"></a><span class="glyphicon i-four"></span>گزارش فروش</li>
+                                <li class="clike-user payment-icon"><a href="<?php echo $this->createUrl('/developers/panel/settlement');?>"></a><span class="glyphicon i-five"></span>تسویه حساب</li>
+                                <li class="clike-user sup"><a href="<?php echo $this->createUrl('/tickets/manage?dev=1');?>"></a><span class="glyphicon i-five"></span>پشتیبانی</li>
+                                <li class="clike-user books-icon"><a href="<?php echo $this->createUrl('/developers/panel/documents');?>"></a><span class="glyphicon i-six"></span>مستندات</li>
                             </ul>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -135,11 +144,15 @@
 <div class="footer user-footer">
     <div class="menu">
         <ul class="menu-footer">
-            <li><a href="#">حریم شخصی</a></li>
-            <li><a href="#">شرایط استفاده</a></li>
-            <li><a href="#">توسعه دهندگان</a></li>
-            <li><a href="#">درباره ما</a></li>
-            <li><a href="#">تماس با ما</a></li>
+            <li><a href="<?= Yii::app()->createUrl('/site/privacy'); ?>">حریم شخصی</a></li>
+            <li><a href="<?= Yii::app()->createUrl('/site/terms'); ?>">شرایط استفاده</a></li>
+            <li><?php if(isset(Yii::app()->user->roles) and Yii::app()->user->roles=='developer'):?>
+                    <a href="<?= Yii::app()->createUrl('/developers/panel'); ?>">توسعه دهندگان</a>
+                <?php else:?>
+                    <a href="<?= Yii::app()->createUrl('/developers/panel/signup/step/agreement'); ?>">توسعه دهندگان</a>
+                <?php endif;?></li>
+            <li><a href="<?= Yii::app()->createUrl('/site/about');?>">درباره ما</a></li>
+            <li><a href="<?= Yii::app()->createUrl('/site/contactUs'); ?>">تماس با ما</a></li>
         </ul>
     </div>
     <div class="copyright">

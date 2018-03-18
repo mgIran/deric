@@ -81,10 +81,6 @@ class Controller extends CController
 
     public function beforeAction($action)
     {
-        if(isset($_GET['develop']))
-            Yii::app()->user->setState('develop', true);
-        if($this->route != 'site/underConstruction' && !Yii::app()->user->hasState('develop'))
-            $this->redirect(['/site/underConstruction']);
         if(Yii::app()->request->getQuery('platform') || (!Yii::app()->request->getQuery('platform') && !Yii::app()->user->hasState('platform'))) {
             $queryPlatform = Yii::app()->request->getQuery('platform');
             if(is_null($queryPlatform))
