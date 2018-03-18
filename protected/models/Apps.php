@@ -439,7 +439,10 @@ class Apps extends CActiveRecord
         else {
             $cats = [];
             foreach ($this->categories as $key => $category)
-                $cats[$category->id] = CHtml::link($category->title, 'apps/' . ((strpos($category->path, '2-') !== false) ? 'games' : 'programs') . '/' . $category->id . '/' . urlencode($category->title));
+            {
+                $url = Yii::app()->createUrl('apps/' . ((strpos($category->path, '2-') !== false) ? 'games' : 'programs') . '/' . $category->id . '/' . urlencode($category->title));
+                $cats[$category->id] = CHtml::link($category->title, $url);
+            }
         }
         return implode(', ', $cats);
     }
