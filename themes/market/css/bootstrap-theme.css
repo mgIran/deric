@@ -1968,10 +1968,12 @@ a{
 .header .mobail-menu-hide{
     z-index: 13;
     background: #00381d;
-    position: absolute;
+    position: fixed;
     width: 80%;
     display: none;
+    top: 0;
     left: 0;
+    bottom: 0;
 }
 .header .mobail-menu-hide ul{
     list-style-type: none;
@@ -2053,4 +2055,18 @@ a{
 
 .overflow-fix{
     overflow: hidden !important;
+}
+.header .mobail-menu-hide ul li .glyphicon{
+    float: right !important;
+    top: -3px !important;
+}
+
+.header .mobail-menu-hide ul li .text{
+    float: right !important;
+}
+
+.header .mobail-menu-hide ul li{
+    display: block;
+    width: 100%;
+    overflow: hidden;
 }

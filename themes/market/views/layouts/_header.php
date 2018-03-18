@@ -143,6 +143,9 @@
                     <div><a href="<?= $this->createUrl('/apps/programs') ?>"><span>برنامه ها</span></a></div>
                 </div>
                 <div class="list-menu">
+                    <div class="close-icon visible-xs">
+                        <span class="glyphicon icon-close"></span>
+                    </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 right-list nicescroll" data-cursorcolor="#fff" data-cursorborder="none"
                              data-railpadding='js:{"top":5,"right":5,"bottom":0,"left":5}' data-autohidemode="leave">

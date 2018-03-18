@@ -1,21 +1,21 @@
-<?php
-/* @var $this AppsController */
-/* @var $dataProvider CActiveDataProvider */
-/* @var $title String */
-/* @var $pageTitle String */
-?>
-
-<div class="app-box">
-    <div class="top-box">
-        <div class="title pull-right">
-            <h2>عبارت مورد نظر: <?= $_GET['term'] ?></h2>
-        </div>
-    </div>
-    <?php $this->widget('zii.widgets.CListView', array(
-        'dataProvider'=>$dataProvider,
-        'id'=>'search',
-        'itemView'=>'//site/_app_item',
-        'template'=>'{items}',
-        'itemsCssClass'=>'app-carousel'
-    ));?>
+<?php
+/* @var $this AppsController */
+/* @var $dataProvider CActiveDataProvider */
+/* @var $title String */
+/* @var $pageTitle String */
+?>
+
+<div class="game-title game-title-gallery">
+    <div class="game-title-to">
+        <h4><b>عبارت مورد نظر: <?= $_GET['term'] ?></b></h4>
+    </div>
+</div>
+<div class="game game-gallery">
+    <div class="imgs img-gallery">
+        <div class="gallery">
+            <?php if($dataProvider->totalItemCount): ?>
+                <?php foreach ($dataProvider->getData() as $data): $this->renderPartial('//site/_app_item', compact('data')); endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
