@@ -300,10 +300,10 @@ a{
     z-index: 10;
     left: 35px;
     top: 70px;
+    white-space: nowrap;
 }
 .header .guide .login-process .login,
 .header .guide .login-process .register{
-    float: right;
     width: auto;
     display: inline-block;
     margin: 5px 0;
@@ -311,6 +311,7 @@ a{
     height: 32px;
     min-width: 80px;
     text-align: center;
+    vertical-align: top;
 }
 .header .guide .login-process .login a,
 .header .guide .login-process .register a{
@@ -325,7 +326,8 @@ a{
     background: #fff;
     width: 1px;
     height: 30px;
-    float: right;
+    display: inline-block;
+    vertical-align: top;
     margin-top: 6px;
 }
 .header .guide .hide-search{
@@ -1280,6 +1282,10 @@ a{
     position: relative;
     min-height: 700px;
     padding-bottom: 50px;
+}
+.games-item .text{
+    overflow: hidden;
+    position: relative;
 }
 .game-gallery .img-gallery{
     padding: 0 50px;

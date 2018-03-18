@@ -138,15 +138,31 @@ $(function () {
             onSet: null
         });
 
-    $(".nicescroll").each(function () {
-        var options = $(this).data();
+    if($(window).width() > 992) {
+        $(".nicescroll").each(function () {
+            var options = $(this).data();
 
-        $.each(options, function (key, value) {
-            if (typeof value == "string" && value.indexOf("js:") != -1)
-                options[key] = JSON.parse(value.substr(3));
+            $.each(options, function (key, value) {
+                if (typeof value == "string" && value.indexOf("js:") != -1)
+                    options[key] = JSON.parse(value.substr(3));
+            });
+
+            $(this).niceScroll(options);
         });
+    }
+    $(window).resize(function () {
+        if($(window).width() > 992) {
+            $(".nicescroll").each(function () {
+                var options = $(this).data();
 
-        $(this).niceScroll(options);
+                $.each(options, function (key, value) {
+                    if (typeof value == "string" && value.indexOf("js:") != -1)
+                        options[key] = JSON.parse(value.substr(3));
+                });
+
+                $(this).niceScroll(options);
+            });
+        }
     });
 });
 

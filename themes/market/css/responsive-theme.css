@@ -1,3 +1,8 @@
+@media screen and (max-width: 992px) {
+    .nicescroll{
+        overflow-y: auto !important;
+    }
+}
 @media screen and (max-width: 767px) {
     .header .navbar-header .sisen-brand{
         padding: 0;
