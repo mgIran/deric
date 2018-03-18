@@ -68,7 +68,8 @@ class AppsController extends Controller
         $this->app = $model;
         $model->seen = $model->seen + 1;
         $model->save();
-        $this->saveInCookie($model->category_id);
+        foreach ($model->categories as $category)
+            $this->saveInCookie($category->id);
         $this->platform = $model->platform_id;
         // Has bookmarked this apps by user
         $bookmarked = false;
@@ -78,7 +79,7 @@ class AppsController extends Controller
                 $bookmarked = true;
         }
         // Get similar apps
-        $criteria = Apps::getValidApps($model->platform_id, [$model->category_id]);
+        $criteria = Apps::getValidApps($model->platform_id, $model->getCategoriesArray());
         $criteria->addCondition('id!=:id');
         $criteria->params[':id'] = $model->id;
         $criteria->limit = 20;

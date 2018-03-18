@@ -219,7 +219,7 @@ if(Yii::app()->user->roles == 'employee'){
                             ),
                             'category_id'=>array(
                                 'name'=>'category_id',
-                                'value'=>'$data->category->title'
+                                'value'=>'$data->showCategories()'
                             ),
                             'status'=>array(
                                 'name'=>'status',

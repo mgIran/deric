@@ -52,9 +52,7 @@ $rating = $model->calculateRating();
                 <div class="empty hidden-xs"></div>
                 <div class="text-media">
                         <i class="glyphicon category"></i><span>دسته:
-                        <a href="<?php echo $model->category->getViewUrl() ?>">
-                            <?= $model->category?$model->category->title:'' ?>
-                        </a>
+                        <?= $model->showCategories(true) ?>
                     </span>
                 </div>
                 <div class="text-media"><i class="glyphicon file-size"></i><span>حجم : 20 مگابایت</span></div>

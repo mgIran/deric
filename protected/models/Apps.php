@@ -432,9 +432,22 @@ class Apps extends CActiveRecord
         }
     }
 
-    public function showCategories()
+    public function showCategories($link)
     {
-        $cats = CHtml::listData($this->categories, 'id', 'fullTitle');
+
+
+        if(!$link)
+            $cats = CHtml::listData($this->categories, 'id', 'fullTitle');
+        else {
+            $cats = [];
+            foreach ($this->categories as $key => $category)
+                $cats[$category->id] = CHtml::link($category->title, 'apps/' . ((strpos($category->path, '2-') !== false) ? 'games' : 'programs') . '/' . $category->id . '/' . urlencode($category->title));
+        }
         return implode(', ', $cats);
+    }
+
+    public function getCategoriesArray()
+    {
+        return CHtml::listData($this->categories, 'id', 'id');
     }
 }

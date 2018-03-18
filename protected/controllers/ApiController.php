@@ -186,7 +186,7 @@ class ApiController extends ApiBaseController
                         'price' => doubleval($record->price),
                         'hasDiscount' => $record->hasDiscount(),
                         'offPrice' => $record->hasDiscount() ? doubleval($record->offPrice) : 0,
-                        'category_id' => intval($record->category_id),
+                        'category_id' => intval($record->showCategories()),
                         'description' => strip_tags(str_replace('<br/>', '\n', str_replace('<br>', '\n', $record->description))),
                         'seen' => intval($record->seen),
                         'install' => intval($record->install),

@@ -30,13 +30,24 @@
             <?php echo $form->error($model,'title'); ?>
         </div>
 
+<!--        <div class="form-group">-->
+<!--            --><?php //echo $form->dropDownList($model,'category_id',AppCategories::model()->sortList(),array(
+//                'prompt'=>'لطفا دسته مورد نظر را انتخاب کنید *',
+//                'class'=>'form-control selectpicker',
+//                'data'
+//            )); ?>
+<!--            --><?php //echo $form->error($model,'category_id'); ?>
+<!--        </div>-->
+
         <div class="form-group">
-            <?php echo $form->dropDownList($model,'category_id',AppCategories::model()->sortList(),array(
+            <?php echo $form->labelEx($model,'categoryForm'); ?>
+            <?php echo $form->dropDownList($model,'categoryForm',AppCategories::model()->sortList(), array(
                 'prompt'=>'لطفا دسته مورد نظر را انتخاب کنید *',
                 'class'=>'form-control selectpicker',
-                'data'
+                'data-live-search'=> true,
+                'data-size' => 10,'multiple' => true
             )); ?>
-            <?php echo $form->error($model,'category_id'); ?>
+            <?php echo $form->error($model,'categoryForm'); ?>
         </div>
 
         <div class="form-group">
