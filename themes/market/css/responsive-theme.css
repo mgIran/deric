@@ -13,6 +13,12 @@
     }
 }
 @media screen and (max-width: 767px) {
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .media-heading{
+        padding-left: 100px;
+        padding-right: 0;
+        margin-bottom: 15px;
+        margin-top: 15px;
+    }
     .header .hide-menu{
         position: fixed;
         bottom: 0;
@@ -94,6 +100,7 @@
     }
     .game .imgs{
         height: 245px;
+        padding-left: 40px;
     }
     .baner{
         margin: 50px 4px;
@@ -135,7 +142,7 @@
     }
     .baner .baner-box .baner-box-to .details{
         position: relative;
-        padding: 0 38px;
+        padding: 0 5px;
         bottom: 0;
     }
     .baner .baner-box .baner-box-to .details .det-box .d-load,
@@ -293,22 +300,25 @@
     .changes .access .baner-two .baner-box .baner-box-to .baner-item{
         height: auto;
     }
-    .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .votes{
-        width: 32%;
-        height: 18%;
+    .baner .baner-box .baner-box-to .baner-item .media .media-body {
+        padding: 0 15px;
     }
     .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .texts{
-        line-height: 26px;
+        line-height: 18px;
+        height: 55px;
+        margin: 0 0 10px;
     }
     .baner-two .baner-box .baner-box-to .baner-item .media .media-body .downloady{
-        top: 44%;
-        width: 27%;
-        left: 23%;
+        top: 15px;
+        width: 70px;
+        left: 10px;
     }
     .media-game .media-game-to .img-media{
-        width: 65%;
+        width: 100%;
         display: block;
         padding: 0;
+        border-radius: 2px;
+        overflow: hidden;
     }
     .media-game .media-game-to .media-b, .media-game .media-game-to .media-b2{
         width: 100%;

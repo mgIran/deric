@@ -6,7 +6,7 @@
                     <img src="<?= Yii::app()->createAbsoluteUrl('themes/market/images/logo.png'); ?>">
                     <h1 class="hidden"><?= $this->siteName ?></h1>
                     <h2 class="hidden"><?= $this->pageTitle ?></h2>
-                    <h5 class="hidden-sm"><?= $this->siteName ?></h5>
+                    <h5 class="hidden-sm hidden-xs"><?= $this->siteName ?></h5>
                     <h5 class="visible-sm"><?= $this->pageTitle ?></h5>
                 </a>
             </div>

@@ -114,7 +114,10 @@ class ManageController extends Controller
         $this->create($model, 'adminInApp');
     }
 
-
+    /**
+     * @param $model AppAdvertises
+     * @param $redirect
+     */
     private function create($model, $redirect)
     {
         $cover = array();
@@ -126,6 +129,11 @@ class ManageController extends Controller
             if (isset($_GET['platform_id']))
                 $model->platform_id = $_GET['platform_id'];
             $cover = new UploadedFiles($this->tmpPath, $model->cover, $this->commonOptions);
+
+            if($_POST['info'] == 1) // internal app advertise
+                $model->external_details = null;
+            else
+                $model->app_id = null;
 
             if ($model->save()) {
                 $cover->move($this->advertisePath);
@@ -154,7 +162,12 @@ class ManageController extends Controller
             if ($model->save()) {
                 $cover->update($oldCover, $model->cover, $this->tmpPath);
                 Yii::app()->user->setFlash('success', 'اطلاعات با موفقیت ویرایش شد.');
-                $this->redirect(array('admin'));
+                if($model->type == AppAdvertises::COMMON_ADVERTISE)
+                    $this->redirect(array('admin'));
+                elseif($model->type == AppAdvertises::SPECIAL_ADVERTISE)
+                    $this->redirect(array('adminSpecial'));
+                elseif($model->type == AppAdvertises::IN_APP_ADVERTISE)
+                    $this->redirect(array('adminInApp'));
             } else
                 Yii::app()->user->setFlash('failed', 'در ثبت اطلاعات خطایی رخ داده است! لطفا مجددا تلاش کنید.');
         }
@@ -186,8 +199,16 @@ class ManageController extends Controller
         $model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-        if (!isset($_GET['ajax']))
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        if (!isset($_GET['ajax'])) {
+            if (isset($_POST['returnUrl']))
+                $this->redirect($_POST['returnUrl']);
+            elseif ($model->type == AppAdvertises::COMMON_ADVERTISE)
+                $this->redirect(array('admin'));
+            elseif ($model->type == AppAdvertises::SPECIAL_ADVERTISE)
+                $this->redirect(array('adminSpecial'));
+            elseif ($model->type == AppAdvertises::IN_APP_ADVERTISE)
+                $this->redirect(array('adminInApp'));
+        }
     }
 
     /**

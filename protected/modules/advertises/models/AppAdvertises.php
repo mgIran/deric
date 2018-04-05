@@ -55,8 +55,8 @@ class AppAdvertises extends SortableCActiveRecord
     );
 
     public $externalFields = [
-        'url' => ['label' => 'لینک خارجی', 'type' => 'CHAR'],
-        'downloadUrl' => ['label' => 'لینک دانلود برنامه', 'type' => 'CHAR'],
+        'url' => ['label' => 'لینک خارجی', 'type' => 'URL'],
+        'downloadUrl' => ['label' => 'لینک دانلود برنامه', 'type' => 'URL'],
         'size' => ['label' => 'حجم فایل', 'type' => 'CHAR'],
         'developer' => ['label' => 'توسعه دهنده', 'type' => 'CHAR'],
         'summary' => ['label' => 'توضیحات', 'type' => 'TEXT'],
@@ -75,6 +75,8 @@ class AppAdvertises extends SortableCActiveRecord
             return;
         $value = isset($this->external_details[$name]) ? $this->external_details[$name] : '';
         switch ($this->externalFields[$name]['type']) {
+            case 'URL':
+                return CHtml::textField("AppAdvertises[external_details][$name]", $value ?: '', array('class' => 'form-control ltr text-right'));
             case 'CHAR':
                 return CHtml::textField("AppAdvertises[external_details][$name]", $value ?: '', array('class' => 'form-control'));
             case 'TEXT':

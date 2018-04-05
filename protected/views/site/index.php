@@ -32,7 +32,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/jqu
         </div>
         <div class="game">
             <div class="imgs">
-                <div id="demo2" class="is-carousel"  data-items="8" data-dots="0" data-nav="1" data-mouse-drag="1" data-responsive='{"1200":{"items":"8"},"992":{"items":"7"},"768":{"items":"4"},"650":{"items":"3"},"0":{"items":"1"}}'>
+                <div id="demo2" class="is-carousel"  data-items="8" data-dots="0" data-nav="1" data-mouse-drag="1" data-responsive='{"1366":{"items":"8"},"1200":{"items":"6"},"992":{"items":"5"},"768":{"items":"4"},"650":{"items":"3"},"0":{"items":"2"}}'>
                     <?php if($dp): ?>
                         <?php foreach ($dp as $data): $this->renderPartial('//site/_app_item', compact('data')); endforeach; ?>
                     <?php endif; ?>
