@@ -7,12 +7,6 @@ $(function() {
         $(".content").css({'min-height':$(window).height()-225});
     });
 
-    $body.on('click', '#panel-menu-trigger', function () {
-        $("body").addClass("menu-open");
-    }).on('click', '.menu-overlay', function () {
-        $("body").removeClass("menu-open");
-    });
-
     $body.on('click', '.dropdown-toggle', function () {
         var $this = $(this);
         $(".dropdown-toggle").not($this).removeClass('active');

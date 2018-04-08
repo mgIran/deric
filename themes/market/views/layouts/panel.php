@@ -111,7 +111,7 @@
         </div>
         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 hrefs">
             <div class="hidden-lg hidden-md">
-                <a id="panel-menu-trigger" class="" href="#"><i class="icon icon-bar"></i>منو</a>
+                <a id="panel-menu-trigger" class="btn btn-default" href="#"><i class="glyphicon glyphicon-menu-hamburger"></i> منو</a>
             </div>
             <div class="clearfix"></div>
             <?php echo $content; ?>

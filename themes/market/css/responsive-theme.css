@@ -1,4 +1,21 @@
 @media screen and (max-width: 992px) {
+    .consumer .hrefs .dashbord{
+        margin-top: 30px;
+    }
+    #panel-menu-trigger {
+        margin: 15px;
+    }
+    .guide{
+        position: static !important;
+    }
+    .guide-user{
+        text-align: left !important;
+    }
+    .guide-user > * {
+        width: auto !important;
+        padding: 0 10px;
+        position: static !important;
+    }
     .consumer .karbar-panel .panel-item #developer-menu{
         padding-bottom: 0;
     }
@@ -41,13 +58,16 @@
         -o-transition: all 0.2s ease-in-out;
         transition: all 0.2s ease-in-out;
     }
+    body.left-menu-open,
     body.menu-open{
         overflow: hidden !important;
     }
+    body.left-menu-open .bg-menu,
     body.menu-open .menu-overlay{
         opacity: 1;
         visibility: visible;
     }
+    body.left-menu-open .header .mobail-menu-hide,
     body.menu-open .panel-sidebar{
         -webkit-transform: translateX(0);
         -moz-transform: translateX(0);
@@ -113,7 +133,8 @@
     }
     .header .guide .hide-search{
         left: 0;
-        width: 320px;
+        width: 100%;
+
     }
     .header .guide{
         padding-left: 0;
@@ -404,7 +425,12 @@
     }
 
 }
-
+@media all and (max-width: 360px) {
+    .header .mobail-menu-hide,
+    .panel-sidebar {
+        width: 250px;
+    }
+}
 @media (min-width: 768px) and (max-width: 991px) {
     .header .navbar-header .sisen-brand{
         padding: 0;

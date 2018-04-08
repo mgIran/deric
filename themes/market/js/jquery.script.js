@@ -1,4 +1,11 @@
 $(function () {
+    var $body = $('body');
+    $body.on('click', '#panel-menu-trigger', function () {
+        $body.addClass("menu-open");
+    }).on('click', '.menu-overlay', function () {
+        $body.removeClass("menu-open");
+    });
+
     if ($.fn.owlCarousel) {
         $('.is-carousel').each(function () {
             var items = $(this).data('items'),
@@ -94,13 +101,9 @@ $(function () {
     }).on("click", ".header, .consumer", function () {
         $(".mobail-menu").hide(200);
     }).on("click", ".mobail-bar", function () {
-        $(".mobail-menu-hide").fadeIn();
-        $(".bg-menu").show();
-        $("body").addClass('overflow-fix');
+        $body.addClass("left-menu-open");
     }).on("click", ".bg-menu", function () {
-        $("body").removeClass('overflow-fix');
-        $(".bg-menu").fadeOut();
-        $(".mobail-menu-hide").fadeOut();
+        $body.removeClass("left-menu-open");
     }).on("click", ".mobail-cat", function () {
         $(".hide-menu").fadeToggle("slow");
     }).on("click", ".close-icon", function () {
