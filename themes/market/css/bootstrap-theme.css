@@ -213,9 +213,7 @@ a{
     position: relative;
 }
 .header .guide .guide-user .mobail-bar{
-    width: 33%;
     display: inline-block;
-    position: absolute;
     height: 55px;
 }
 .header .guide .guide-user .mobail-bar a{
@@ -235,10 +233,9 @@ a{
     display: inline-block;
 }
 .header .guide .guide-user .downloader{
-    width: 50%;
+    width: 150px;
     display: inline-block;
     height: 55px;
-    position: relative;
 }
 .header .guide .guide-user .downloader .download{
     height: 47px;
@@ -1535,17 +1532,23 @@ a{
 .consumer .panel .collapse-one .img-user{
     text-align: center;
 }
-.consumer .panel .collapse-one .img-user img{
+.consumer .panel .collapse-one .img-user img,
+.consumer .panel .collapse-one .img-user .default-user{
     width: 70px;
     height: 70px;
     border-radius: 50%;
     display: block;
     margin: 0 auto 5px auto;
+    background-color: #ddd;
 }
-.consumer .panel .collapse-one .icon-user{
+.consumer .panel .collapse-one .img-user .default-user{
+    background: url("../svg/user-gray.svg") no-repeat scroll center #ddd;
+    background-size: 60px;
+}
+.consumer .panel .collapse-one .user-icon{
     margin: 10px 0;
 }
-.consumer .panel .collapse-one .icon-user .user{
+.consumer .panel .collapse-one .user-icon .user{
     background: url("../svg/pre user.svg") no-repeat center;
     background-size: 20px;
     width: 20px;
@@ -1692,6 +1695,9 @@ a{
     height: 100%;
     top: 0;
     right: 0;
+}
+.consumer .hrefs{
+    min-height: 500px;
 }
 .consumer .hrefs .dashbord{
     display: block;
@@ -2082,4 +2088,7 @@ a{
 
 .jq-ry-container{
     margin: 0 auto;
+}
+.menu-overlay{
+    display: none;
 }

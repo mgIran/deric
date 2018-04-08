@@ -1,4 +1,61 @@
 @media screen and (max-width: 992px) {
+    .consumer .karbar-panel .panel-item #developer-menu{
+        padding-bottom: 0;
+    }
+    .panel-sidebar {
+        width: 300px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 100;
+        overflow-y: auto;
+        height: 100%;
+        padding: 0;
+        -webkit-transform: translateX(100%);
+        -moz-transform: translateX(100%);
+        -ms-transform: translateX(100%);
+        -o-transform: translateX(100%);
+        transform: translateX(100%);
+        -webkit-transition: all 0.3s linear 0s;
+        -moz-transition: all 0.3s linear 0s;
+        -ms-transition: all 0.3s linear 0s;
+        -o-transition: all 0.3s linear 0s;
+        transition: all 0.3s linear 0s;
+    }
+    .menu-overlay{
+        display: block;
+        opacity: 0;
+        visibility: hidden;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 99;
+        overflow: hidden;
+        background-color: rgba(0,0,0,0.7);
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -ms-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+    }
+    body.menu-open{
+        overflow: hidden !important;
+    }
+    body.menu-open .menu-overlay{
+        opacity: 1;
+        visibility: visible;
+    }
+    body.menu-open .panel-sidebar{
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+        transform: translateX(0);
+    }
+
     .nicescroll {
         overflow-y: auto !important;
     }

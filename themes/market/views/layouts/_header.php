@@ -44,7 +44,7 @@
                     <a class="search-user" href="#">
                         <span class="glyphicon search"></span>
                     </a>
-                    <a class="user" href="#">
+                    <a class="user hidden-sm hidden-xs" href="#">
                         <span class="glyphicon user-gi"></span>
                     </a>
                     <div class="mobail-bar hidden-lg hidden-md hidden-sm">

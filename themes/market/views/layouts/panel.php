@@ -35,47 +35,18 @@
 </head>
 <body>
 <?= $this->renderPartial('//layouts/_header'); ?>
-<div class="mobail visible-xs">
-    <div class="mobail-nav">
-        <div class="svg-bars">
-            <a href="#"></a>
-            <span class="glyphicon icon-bars"></span>
-        </div>
-    </div>
-    <div class="mobail-menu">
-        <div class="mobail-body">
-            <ul>
-                <li class="clike-user dash"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=credit-tab");?>"></a><span class="glyphicon i-one"></span>داشبورد</li>
-                <li class="clike-user trans"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=transactions-tab");?>"></a><span class="glyphicon i-two"></span>تراکنش ها</li>
-                <li class="clike-user boy"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=buys-tab");?>"></a><span class="glyphicon i-three"></span>خریدها</li>
-                <li class="clike-user hert"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=bookmarks-tab");?>"></a><span class="glyphicon i-four"></span>نشان شده ها</li>
-                <li class="clike-user sup"><a href="<?= $this->createUrl('/tickets/manage/'); ?>"></a><span class="glyphicon i-five"></span>پشتیبانی</li>
-                <li class="clike-user sup"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=profile-tab");?>"></a><span class="glyphicon i-five"></span>تغییر مشخصات کاربری</li>
-                <li class="clike-user set"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=setting-tab");?>"></a><span class="glyphicon i-six"></span>تنظیمات</li>
-            </ul>
-        </div>
-        <div class="mobail-heading">
-            <h4 class="bottoms">
-                <a class="link-head" href="#">
-                    <span class="text">توسعه دهندگان</span>
-                    <span class="glyphicon icon-down"></span>
-                </a>
-            </h4>
-        </div>
-    </div>
-</div>
 <div class="consumer">
     <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
+        <div class="col-lg-3 col-md-3 panel-sidebar">
             <div class="panel-group karbar-panel">
                 <div class="panel panel-item">
                     <div id="collapse1" class="panel">
                         <div class="panel-body collapse-one">
                             <div class="img-user">
-                                <img src="<?= Yii::app()->user->avatar ?>">
+                                <?php if(Yii::app()->user->avatar): echo CHtml::image(Yii::app()->user->avatar); else: echo '<span class="default-user"></span>'; endif; ?>
                                 <span><?= Yii::app()->user->fa_name ?></span>
                             </div>
-                            <div class="icon-user">
+                            <div class="user-icon">
                                 <span class="glyphicon user"></span>
                                 <span><?= Yii::app()->user->role_name ?></span>
                             </div>
@@ -89,13 +60,13 @@
                 <div class="panel panel-item">
                 <div class="panel-heading head-panel">
                     <h4 class="panel-title bottoms">
-                        <a class="link-head" href="#" data-toggle="collapse7" data-target="#user-menu">
+                        <a class="link-head">
                             <span class="text">کاربری</span>
-                            <span class="glyphicon up icon"></span>
+                            <span class="glyphicon down icon"></span>
                         </a>
                     </h4>
                 </div>
-                <div class="panel panel-item hidden-xs" id="user-menu">
+                <div class="panel panel-item" id="user-menu">
                     <div class="panel">
                         <div class="panel-body collapse-two">
                             <ul>
@@ -114,13 +85,13 @@
                 <div class="panel panel-item">
                 <div class="panel-heading head-panel">
                     <h4 class="panel-title bottoms">
-                        <a class="link-head" href="#" data-toggle="collapse7" data-target="#developer-menu">
+                        <a class="link-head">
                             <span class="text">توسعه دهندگان</span>
                             <span class="glyphicon down icon"></span>
                         </a>
                     </h4>
                 </div>
-                <div class="panel panel-item hidden-xs" id="developer-menu">
+                <div class="panel panel-item" id="developer-menu">
                     <div class="panel">
                         <div class="panel-body collapse-two">
                             <ul>
@@ -138,11 +109,17 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 hrefs">
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 hrefs">
+            <div class="hidden-lg hidden-md">
+                <a id="panel-menu-trigger" class="" href="#"><i class="icon icon-bar"></i>منو</a>
+            </div>
+            <div class="clearfix"></div>
             <?php echo $content; ?>
         </div>
+        <div class="menu-overlay"></div>
     </div>
 </div>
+<div class="clearfix"></div>
 <div class="footer user-footer">
     <div class="menu">
         <ul class="menu-footer">
