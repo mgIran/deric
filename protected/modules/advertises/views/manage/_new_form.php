@@ -98,7 +98,7 @@ endif;
                 <? if(!$model->isNewRecord)
                     echo CHtml::textField('',$model->app->title,array('disabled'=>true, 'class' => 'form-control'));
                 else
-                    echo $form->dropDownList($model, 'app_id', CHtml::listData($apps, 'id', 'title'), array('class'=>'select-picker form-control', 'data-live-search'=>'true'));
+                    echo $form->dropDownList($model, 'app_id', CHtml::listData($apps, 'id', 'title'), array('class'=>'selectpicker form-control', 'data-live-search'=>'true'));
                 ?>
                 <?php echo $form->error($model, 'app_id'); ?>
             <?php else: ?>

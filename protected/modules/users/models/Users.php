@@ -169,7 +169,7 @@ class Users extends CActiveRecord
         $criteria->compare('email', $this->email, true);
         $criteria->compare('password', $this->password, true);
         $criteria->compare('create_date', $this->create_date, true);
-        $criteria->compare('status', $this->statusFilter, true);
+        $criteria->compare('status', $this->status, true);
         $criteria->compare('verification_token', $this->verification_token, true);
         $criteria->compare('change_password_request_count', $this->change_password_request_count);
         $criteria->addSearchCondition('role.id', $this->roleId);

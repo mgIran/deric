@@ -45,27 +45,27 @@ class Controller extends CController
     public $quickAccesses = [
         [
             'label' => 'بازی های هیجانی',
-            'url' => '/apps/programs/6/اخبار+و+مجلات',
+            'url' => '/apps/games/51/هیجان‌‌انگیز',
             'img' => 'Untitled-1.png',
         ],
         [
             'label' => 'بازی های ترسناک',
-            'url' => '/',
+            'url' => '/apps/games/49/ترسناک',
             'img' => 'Untitled-2.png',
         ],
         [
             'label' => 'پلیر ویدیو 360 درجه',
-            'url' => '/',
+            'url' => '/apps/programs/36/پلیر+ویدئو+360+درجه',
             'img' => 'Untitled-3.png',
         ],
         [
             'label' => 'ترن هوایی',
-            'url' => '/',
+            'url' => '/apps/games/40/ترن+هوایی',
             'img' => 'Untitled-4.png',
         ],
         [
             'label' => 'گردشگری',
-            'url' => '/',
+            'url' => '/apps/programs/24/گردشگری',
             'img' => 'Untitled-5.png',
         ],
     ];

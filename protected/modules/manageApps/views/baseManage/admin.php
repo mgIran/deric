@@ -16,8 +16,27 @@ $this->breadcrumbs=array(
 		<div class="table-responsive">
 		<?php $this->widget('zii.widgets.grid.CGridView', array(
 			'id'=>'apps-grid',
-			'dataProvider'=>$model->search(),
+			'dataProvider'=>$model->search(true,'/manageApps/'.$this->controller.'/admin'),
 			'filter'=>$model,
+            'template' => '{items} {pager}',
+            'ajaxUpdate' => true,
+            'afterAjaxUpdate' => "function(id, data){
+                $('html, body').animate({
+                    scrollTop: ($('#'+id).offset().top-130)
+                },1000);
+            }",
+            'pager' => array(
+                'header' => '',
+                'firstPageLabel' => '<<',
+                'lastPageLabel' => '>>',
+                'prevPageLabel' => '<',
+                'nextPageLabel' => '>',
+                'cssFile' => false,
+                'htmlOptions' => array(
+                    'class' => 'pagination pagination-sm',
+                ),
+            ),
+            'pagerCssClass' => 'blank',
 			'columns'=>array(
 				'title',
 				array(

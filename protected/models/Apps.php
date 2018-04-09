@@ -181,7 +181,7 @@ class Apps extends CActiveRecord
      * @param bool $withFree
      * @return CActiveDataProvider
      */
-    public function search($withFree = true)
+    public function search($withFree = true, $route='')
     {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
@@ -227,6 +227,9 @@ class Apps extends CActiveRecord
         }
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array(
+                'route' => !empty($route)?$route:Yii::app()->request->requestUri
+            )
         ));
     }
 

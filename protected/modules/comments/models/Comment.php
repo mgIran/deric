@@ -363,8 +363,11 @@ class Comment extends CActiveRecord
                     $user = $user->$relation;
                 $userName .= $user;
             }
-            if(empty($user) && isset($userConfig['emailProperty']))
-                $userName .= $this->user->$userConfig['emailProperty'];
+            if(empty($user))
+                $userName .= 'بدون نام';
+
+//            if(empty($user) && isset($userConfig['emailProperty']))
+//                $userName .= $this->user->$userConfig['emailProperty'];
         } else {
             $userName = $this->user_name;
             if($userName == 'Admin')
