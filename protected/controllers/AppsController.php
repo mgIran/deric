@@ -486,14 +486,13 @@ class AppsController extends Controller
             $pageTitle=$pageTitle->nickname;
         }
         $criteria->params[':dev'] = $developer_id;
-        $dataProvider = new CActiveDataProvider('Apps', array(
-            'criteria' => $criteria,
-        ));
 
-        $this->render('_app_list_manual', array(
-            'dataProvider' => $dataProvider,
-            'title' => $pageTitle,
-            'pageTitle' => 'برنامه ها'
+        $dp = Apps::model()->findAll($criteria);
+        $this->pageTitle = CHtml::encode($pageTitle).((!is_null($title))?'ی '.CHtml::encode($title):null);
+
+        $this->render('single_apps_list', array(
+            'dataProvider' => $dp,
+            'title' => $pageTitle
         ));
     }
 
