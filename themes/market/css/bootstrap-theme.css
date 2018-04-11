@@ -1665,6 +1665,13 @@ a{
     width: 20px;
     height: 20px;
 }
+.consumer .panel-item .collapse-two .white-user-icon,
+.mobail .mobail-menu .mobail-body ul li .white-user-icon{
+    background: url("../svg/white-user.svg") no-repeat center;
+    background-size: 20px;
+    width: 20px;
+    height: 20px;
+}
 .consumer .panel-item .collapse-two ul li,
 .mobail .mobail-menu .mobail-body ul li{
     padding: 10px 7px;
@@ -1696,6 +1703,12 @@ a{
     height: 100%;
     top: 0;
     right: 0;
+}
+.mobail .mobail-menu .mobail-body ul .clike-user.developer-link,
+.consumer .panel-item .collapse-two ul .clike-user.developer-link{
+    margin: 10px 0 50px;
+    background-color: #eb0000;
+    color: #fff;
 }
 .consumer .hrefs{
     min-height: 500px;

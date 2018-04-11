@@ -77,11 +77,19 @@
                                 <li class="clike-user sup"><a href="<?php echo $this->createUrl('/tickets/manage/'); ?>"></a><span class="glyphicon i-five"></span>پشتیبانی</li>
                                 <li class="clike-user sup"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=profile-tab");?>"></a><span class="glyphicon i-five"></span>تغییر مشخصات کاربری</li>
                                 <li class="clike-user set"><a href="<?php echo Yii::app()->createUrl("/dashboard?tab=setting-tab");?>"></a><span class="glyphicon i-six"></span>تنظیمات</li>
+                                <?php if(Yii::app()->user->roles!='developer'):?>
+                                    <li class="clike-user developer-link">
+                                        <a href="<?php echo Yii::app()->createUrl("/developers/panel/signup/step/agreement");?>"></a>
+                                        <span class="glyphicon white-user-icon"></span>
+                                        <span>توسعه دهنده شوید</span>
+                                    </li>
+                                <?php endif;?>
                             </ul>
                         </div>
                     </div>
                 </div>
                 </div>
+                <?php if(Yii::app()->user->roles == 'developer'):?>
                 <div class="panel panel-item">
                 <div class="panel-heading head-panel">
                     <h4 class="panel-title bottoms">
@@ -107,6 +115,7 @@
                     </div>
                 </div>
                 </div>
+                <?php endif;?>
             </div>
         </div>
         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 hrefs">
