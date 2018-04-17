@@ -1,4 +1,11 @@
 @media screen and (max-width: 992px) {
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .downloady{
+        top: 15px;
+        width: 70px;
+        left: 10px;
+        position: absolute;
+        padding: 5px 6px;
+    }
     .consumer .hrefs .dashbord{
         margin-top: 30px;
     }
@@ -194,9 +201,6 @@
         width: 100%;
         border-radius: 20px;
     }
-    .baner .baner-box .baner-box-to .baner-item{
-        height: auto;
-    }
     .baner .baner-box .baner-box-to .baner-item .media .photo{
         padding: 10px;
         display: block;
@@ -219,7 +223,6 @@
         height: 100%;
     }
     .baner .baner-box .baner-box-to .details{
-        position: relative;
         padding: 0 5px;
         bottom: 0;
     }
@@ -366,30 +369,21 @@
     .changes .last-change .scoring .last{
         line-height: 20px;
     }
-    .changes .access .baner-two{
+    .baner{
         margin-bottom: 25px;
     }
     .changes .access .baner-two .baner-box{
         height: auto;
     }
-    .baner-two .baner-box .baner-box-to .details .det-box{
-        margin: 12px;
-    }
-    .changes .access .baner-two .baner-box .baner-box-to .baner-item{
-        height: auto;
+    .baner .baner-box .baner-box-to .details .det-box{
+        margin:0 12px;
     }
     .baner .baner-box .baner-box-to .baner-item .media .media-body {
         padding: 0 15px;
     }
-    .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .texts{
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .texts{
         line-height: 18px;
-        height: 55px;
         margin: 0 0 10px;
-    }
-    .baner-two .baner-box .baner-box-to .baner-item .media .media-body .downloady{
-        top: 15px;
-        width: 70px;
-        left: 10px;
     }
     .media-game .media-game-to .img-media{
         width: 100%;
@@ -429,6 +423,9 @@
     .header .mobail-menu-hide,
     .panel-sidebar {
         width: 250px;
+    }
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .texts{
+        display: none;
     }
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -517,9 +514,6 @@
     .baner .baner-box .baner-box-to .baner-item .media .media-body .texts{
         line-height: 20px;
 
-    }
-    .baner .baner-box .baner-box-to .baner-item{
-        height: 240px;
     }
     .baner .baner-box .baner-box-to .details .det-box{
         width: 32%;
@@ -610,7 +604,7 @@
         width: 41%;
         margin-right: 9%;
     }
-    .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .texts{
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .texts{
         line-height: 18px;
         width: 315px;
         margin: 0 7px;
@@ -621,26 +615,12 @@
     .media-body, .media-left, .media-right{
         display: block;
     }
-    .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .votes{
-        position: absolute;
-        top: 18%;
-        height: 25%;
-        right: 50%;
-        width: 29%;
-    }
-    .baner-two .baner-box .baner-box-to .baner-item .media .media-body .downloady{
-        position: absolute;
-        top: 46%;
-        left: 25%;
-        width: 25%;
-        padding: 5px 6px;
-    }
-    .baner-two .baner-box .baner-box-to .details{
+    .baner .baner-box .baner-box-to .details{
         position: absolute;
         width: 100%;
         bottom: 0;
     }
-    .baner-two .baner-box .baner-box-to .details .det-box{
+    .baner .baner-box .baner-box-to .details .det-box{
         width: 49%;
         padding-bottom: 5px;
     }
@@ -757,21 +737,21 @@
     .changes .last-change .scoring .last{
         line-height: 22px;
     }
-    .changes .access .baner-two .baner-box{
+    .baner .baner-box{
         height: auto;
         overflow: hidden;
     }
-    .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .texts{
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .texts{
         line-height: 20px;
     }
-    .changes .access .baner-two .baner-box .baner-box-to .baner-item .media .media-body .votes{
+    .baner .baner-box .baner-box-to .baner-item .media .media-body .votes{
         width: 22%;
     }
     .changes .last-change .opinion .opinion-to .opinion-item .like .like-down a,
     .changes .last-change .opinion .opinion-to .opinion-item .like .like-up a{
         padding: 0 8px;
     }
-    .changes .access .baner-two {
+    .baner{
         margin: 75px 0 0 0;
     }
     .register-page .register-page-to .robat .logo img{

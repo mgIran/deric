@@ -585,10 +585,13 @@ a{
 .baner .baner-box .baner-box-to{
     z-index: 1;
     position: absolute;
+    padding-bottom: 38px;
 }
 .baner .baner-box .baner-box-to .baner-item{
     position: relative;
-    height: 217px;
+    display: block;
+    overflow: hidden;
+    height: 100%;
 }
 .game .games-item .text .free,
 .votes .free,
@@ -672,6 +675,7 @@ a{
     margin: 20px 0 25px 0;
     width: 100%;
     padding-left: 110px;
+    line-height: 30px;
 }
 .baner .baner-box .baner-box-to .baner-item .media .media-body .media-heading a{
     color: #000;
@@ -716,13 +720,16 @@ a{
     display: inline-block;
 }
 .baner .baner-box .baner-box-to .details{
-    position: relative;
+    position: absolute;
     display: block;
+    bottom: 0;
+    width: 100%;
+    padding: 5px 0;
 }
 .baner .baner-box .baner-box-to .details .det-box{
     width: 24%;
     display: inline-block;
-    margin: 20px 0 12px 0;
+    margin: 0;
     text-align: center;
 }
 .baner .baner-box .baner-box-to .details .det-box .d-load{
@@ -1167,7 +1174,10 @@ a{
     height: auto;
 }
 .changes .access .baner-two .baner-box .baner-box-to .baner-item{
-    height: 80%;
+    height: 100%;
+    padding-bottom: 40px;
+    display: block;
+    overflow: hidden;
 }
 .changes .access .baner-two .baner-box {
     height: 300px;

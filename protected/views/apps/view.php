@@ -192,7 +192,7 @@ endif;
                                                 <?php endif;?></div>
                                             <div class="star"><?= Controller::printRateStars(doubleval($detail->rate)) ?></div>
                                         </div>
-                                        <p class="text-justify texts"><?= $detail->summary ?></p>
+                                        <div class="text-justify texts"><?= $detail->summary ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +209,7 @@ endif;
                                 <?php
                                 if($data->app_id || $detail->developer):
                                 ?>
-                                <div class="det-box">
+                                <div class="det-box hidden-xs">
                                     <a<?php
                                         echo ' href="'.$this->createUrl('apps/developer?title='.($data->app->developer?urlencode($data->app->developer->userDetails->developer_id).'&id='.$data->app->developer_id:urlencode($data->app->developer_team).'&t=1')).'"';
                                     ?>>
