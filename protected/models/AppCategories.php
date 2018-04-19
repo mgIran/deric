@@ -229,6 +229,29 @@ class AppCategories extends CActiveRecord
 			return $criteria;
 	}
 
+    /**
+     * @param $id
+     * @param bool $withSelf
+     * @param string $returnType
+     * @return array|CDbCriteria
+     */
+	public static function CategoryChildes($id, $withSelf = true, $returnType='array')
+    {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('path LIKE :regex1', 'OR');
+        $criteria->addCondition('path LIKE :regex2', 'OR');
+        $criteria->params[':regex1'] = $id . '-%';
+        $criteria->params[':regex2'] = '%-' . $id . '-%';
+        if ($withSelf) {
+            $criteria->addCondition('id  = :id', 'OR');
+            $criteria->params[':id'] = $id;
+        }
+        if ($returnType === 'array')
+            return CHtml::listData(AppCategories::model()->findAll($criteria), 'id', 'id');
+        else
+            return $criteria;
+    }
+
 	/**
 	 * Update Path field when model parent_id is changed
 	 * @param $id

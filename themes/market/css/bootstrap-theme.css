@@ -2135,3 +2135,14 @@ a{
 .menu-overlay{
     display: none;
 }
+
+#slider .shadow {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: block;
+    top: 0;
+    z-index: 1;
+    background: url("../images/shadow.png") no-repeat scroll bottom center transparent;
+    background-size: 93px 100%;
+}

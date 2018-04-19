@@ -5,8 +5,8 @@ if(!isset($commonAdvertises))
     $commonAdvertises  = AppAdvertises::model()->findAll(AppAdvertises::CommonQuery($this->platform));
 if($commonAdvertises):
 ?>
-<div class="slider">
-    <section id="mycarousel">
+<section class="slider">
+    <div id="mycarousel">
         <div class="is-carousel owl-theme" data-dots="1" data-nav="1" data-items="3" data-autoplay="1" data-autoplay-hover-pause="1" data-mouseDrag="1" data-responsive='{"1200":{"items":"3"},"992":{"items":"3"},"768":{"items":"2"},"650":{"items":"1"},"0":{"items":"1"}}'>
             <?php foreach ($commonAdvertises as $advertise): ?>
                 <div class="item">
@@ -18,7 +18,8 @@ if($commonAdvertises):
                 </div>
             <?php endforeach; ?>
         </div>
-    </section>
-</div>
+    </div>
+    <div class="shadow"></div>
+</section>
 <?php
 endif;

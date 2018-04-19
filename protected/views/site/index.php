@@ -19,7 +19,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/jqu
 <?php $this->renderPartial('/site/_quick_access') ?>
 
 <?php foreach ($dynamicRows as $dynamicRow):
-    $dp = Apps::model()->findAll($dynamicRow->getConstCriteria(Apps::getValidApps($this->platform, CHtml::listData($dynamicRow->categoryIds,'id', 'app_category_id'))));
+    $dp = Apps::model()->findAll($dynamicRow->getConstCriteria(Apps::getValidApps($this->platform, ($dynamicRow->const_query?AppCategories::CategoryChildes($dynamicRow->const_category):CHtml::listData($dynamicRow->categoryIds,'id', 'app_category_id')))));
     ?>
     <section>
         <div class="see">

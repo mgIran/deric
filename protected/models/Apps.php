@@ -365,10 +365,10 @@ class Apps extends CActiveRecord
      * Get criteria for valid apps
      *
      * @param null $platform
-     * @param array $visitedCats
+     * @param bool|array|int $visitedCats
      * @return CDbCriteria
      */
-    public static function getValidApps($platform = null, $visitedCats = array())
+    public static function getValidApps($platform = null, $visitedCats = null)
     {
         $criteria = new CDbCriteria();
         $criteria->addCondition('t.status=:status');
@@ -381,7 +381,10 @@ class Apps extends CActiveRecord
         $criteria->params[':deleted'] = 0;
         if ($visitedCats)
         {
-            $criteria->addInCondition('categoryRel.category_id', $visitedCats);
+            if(is_array($visitedCats))
+                $criteria->addInCondition('categoryRel.category_id', array_values($visitedCats));
+            else
+                $criteria->addColumnCondition(['categoryRel.category_id' => $visitedCats]);
             $criteria->together = true;
             $criteria->with[] = 'categoryRel';
         }
