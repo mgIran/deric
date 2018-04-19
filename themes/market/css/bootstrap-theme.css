@@ -437,14 +437,14 @@ a{
     width: 100%;
     overflow: hidden;
 }
-.buttons .buttons-container{
-    padding: 0 30px;
-    height: 80px;
+.buttons .buttons-container {
+    padding: 0;
     text-align: center;
+    height: auto;
+    overflow: hidden;
 }
 .buttons .item{
     display: inline-block;
-    width: 16%;
     height: 80px;
     text-align: center;
     margin: 0 20px;
@@ -460,6 +460,8 @@ a{
     text-decoration: none;
     font-weight: bolder;
     font-size: 16px;
+    top:0;
+    z-index: 1;
 }
 .buttons .buttons-container .item img{
     width: 100%;

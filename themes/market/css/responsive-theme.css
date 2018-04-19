@@ -159,13 +159,7 @@
     .slider .item .carousel-caption{
         bottom: 10px;
     }
-    .buttons .buttons-container{
-        padding: 0;
-        height: auto;
-        overflow: hidden;
-    }
     .buttons .item{
-        width: 70%;
         margin: 0 0 10px 0;
     }
     .buttons .item .item-link{
@@ -504,7 +498,6 @@
         padding: 0;
     }
     .buttons .item{
-        width: 19%;
         margin: 0;
     }
     .baner {
