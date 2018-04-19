@@ -12,7 +12,7 @@
 )); ?>
 <div class="row">
     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-        <div class="form-group ">
+        <div class="form-group">
             <?php $this->widget('ext.dropZoneUploader.dropZoneUploader', array(
                 'id' => 'uploaderLogo',
                 'model' => $model,
@@ -66,11 +66,6 @@
         <div class="form-group">
             <?php echo $form->textField($model->userDetails,'national_code',array('placeholder'=>$model->userDetails->getAttributeLabel('national_code').' *','class'=>'form-control','maxlength'=>10)); ?>
             <?php echo $form->error($model->userDetails,'national_code'); ?>
-        </div>
-
-        <div class="form-group">
-            <?php echo $form->textField($model->userDetails,'national_card_image',array('placeholder'=>$model->userDetails->getAttributeLabel('national_card_image').' *','class'=>'form-control','maxlength'=>50)); ?>
-            <?php echo $form->error($model->userDetails,'national_card_image'); ?>
         </div>
 
         <div class="form-group">
