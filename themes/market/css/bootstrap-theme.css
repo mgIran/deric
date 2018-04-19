@@ -2136,13 +2136,12 @@ a{
     display: none;
 }
 
-#slider .shadow {
+.slider .shadow {
     position: absolute;
     bottom: 0;
     width: 100%;
+    height: 93px;
     display: block;
-    top: 0;
     z-index: 1;
     background: url("../images/shadow.png") no-repeat scroll bottom center transparent;
-    background-size: 93px 100%;
 }

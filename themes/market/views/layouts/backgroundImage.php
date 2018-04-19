@@ -20,8 +20,8 @@
     $cs->registerCssFile($baseUrl.'/css/bootstrap-rtl.min.css');
     $cs->registerCssFile($baseUrl.'/css/font-awesome.css');
     $cs->registerCssFile($baseUrl.'/css/animate.min.css');
-    $cs->registerCssFile($baseUrl.'/css/bootstrap-theme.css?2.2');
-    $cs->registerCssFile($baseUrl.'/css/responsive-theme.css?2.2');
+    $cs->registerCssFile($baseUrl.'/css/bootstrap-theme.css?2.3');
+    $cs->registerCssFile($baseUrl.'/css/responsive-theme.css?2.3');
 
     $cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.nicescroll.min.js');
