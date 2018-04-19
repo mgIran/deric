@@ -43,7 +43,7 @@
                     <div id="collapse1" class="panel">
                         <div class="panel-body collapse-one">
                             <div class="img-user">
-                                <?php if(Yii::app()->user->avatar): echo CHtml::image(Yii::app()->user->avatar); else: echo '<span class="default-user"></span>'; endif; ?>
+                                <?php if(Yii::app()->user->avatar): echo CHtml::image(Yii::app()->getBaseUrl(true).'/uploads/users/avatar/'.Yii::app()->user->avatar); else: echo '<span class="default-user"></span>'; endif; ?>
                                 <span><?= Yii::app()->user->fa_name ?></span>
                             </div>
                             <div class="user-icon">
