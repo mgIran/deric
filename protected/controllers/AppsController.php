@@ -507,7 +507,7 @@ class AppsController extends Controller
 
         if ($id) {
             $dynamicRow = RowsHomepage::model()->find($id);
-            $dp = Apps::model()->findAll($dynamicRow->getConstCriteria(Apps::getValidApps($this->platform, CHtml::listData($dynamicRow->categoryIds, 'id', 'app_category_id'))));
+            $dp = Apps::model()->findAll($dynamicRow->getConstCriteria(Apps::getValidApps($this->platform, $dynamicRow->getCategoryIdsArray())));
             $this->pageTitle = Controller::sefLinkRevert($title);
         } else {
             $queries = ['latest' => 'جدیدترین', 'bestRates' => 'برترین', 'free' => 'رایگان',
@@ -516,7 +516,7 @@ class AppsController extends Controller
             $row->title = $queries[$title];
             $row->const_query = 1;
             $row->query = $title;
-            $dp = Apps::model()->findAll($row->getConstCriteria(Apps::getValidApps($this->platform)));
+            $dp = Apps::model()->findAll($row->getConstCriteria(Apps::getValidApps($this->platform, $row->getCategoryIdsArray())));
             $this->pageTitle = $row->title;
         }
 
