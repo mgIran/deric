@@ -516,7 +516,7 @@ class AppsController extends Controller
             $row->title = $queries[$title];
             $row->const_query = 1;
             $row->query = $title;
-            $dp = Apps::model()->findAll($row->getConstCriteria(Apps::getValidApps($this->platform, $row->getCategoryIdsArray())));
+            $dp = Apps::model()->findAll($row->getConstCriteria(Apps::getValidApps($this->platform)));
             $this->pageTitle = $row->title;
         }
 

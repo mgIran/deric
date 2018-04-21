@@ -522,7 +522,6 @@ a{
 }
 .game .is-carousel{
     display: block;
-    height: 230px;
 }
 .game .imgs{
     overflow: hidden;

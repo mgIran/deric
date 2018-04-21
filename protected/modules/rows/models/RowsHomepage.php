@@ -183,13 +183,13 @@ class RowsHomepage extends SortableCActiveRecord
                 $criteria->order = 't.id DESC';
                 break;
             case 'latestGames':
-                $criteria->addColumnCondition(['categoryRel.category_id' => 1]);
+                $criteria->addInCondition('categoryRel.category_id', $this->getCategoryIdsArray(2));
                 $criteria->together = true;
                 $criteria->with[] = 'categoryRel';
                 $criteria->order = 't.id DESC';
                 break;
             case 'latestPrograms':
-                $criteria->addColumnCondition(['categoryRel.category_id' => 2]);
+                $criteria->addInCondition('categoryRel.category_id', $this->getCategoryIdsArray(1));
                 $criteria->together = true;
                 $criteria->with[] = 'categoryRel';
                 $criteria->order = 't.id DESC';
@@ -219,8 +219,8 @@ class RowsHomepage extends SortableCActiveRecord
         return $criteria;
     }
 
-    public function getCategoryIdsArray()
+    public function getCategoryIdsArray($id = null)
     {
-        return $this->const_query ? AppCategories::CategoryChildes($this->const_category) : CHtml::listData($this->categoryIds, 'id', 'app_category_id');
+        return $this->const_query ? AppCategories::CategoryChildes(($id?:$this->const_category)) : CHtml::listData($this->categoryIds, 'id', 'app_category_id');
     }
 }
