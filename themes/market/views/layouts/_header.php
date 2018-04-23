@@ -128,12 +128,18 @@
                 </div>
             </div>
 
-            <div class="mobail-menu-hide hidden-lg hidden-md hidden-sm">
+            <div class="mobail-menu-hide hidden-lg hidden-md hidden-sm relative">
+                <div class="mobile-user-buttons">
+                    <
+                </div>
                 <ul>
                     <li><a href="<?php echo $this->createUrl('/android');?>"></a><span class="glyphicon android"></span><span class="text">اندروید</span></li>
                     <li><a href="<?php echo $this->createUrl('/ios');?>"></a><span class="glyphicon ios"></span><span class="text">آی او اس</span></li>
                     <li class="mobail-cat"><a href="#"></a><span class="glyphicon category"></span><span class="text">دسته بندی ها</span></li>
                     <li><a href="<?php echo $this->createUrl('/site/underConstrction');?>"></a><span class="glyphicon android-2"></span><span class="text">دانلود سیسن اپ</span></li>
+                    <?php if(!Yii::app()->user->isGuest && Yii::app()->user->type == 'user'): ?>
+                    <li><a class="text-danger" href="<?php echo $this->createUrl('/logout');?>"></a><span class="glyphicon log-out-icon"></span><span class="text">دانلود سیسن اپ</span></li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <div class="bg-menu hidden-lg hidden-md hidden-sm"></div>

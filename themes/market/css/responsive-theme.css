@@ -109,13 +109,8 @@
         top: 0;
     }
     .header .guide .login-process{
-        position: fixed !important;
-        left: 50% !important;
-        -webkit-transform: translateX(-50%);
-        -moz-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-        -o-transform: translateX(-50%);
-        transform: translateX(-50%);
+        position: absolute !important;
+        left: 15px !important;
     }
     .header .navbar-header .sisen-brand{
         padding: 0;
