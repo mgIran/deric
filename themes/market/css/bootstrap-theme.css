@@ -2004,13 +2004,14 @@ a{
 /*New Menu*/
 .header .mobail-menu-hide{
     z-index: 13;
-    background: #00381d;
+    background: #013e21;
     position: fixed;
     width: 300px;
     display: block;
     top: 0;
     left: 0;
     bottom: 0;
+    overflow-y: auto;
     -webkit-transform: translateX(-100%);
     -moz-transform: translateX(-100%);
     -ms-transform: translateX(-100%);
@@ -2025,18 +2026,28 @@ a{
 .header .mobail-menu-hide ul{
     list-style-type: none;
     padding: 0;
-    margin: 80px 0 196px 0;
-}
-.header .mobail-menu-hide ul li:first-child{
-    border-top: 1px solid;
+    border-top: 2px solid #022514;
+    margin: 0;
+    background-color: #00381d;
 }
 .header .mobail-menu-hide ul li{
-    margin: 2px 0;
-    padding: 10px;
+    padding: 10px 25px 10px 0;
     color: #fff;
     background: #00381d;
     position: relative;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid rgba(1, 27, 14, 0.4);
+}
+.header .mobail-menu-hide ul li:first-of-type,
+.header .mobail-menu-hide ul li:last-of-type{
+    border: none !important;
+}
+.header .mobail-menu-hide ul li:first-of-type{
+    color: #011b0e !important;
+    font-weight: bolder;
+    font-size: 14px;
+    padding: 10px !important;
+    background-color: #04321b;
+    margin-bottom: 10px;
 }
 .header .mobail-menu-hide ul li a{
     position: absolute;
@@ -2046,40 +2057,48 @@ a{
     right: 0;
     z-index: 5;
 }
-.header .mobail-menu-hide ul li .android{
-    background: url("../svg/android-logo-white.svg") no-repeat center;
-    background-size: 23px;
+.header .mobail-menu-hide ul li .glyphicon{
+    background-size: 23px !important;
     width: 23px;
     height: 23px;
     margin-left: 7px;
+}
+.header .mobail-menu-hide ul li .android{
+    background: url("../svg/android-logo-white.svg") no-repeat center;
 }
 .header .mobail-menu-hide ul li .ios{
     background: url("../svg/apple-white.svg") no-repeat center;
-    background-size: 23px;
-    width: 23px;
-    height: 23px;
-    margin-left: 7px;
 }
 .header .mobail-menu-hide ul li .category{
     background: url("../svg/category.svg") no-repeat center;
-    background-size: 23px;
-    width: 23px;
-    height: 23px;
-    margin-left: 7px;
 }
 .header .mobail-menu-hide ul li .android-2{
     background: url("../svg/download1.svg") no-repeat center;
-    background-size: 23px;
-    width: 23px;
-    height: 23px;
-    margin-left: 7px;
 }
 .header .mobail-menu-hide ul li .log-out-icon{
     background: url("../svg/logout.svg") no-repeat center;
-    background-size: 23px;
-    width: 23px;
-    height: 23px;
-    margin-left: 7px;
+    -webkit-background-size: 20px !important;
+    background-size: 20px !important;
+}
+.header .mobail-menu-hide ul li .dashboard-icon{
+    background: url("../svg/dashboard-white.svg") no-repeat center;
+    -webkit-background-size: 20px !important;
+    background-size: 20px !important;
+}
+.header .mobail-menu-hide ul li .developer-icon{
+    background: url("../svg/dashboard-white.svg") no-repeat center;
+    -webkit-background-size: 20px !important;
+    background-size: 20px !important;
+}
+.header .mobail-menu-hide ul li .login-icon{
+    /*background: url("../svg/dashboard-white.svg") no-repeat center;*/
+    /*-webkit-background-size: 20px !important;*/
+    /*background-size: 20px !important;*/
+}
+.header .mobail-menu-hide ul li .register-icon{
+    /*background: url("../svg/dashboard-white.svg") no-repeat center;*/
+    /*-webkit-background-size: 20px !important;*/
+    /*background-size: 20px !important;*/
 }
 .bg-menu{
     width: 100%;

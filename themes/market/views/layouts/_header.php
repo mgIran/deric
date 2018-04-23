@@ -44,7 +44,7 @@
                     <a class="search-user" href="#">
                         <span class="glyphicon search"></span>
                     </a>
-                    <a class="user" href="#">
+                    <a class="user hidden-xs" href="#">
                         <span class="glyphicon user-gi"></span>
                     </a>
                     <div class="mobail-bar hidden-lg hidden-md hidden-sm">
@@ -64,37 +64,6 @@
                         <div class="border"></div>
                         <div class="register"><a href="<?= Yii::app()->createUrl('logout') ?>">خروج</a></div>
                     </div>
-<!--                    <div class="user-section">-->
-<!---->
-<!--                        <div class="avatar">-->
-<!--                            <span class="icon icon-user"></span>-->
-<!--                            <div class="tri-1"></div>-->
-<!--                            <div class="tri-2"></div>-->
-<!--                        </div>-->
-<!--                        <div class="user-menu">-->
-<!--                            <div class="inner">-->
-<!--                                <div class="avatar">-->
-<!--                                    <span class="icon icon-user"></span>-->
-<!--                                </div>-->
-<!--                                <div class="user-detail">-->
-<!--                                    <span class="name">--><?//= $this->userDetails->getShowName(); ?><!--</span>-->
-<!--                                    <span class="type">--><?//= $this->userDetails->roleLabels[Yii::app()->user->roles] ?><!--</span>-->
-<!--                                    <span class="type">اعتبار : --><?//= Controller::parseNumbers(number_format($this->userDetails->credit, 0)) ?><!-- تومان</span>-->
-<!--                                </div>-->
-<!--                                <footer>-->
-<!--                                    <a class="btn btn-default" href="--><?//= Yii::app()->createUrl('/dashboard') ?><!--">پنل کاربری</a>-->
-<!--                                    --><?//
-//                                    if(Yii::app()->user->roles == 'developer'):
-//                                        ?>
-<!--                                        <a class="btn btn-default" href="--><?//= Yii::app()->createUrl('/developers/panel') ?><!--">پنل توسعه دهندگان</a>-->
-<!--                                    --><?//
-//                                    endif;
-//                                    ?>
-<!--                                    <a class="btn btn-danger pull-left" href="--><?//= Yii::app()->createUrl('logout') ?><!--">خروج</a>-->
-<!--                                </footer>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 <?php
                 else:
                 ?>
@@ -129,17 +98,25 @@
             </div>
 
             <div class="mobail-menu-hide hidden-lg hidden-md hidden-sm relative">
-                <div class="mobile-user-buttons">
-                    <
-                </div>
                 <ul>
+                    <li>منوی کاربری</li>
+                    <?php if(!Yii::app()->user->isGuest && Yii::app()->user->type == 'user'): ?>
+                        <li><a href="<?php echo $this->createUrl('/dashboard') ?>"></a><span class="glyphicon dashboard-icon"></span><span class="text">پنل کاربری</span></li>
+                        <?php if(Yii::app()->user->roles == 'developer'):?>
+                            <li><a href="<?php echo $this->createUrl('/developers/panel');?>"></a><span class="glyphicon developer-icon"></span><span class="text text-danger">پنل توسعه دهندگان</span></li>
+                        <?php endif;?>
+                        <li><a href="<?php echo $this->createUrl('/logout');?>"></a><span class="glyphicon log-out-icon"></span><span class="text text-danger">خروج از حساب</span></li>
+                    <?php else: ?>
+                        <li><a href="<?php echo $this->createUrl('/login') ?>"></a><span class="glyphicon login-icon"></span><span class="text">ورود</span></li>
+                        <li><a href="<?php echo $this->createUrl('/register') ?>"></a><span class="glyphicon register-icon"></span><span class="text">ثبت نام</span></li>
+                    <?php endif; ?>
+                </ul>
+                <ul>
+                    <li>منوی سایت</li>
                     <li><a href="<?php echo $this->createUrl('/android');?>"></a><span class="glyphicon android"></span><span class="text">اندروید</span></li>
                     <li><a href="<?php echo $this->createUrl('/ios');?>"></a><span class="glyphicon ios"></span><span class="text">آی او اس</span></li>
                     <li class="mobail-cat"><a href="#"></a><span class="glyphicon category"></span><span class="text">دسته بندی ها</span></li>
                     <li><a href="<?php echo $this->createUrl('/site/underConstrction');?>"></a><span class="glyphicon android-2"></span><span class="text">دانلود سیسن اپ</span></li>
-                    <?php if(!Yii::app()->user->isGuest && Yii::app()->user->type == 'user'): ?>
-                    <li><a class="text-danger" href="<?php echo $this->createUrl('/logout');?>"></a><span class="glyphicon log-out-icon"></span><span class="text">دانلود سیسن اپ</span></li>
-                    <?php endif; ?>
                 </ul>
             </div>
             <div class="bg-menu hidden-lg hidden-md hidden-sm"></div>
