@@ -3,7 +3,7 @@
 /* @var $model Apps */
 /* @var $similar CActiveDataProvider */
 /* @var $bookmarked boolean */
-
+Yii::import('manageApps.components.BaseManageController');
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/css/owl.carousel.css');
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/css/owl.theme.default.min.css');
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/owl.carousel.min.js');
