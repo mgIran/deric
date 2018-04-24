@@ -48,7 +48,7 @@ class AppsController extends Controller
         if ((int)$id)
             $model = $this->loadModel($id);
         else {
-            $model = Apps::model()->findByAttributes(array('title' => urldecode($id)));
+            $model = Apps::model()->findByAttributes(array('title' => urldecode($id), 'platform_id' => 2));
             if ($model === null) {
                 $criteria = new CDbCriteria();
                 $criteria->with[] = 'packages';
