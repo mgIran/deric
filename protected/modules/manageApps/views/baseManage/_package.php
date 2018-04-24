@@ -49,14 +49,14 @@ a[href='#package-modal']{margin-top:20px;}
         'attribute' => 'change_log'
     )); ?>
 
-    <label style="margin-top: 15px;">تغییرات نسخه</label>
+    <label style="margin-top: 15px;">فایل دیتا</label>
     <?php
     $this->widget('ext.fileManager.fileManager', array(
         'id' => 'data-file-name',
         'name' => 'data_file_name',
-        'url' => $this->createUrl('fetch'),
+        'url' => Yii::app()->createUrl('/manageApps/'.$model->platform->name.'/fetch'),
         'maxFiles' => 1,
-        'serverDir' => 'uploads/apps/dataFiles'
+        'serverDir' => $this->dataFilesPath
     ));
     ?>
     <br>
