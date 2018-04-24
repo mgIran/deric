@@ -56,7 +56,7 @@ a[href='#package-modal']{margin-top:20px;}
         'name' => 'data_file_name',
         'url' => Yii::app()->createUrl('/manageApps/'.$model->platform->name.'/fetch'),
         'maxFiles' => 1,
-        'serverDir' => $this->dataFilesPath
+        'serverDir' => BaseManageController::$dataFilesPath
     ));
     ?>
     <br>

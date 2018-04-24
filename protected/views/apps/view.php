@@ -14,6 +14,7 @@ if($model->platform) {
     $platform = $model->platform;
     $filesFolder = $platform->name;
     $filePath = Yii::getPathOfAlias("webroot") . "/uploads/apps/files/{$filesFolder}/";
+    $dataPath = Yii::getPathOfAlias("webroot") . "/" . BaseManageController::$dataFilesPath . "/";
 }
 if(!$model->lastPackage)
     throw new CHttpException(404, "نرم افزار موردنظر بسته تایید شده ندارد.");
@@ -62,15 +63,33 @@ $rating = $model->calculateRating();
                             echo Controller::parseNumbers($model->lastPackage->download_file_size);
                         endif;
                         ?></span></div>
+
+                <?php
+                if($model->lastPackage->data_file_name && is_file($dataPath.$model->lastPackage->data_file_name)):
+                    ?>
+                    <div class="text-media"><i class="glyphicon file-size"></i><span>حجم دیتا: <?php
+                            echo Controller::fileSize($dataPath.$model->lastPackage->data_file_name);
+                    ?></span></div>
+                <?php
+                endif;
+                ?>
+
                 <div class="text-media"><i class="glyphicon version"></i><span>نسخه: <?= $model->lastPackage->version ?></span></div>
             </div>
             <div class="media-dn">
                 <div class="btn downloady">
                     <a class="hidden-sm hidden-xs" href="#" data-toggle="modal" data-target="#install-modal">نصب</a>
                     <?php if($model->price>0):?>
-                        <a class="hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/buy/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">نصب</a>
+                        <a class="hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/buy/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">خرید</a>
                     <?php else:?>
-                        <a class="hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">نصب</a>
+                        <a class="hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">
+                            <?php
+                            if($model->lastPackage->data_file_name && is_file($dataPath.$model->lastPackage->data_file_name))
+                                echo 'دانلود + دیتا';
+                            else
+                                echo 'دانلود';
+                            ?>
+                        </a>
                     <?php endif;?>
                 </div>
             </div>

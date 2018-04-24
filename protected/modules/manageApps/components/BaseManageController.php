@@ -7,8 +7,8 @@ class BaseManageController extends Controller
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/column2';
-    public $dataFilesPath = 'uploads/apps/dataFiles';
-    public $dataFilesTemp = 'uploads/apps/dataFilesTemp';
+    public static $dataFilesPath = 'uploads/apps/dataFiles';
+    public static $dataFilesTemp = 'uploads/apps/dataFilesTemp';
 
     protected $platform_id = null;
     protected $controller = null;
