@@ -17,6 +17,7 @@
  * @property string $for
  * @property string $download_file_url
  * @property string $download_file_size
+ * @property string $data_file_name
  *
  * The followings are the available model relations:
  * @property Apps $app
@@ -40,7 +41,7 @@ class AppPackages extends CActiveRecord
      */
     public function tableName()
     {
-        return 'ym_app_packages';
+        return '{{app_packages}}';
     }
 
     /**
@@ -57,7 +58,7 @@ class AppPackages extends CActiveRecord
             array('app_id', 'length', 'max' => 10),
             array('version, version_code, create_date, publish_date', 'length', 'max' => 20),
             array('package_name', 'length', 'max' => 100),
-            array('file_name', 'length', 'max' => 255),
+            array('data_file_name, file_name', 'length', 'max' => 255),
             array('status', 'length', 'max' => 15),
             array('reason', 'safe'),
             array('for', 'length', 'max' => 7),
@@ -102,6 +103,7 @@ class AppPackages extends CActiveRecord
             'for' => 'نوع بسته',
             'download_file_url' => 'آدرس دانلود فایل',
             'download_file_size' => 'حجم فایل',
+            'data_file_name' => 'فایل دیتا',
         );
     }
 

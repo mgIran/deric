@@ -1,0 +1,115 @@
+body.modal-open,
+.modal-open .navbar-fixed-top,
+.modal-open .navbar-fixed-bottom{
+    margin-left: 0 !important;
+    margin-right: 15px !important;
+}
+.filemanager-modal{
+    direction: ltr !important;
+}
+.filemanager-modal .modal-header{
+    background-color: #f0f0f0;
+}
+.filemanager-modal .modal-header h3{
+    margin: 0;
+    color: #444;
+    font-size: 20px;
+}
+.filemanager-modal .modal-header .close {
+    color: #444;
+    font-size: 30px;
+    margin-top: -4px;
+}
+.filemanager-modal .modal-dialog{
+    direction: rtl !important;
+}
+.filemanager-modal .modal-body{
+    position: relative;
+    padding: 0;
+}
+.filemanager-modal .modal-body .modal-loading-container{
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    z-index:10;
+    display: block;
+    background-color: rgba(255,255,255,0.4);
+}
+.filemanager-modal .modal-body .modal-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 11;
+}
+
+.filemanager-modal .modal-body .filemanager-list-container{
+    height: 430px;
+}
+.filemanager-modal .modal-body .filemanager-list-container .filemanager-list-header{
+    background-color: rgba(206, 217, 255, 0.6);
+    padding: 10px 15px;
+    border-bottom: 3px solid #d3ddc3;
+    color: #444;
+    font-weight: bold;
+    font-size: 13px;
+    display: block;
+    overflow: hidden;
+    border-top: 3px solid #d3ddc3;
+}
+.filemanager-modal .modal-body .filemanager-list-section{
+    height: 350px;
+    overflow-y: auto;
+}
+.filemanager-modal .modal-body .filemanager-list-section .filemanager-item {
+    background-color: #f9f9f9;
+    padding: 8px 15px;
+    border-bottom: 1px solid #ddd;
+    color: #666;
+    font-size: 12px;
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    direction: ltr !important;
+    text-align: right;
+}
+.filemanager-modal .modal-body .filemanager-list-section .filemanager-item:not(.filemanager-error):hover{
+    background-color: rgba(0, 89, 255, 0.1);
+}
+.filemanager-modal .modal-body .filemanager-list-section .filemanager-item:not(.filemanager-error).selected,
+.filemanager-modal .modal-body .filemanager-list-section .filemanager-item:not(.filemanager-error):focus,
+.filemanager-modal .modal-body .filemanager-list-section .filemanager-item:not(.filemanager-error):active
+{
+    background-color: rgba(177, 255, 0, 0.3);
+}
+.filemanager-modal .modal-body .filemanager-list-section .filemanager-item .item-size{
+    color: rgba(220, 8, 0, 0.66);
+}
+.filemanager-modal .modal-body .filemanager-list-section .filemanager-item:last-of-type {
+    border-bottom: none;
+}
+.filemanager-modal .modal-body .filemanager-list-section .filemanager-error {
+    color: #dc0800;
+    text-align: center;
+}
+.filemanager-modal .modal-footer{
+    margin-top: 0;
+}
+.filemanager-modal .modal-footer .row{
+    margin: 0 -15px;
+}
+.filemanager-modal .modal-footer button{
+    width:100%;
+}
+.filemanager-filter-text{
+    width: 100%;
+    border-radius: 0 !important;
+    height: 35px !important;
+}

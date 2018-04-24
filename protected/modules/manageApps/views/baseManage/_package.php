@@ -48,6 +48,18 @@ a[href='#package-modal']{margin-top:20px;}
         'model' => $model,
         'attribute' => 'change_log'
     )); ?>
+
+    <label style="margin-top: 15px;">تغییرات نسخه</label>
+    <?php
+    $this->widget('ext.fileManager.fileManager', array(
+        'id' => 'data-file-name',
+        'name' => 'data_file_name',
+        'url' => $this->createUrl('fetch'),
+        'maxFiles' => 1,
+        'serverDir' => 'uploads/apps/dataFiles'
+    ));
+    ?>
+    <br>
     <div class="row">
         <div class="col-md-12">
             <?php echo CHtml::hiddenField('app_id', $model->id);?>

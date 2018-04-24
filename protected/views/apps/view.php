@@ -55,7 +55,13 @@ $rating = $model->calculateRating();
                         <?= $model->showCategories(true) ?>
                     </span>
                 </div>
-                <div class="text-media"><i class="glyphicon file-size"></i><span>حجم : 20 مگابایت</span></div>
+                <div class="text-media"><i class="glyphicon file-size"></i><span>حجم: <?php
+                        if($model->lastPackage->file_name):
+                            echo Controller::fileSize($filePath.$model->lastPackage->file_name);
+                        else:
+                            echo Controller::parseNumbers($model->lastPackage->download_file_size);
+                        endif;
+                        ?></span></div>
                 <div class="text-media"><i class="glyphicon version"></i><span>نسخه: <?= $model->lastPackage->version ?></span></div>
             </div>
             <div class="media-dn">
