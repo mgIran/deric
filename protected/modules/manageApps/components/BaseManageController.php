@@ -570,6 +570,7 @@ class BaseManageController extends Controller
                 $model->version_code = $apkInfo['version_code'];
                 $model->version = $apkInfo['version'];
                 $model->package_name = $apkInfo['package_name'];
+                $model->data_file_name = $_POST['data_file_name'];
                 $model->file_name = $apkInfo['version'] . '-' . $apkInfo['package_name'] . '.' . pathinfo($_POST['Apps']['file_name'], PATHINFO_EXTENSION);
             }else{
                 $model->version = $_POST['version'];

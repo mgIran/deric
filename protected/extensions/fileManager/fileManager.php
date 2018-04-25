@@ -122,7 +122,10 @@ class fileManager extends CWidget
         if($this->model && $this->attribute){
             $hiddenFieldName = CHtml::activeHiddenField($this->model, $this->attribute, $this->htmlOptions);
         }else if($this->model && !$this->attribute && $this->name)
-            $hiddenFieldName = CHtml::activeHiddenField($this->model, $this->name, $this->htmlOptions);
+        {
+            $this->name = CHtml::activeName($this->model, $this->name);
+            $hiddenFieldName = CHtml::hiddenField($this->name, '', $this->htmlOptions);
+        }
         else if(!$this->model && !$this->attribute && $this->name)
             $hiddenFieldName = CHtml::hiddenField($this->name, '', $this->htmlOptions);
         $this->render('_viewer', array(
