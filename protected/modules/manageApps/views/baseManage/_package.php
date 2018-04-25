@@ -12,6 +12,27 @@ a[href='#package-modal']{margin-top:20px;}
     $cols = [
         'version',
         'package_name',
+        [
+            'header' => 'حجم بسته',
+            'value' => function($data){
+                $filePath = Yii::getPathOfAlias("webroot") . "/uploads/apps/files/{$data->app->platform->name}/";
+                return Controller::fileSize($filePath.$data->file_name);
+            },
+            'htmlOptions' => [
+                'class' => 'ltr text-right'
+            ],
+        ],
+        'data_file_name',
+        [
+            'header' => 'حجم دیتا',
+            'value' => function($data){
+                $dataPath = Yii::getPathOfAlias("webroot") . "/" . BaseManageController::$dataFilesPath . "/";
+                return Controller::fileSize($dataPath.$data->data_file_name);
+            },
+            'htmlOptions' => [
+                'class' => 'ltr text-right'
+            ],
+        ],
         array(
             'class'=>'CButtonColumn',
             'template' => '{delete}',
@@ -43,12 +64,6 @@ a[href='#package-modal']{margin-top:20px;}
                 $(".uploader-message").text(responseObj.message);
         ',
     ));?>
-    <label style="margin-top: 15px;">تغییرات نسخه</label>
-    <?php $this->widget('ext.ckeditor.CKEditor',array(
-        'model' => $model,
-        'attribute' => 'change_log'
-    )); ?>
-
     <label style="margin-top: 15px;">فایل دیتا</label>
     <?php
     $this->widget('ext.fileManager.fileManager', array(
@@ -59,6 +74,11 @@ a[href='#package-modal']{margin-top:20px;}
         'serverDir' => BaseManageController::$dataFilesPath
     ));
     ?>
+    <label style="margin-top: 15px;">تغییرات نسخه</label>
+    <?php $this->widget('ext.ckeditor.CKEditor',array(
+        'model' => $model,
+        'attribute' => 'change_log'
+    )); ?>
     <br>
     <div class="row">
         <div class="col-md-12">

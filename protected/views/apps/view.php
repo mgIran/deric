@@ -20,6 +20,10 @@ if(!$model->lastPackage)
     throw new CHttpException(404, "نرم افزار موردنظر بسته تایید شده ندارد.");
 
 $rating = $model->calculateRating();
+
+$bought = false;
+if(!Yii::app()->user->isGuest && Yii::app()->user->type =='user')
+    $bought = AppBuys::model()->findByAttributes(array('user_id' => Yii::app()->user->getId(), 'app_id' => $model->id))?true:false;
 ?>
 <div class="media-game">
     <div class="media-game-to">
@@ -78,8 +82,20 @@ $rating = $model->calculateRating();
             </div>
             <div class="media-dn">
                 <div class="btn downloady">
-                    <a class="hidden-sm hidden-xs" href="#" data-toggle="modal" data-target="#install-modal">نصب</a>
-                    <?php if($model->price>0):?>
+                    <a class="hidden-sm hidden-xs" href="#" data-toggle="modal" data-target="#install-modal">
+                        <?php
+                        if(!$bought)
+                            echo 'خرید';
+                        else {
+                            if
+                            ($model->lastPackage->data_file_name && is_file($dataPath . $model->lastPackage->data_file_name))
+                                echo 'دانلود + دیتا';
+                            else
+                                echo 'دانلود';
+                        }
+                        ?>
+                    </a>
+                    <?php if(!$bought):?>
                         <a class="hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/buy/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">خرید</a>
                     <?php else:?>
                         <a class="hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">
