@@ -87,8 +87,7 @@ if(!Yii::app()->user->isGuest && Yii::app()->user->type =='user')
                         if(!$bought)
                             echo 'خرید';
                         else {
-                            if
-                            ($model->lastPackage->data_file_name && is_file($dataPath . $model->lastPackage->data_file_name))
+                            if($model->lastPackage->data_file_name && is_file($dataPath . $model->lastPackage->data_file_name))
                                 echo 'دانلود + دیتا';
                             else
                                 echo 'دانلود';
@@ -317,15 +316,23 @@ endif;
                         <?php endif;?>
                     </div>
                     <?php
-                    if($model->price>0) {
+                    if(!$bought) {
                         ?>
                         <a href="<?php echo $this->createUrl('/apps/buy/'.CHtml::encode($model->id).'/'.CHtml::encode($model->title)); ?>"
                            class="btn btn-success btn-buy">خرید</a>
                         <?php
                     }else {
                         ?>
-                        <div class="text-center" style="margin-bottom: 15px;">
+                        <div class="text-center" style="margin: 30px 0;">
                             <a href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">دانلود مستقیم برنامه</a>
+                            <?php
+                            if($model->lastPackage->data_file_name && is_file($dataPath . $model->lastPackage->data_file_name)):
+                                ?>
+                                <br>
+                                <a href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)).'?data=true');?>">دانلود دیتا</a>
+                                <?php
+                            endif;
+                            ?>
                         </div>
                         <a href="#" data-dismiss="modal" class="btn btn-default">بستن</a>
                         <?php
