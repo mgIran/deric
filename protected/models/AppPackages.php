@@ -63,7 +63,7 @@ class AppPackages extends CActiveRecord
             array('reason', 'safe'),
             array('for', 'length', 'max' => 7),
             array('download_file_url', 'length', 'max' => 512),
-            array('download_file_size', 'length', 'max' => 10),
+            array('download_file_size', 'length', 'max' => 50),
             array('download_file_url', 'url'),
 //            array('download_file_url', 'unique', 'on' => 'url_package', 'message' => 'آدرس دانلود فایل موردنظر قبلا ثبت شده است.'),
             // The following rule is used by search().
