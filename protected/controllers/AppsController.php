@@ -385,10 +385,13 @@ class AppsController extends Controller
      */
     public function actionDownload($id, $title)
     {
+        Yii::import('manageApps.components.BaseManageController');
+        $dataFile = isset($_GET['data']);
         $model = $this->loadModel($id);
-        if($model->platform_id == 1){
+        $filePath = Yii::getPathOfAlias("webroot") . "/" . BaseManageController::$dataFilesPath . "/";
+        if(!$dataFile && $model->platform_id == 1) {
             $platformFolder = '';
-            switch(pathinfo($model->lastPackage->file_name, PATHINFO_EXTENSION)){
+            switch (pathinfo($model->lastPackage->file_name, PATHINFO_EXTENSION)) {
                 case 'apk':
                     $platformFolder = 'android';
                     break;
@@ -401,21 +404,24 @@ class AppsController extends Controller
                     $platformFolder = 'windowsphone';
                     break;
             }
-            if($model->price == 0){
+            $filePath = Yii::getPathOfAlias("webroot") . '/uploads/apps/files/';
+            $filePath .= $platformFolder;
+        }
+        if($model->platform_id == 1) {
+            if ($model->price == 0)
+                $allow = true;
+            else {
+                $buy = AppBuys::model()->findByAttributes(array('user_id' => Yii::app()->user->getId(), 'app_id' => $id));
+                $allow = (bool)$buy;
+            }
+
+            if ($allow) {
                 $model->install += 1;
                 $model->setScenario('update-install');
                 $model->save();
-                $this->download($model->lastPackage->file_name, Yii::getPathOfAlias("webroot") . '/uploads/apps/files/' . $platformFolder);
-            }else{
-                $buy = AppBuys::model()->findByAttributes(array('user_id' => Yii::app()->user->getId(), 'app_id' => $id));
-                if($buy){
-                    $model->install += 1;
-                    $model->setScenario('update-install');
-                    $model->save();
-                    $this->download($model->lastPackage->file_name, Yii::getPathOfAlias("webroot") . '/uploads/apps/files/' . $platformFolder);
-                }else
-                    $this->redirect(array('/apps/buy/' . CHtml::encode($model->id) . '/' . CHtml::encode($model->title)));
-            }
+                $this->download($dataFile?$model->lastPackage->data_file_name:$model->lastPackage->file_name, $filePath);
+            } else
+                $this->redirect(array('/apps/buy/' . CHtml::encode($model->id) . '/' . CHtml::encode($model->title)));
         }else{
             if($model->price == 0){
                 $model->install += 1;
@@ -441,6 +447,8 @@ class AppsController extends Controller
         $realFileName = $fileName;
 
         $file = $filePath . DIRECTORY_SEPARATOR . $realFileName;
+        if(!is_file($file))
+            throw new CHttpException(404, "فایل موردنظر یافت نشد.");
         $mimeType = '';
         switch (pathinfo($fileName, PATHINFO_EXTENSION)) {
             case 'apk':
@@ -452,6 +460,7 @@ class AppsController extends Controller
                 break;
 
             case 'ipa':
+            default:
                 $mimeType = 'application/octet-stream';
                 break;
         }

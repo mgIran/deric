@@ -84,7 +84,7 @@ if(!Yii::app()->user->isGuest && Yii::app()->user->type =='user')
                 <div class="btn downloady">
                     <a class="hidden-sm hidden-xs" href="#" data-toggle="modal" data-target="#install-modal">
                         <?php
-                        if(!$bought)
+                        if(!$bought && $model->price>0)
                             echo 'خرید';
                         else {
                             if($model->lastPackage->data_file_name && is_file($dataPath . $model->lastPackage->data_file_name))
@@ -94,7 +94,7 @@ if(!Yii::app()->user->isGuest && Yii::app()->user->type =='user')
                         }
                         ?>
                     </a>
-                    <?php if(!$bought):?>
+                    <?php if(!$bought && $model->price>0):?>
                         <a class="hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/buy/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">خرید</a>
                     <?php else:?>
                         <a class="hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">
@@ -316,7 +316,7 @@ endif;
                         <?php endif;?>
                     </div>
                     <?php
-                    if(!$bought) {
+                    if(!$bought && $model->price>0) {
                         ?>
                         <a href="<?php echo $this->createUrl('/apps/buy/'.CHtml::encode($model->id).'/'.CHtml::encode($model->title)); ?>"
                            class="btn btn-success btn-buy">خرید</a>
