@@ -28,7 +28,7 @@ class AppsController extends Controller
                 'roles' => array('admin'),
             ),
             array('allow',
-                'actions' => array('all','free','discount', 'search', 'view', 'download', 'developer', 'games', 'programs'),
+                'actions' => array('all', 'free', 'discount', 'search', 'view', 'download', 'developer', 'games', 'programs'),
                 'users' => array('*'),
             ),
             array('allow',
@@ -96,10 +96,10 @@ class AppsController extends Controller
     {
         Yii::app()->theme = "market";
         $model = $this->loadModel($id);
-        $this->layout='panel';
+        $this->layout = 'panel';
 
         $this->render('comments', array(
-            'model'=>$model,
+            'model' => $model,
         ));
     }
 
@@ -112,21 +112,21 @@ class AppsController extends Controller
         $this->layout = 'panel';
         $userID = Yii::app()->user->getId();
         $model = $this->loadModel($id);
-        $price = $model->hasDiscount()?$model->offPrice:$model->price;
+        $price = $model->hasDiscount() ? $model->offPrice : $model->price;
         $buy = false;
         $user = false;
-        if(!Yii::app()->user->isGuest && Yii::app()->user->type == 'admin')
+        if (!Yii::app()->user->isGuest && Yii::app()->user->type == 'admin')
             Yii::app()->user->setFlash('failed', 'لطفا جهت خرید نرم افزار ابتدا وارد حساب کاربری خود شوید.');
-        else{
+        else {
             $buy = AppBuys::model()->findByAttributes(array('user_id' => $userID, 'app_id' => $id));
-            if($buy)
+            if ($buy)
                 $this->redirect(array('/apps/download/' . CHtml::encode($model->id) . '/' . CHtml::encode($model->title)));
             Yii::app()->getModule('users');
             $user = Users::model()->findByPk(Yii::app()->user->getId());
             /* @var $user Users */
 
-            if($model->developer_id != $userID){
-                if(isset($_POST['Buy'])){
+            if ($model->developer_id != $userID) {
+                if (isset($_POST['Buy'])) {
 
                     $siteName = Yii::app()->name;
                     $transaction = new UserTransactions();
@@ -138,8 +138,8 @@ class AppsController extends Controller
                     $transaction->model_id = $model->id;
                     $transaction->description = "پرداخت وجه جهت خرید نرم افزار {$model->title} در وبسایت {$siteName}";
 
-                    if(isset($_POST['Buy']['credit'])){
-                        if($user->userDetails->credit < $price){
+                    if (isset($_POST['Buy']['credit'])) {
+                        if ($user->userDetails->credit < $price) {
                             Yii::app()->user->setFlash('credit-failed', 'اعتبار فعلی شما کافی نیست!');
                             Yii::app()->user->setFlash('failReason', 'min_credit');
                             $this->refresh();
@@ -153,34 +153,34 @@ class AppsController extends Controller
                         $transaction->gateway_name = 'credit';
                         $transaction->status = 'unpaid';
                         @$transaction->save(false);
-                        if($userDetails->save()){
-                            $transaction->token = rand(125463,984984);
+                        if ($userDetails->save()) {
+                            $transaction->token = rand(125463, 984984);
                             $transaction->status = 'paid';
                             $transaction->save();
 
                             $buy = $this->saveBuyInfo($model, $model->price, $price, $user, 'credit');
                             Yii::app()->user->setFlash('success', 'خرید شما با موفقیت انجام شد.');
                             $this->redirect(array('/apps/bill/' . $buy->id));
-                        }else
+                        } else
                             Yii::app()->user->setFlash('failed', 'در انجام عملیات خرید خطایی رخ داده است. لطفا مجددا تلاش کنید.');
-                    }elseif(isset($_POST['Buy']['gateway'])){
+                    } elseif (isset($_POST['Buy']['gateway'])) {
                         // Save payment
-                        if($transaction->save()){
+                        if ($transaction->save()) {
                             $CallbackURL = Yii::app()->getBaseUrl(true) . '/apps/verify/' . $id;
-                            if($this->active_gateway == 'mellat'){
+                            if ($this->active_gateway == 'mellat') {
                                 $result = Yii::app()->mellat->PayRequest($price * 10, $transaction->id, $CallbackURL);
-                                if(!$result['error']){
+                                if (!$result['error']) {
                                     $ref_id = $result['responseCode'];
                                     $transaction->authority = $ref_id;
                                     $transaction->save(false);
                                     $this->render('ext.MellatPayment.views._redirect', array('ReferenceId' => $result['responseCode']));
-                                }else
+                                } else
                                     Yii::app()->user->setFlash('failed', Yii::app()->mellat->getResponseText($result['responseCode']));
-                            }else if($this->active_gateway == 'zarinpal'){
+                            } else if ($this->active_gateway == 'zarinpal') {
                                 $result = Yii::app()->zarinpal->PayRequest(doubleval($price), $transaction->description, $CallbackURL);
                                 $transaction->authority = Yii::app()->zarinpal->getAuthority();
                                 $transaction->save(false);
-                                if($result->getStatus() == 100)
+                                if ($result->getStatus() == 100)
                                     $this->redirect(Yii::app()->zarinpal->getRedirectUrl());
                                 else
                                     Yii::app()->user->setFlash('failed', Yii::app()->zarinpal->getError());
@@ -188,14 +188,14 @@ class AppsController extends Controller
                         }
                     }
                 }
-            }else
+            } else
                 Yii::app()->user->setFlash('failed', 'شما توسعه دهنده این برنامه هستید.');
         }
         $this->render('buy', array(
             'model' => $model,
             'price' => $price,
             'user' => $user,
-            'bought' => ($buy)?true:false,
+            'bought' => ($buy) ? true : false,
         ));
     }
 
@@ -211,19 +211,19 @@ class AppsController extends Controller
         $transactionResult = false;
         $result = null;
 
-        if($this->active_gateway == 'mellat'){
+        if ($this->active_gateway == 'mellat') {
             $model = UserTransactions::model()->findByAttributes(array(
                 'user_id' => Yii::app()->user->getId(),
                 'status' => 'unpaid'));
-            if($_POST['ResCode'] == 0)
+            if ($_POST['ResCode'] == 0)
                 $result = Yii::app()->mellat->VerifyRequest($model->id, $_POST['SaleOrderId'], $_POST['SaleReferenceId']);
 
-            if($result != null){
-                $RecourceCode = (!is_array($result)?$result:$result['responseCode']);
-                if($RecourceCode == 0){
+            if ($result != null) {
+                $RecourceCode = (!is_array($result) ? $result : $result['responseCode']);
+                if ($RecourceCode == 0) {
                     // Settle Payment
                     $settle = Yii::app()->mellat->SettleRequest($model->id, $_POST['SaleOrderId'], $_POST['SaleReferenceId']);
-                    if($settle){
+                    if ($settle) {
                         $model->scenario = 'update';
                         $model->status = 'paid';
                         $model->token = $_POST['SaleReferenceId'];
@@ -233,26 +233,26 @@ class AppsController extends Controller
                         Yii::app()->user->setFlash('success', 'پرداخت شما با موفقیت انجام شد.');
                         $this->redirect(array('/apps/bill/' . $buy->id));
                     }
-                }else{
+                } else {
                     Yii::app()->user->setFlash('failed', Yii::app()->mellat->getError($RecourceCode));
                     $this->redirect(array('/apps/buy/' . $id));
                 }
-            }else
+            } else
                 Yii::app()->user->setFlash('failed', 'عملیات پرداخت ناموفق بوده یا توسط کاربر لغو شده است.');
-        }else if($this->active_gateway == 'zarinpal'){
-            if(!isset($_GET['Authority'])){
+        } else if ($this->active_gateway == 'zarinpal') {
+            if (!isset($_GET['Authority'])) {
                 Yii::app()->user->setFlash('failed', 'Gateway Error: Authority Code not sent.');
                 $this->redirect(array('/apps/buy/' . $id));
-            }else{
+            } else {
                 $Authority = $_GET['Authority'];
                 $model = UserTransactions::model()->findByAttributes(array(
                     'authority' => $Authority
                 ));
-                if($model->status == 'unpaid'){
+                if ($model->status == 'unpaid') {
                     $Amount = $model->amount;
-                    if($_GET['Status'] == 'OK'){
+                    if ($_GET['Status'] == 'OK') {
                         Yii::app()->zarinpal->verify($Authority, $Amount);
-                        if(Yii::app()->zarinpal->getStatus() == 100){
+                        if (Yii::app()->zarinpal->getStatus() == 100) {
                             $model->scenario = 'update';
                             $model->status = 'paid';
                             $model->token = Yii::app()->zarinpal->getRefId();
@@ -261,11 +261,11 @@ class AppsController extends Controller
                             $buy = $this->saveBuyInfo($app, $model->app->price, $model->amount, $user, 'gateway', $model->id);
                             Yii::app()->user->setFlash('success', 'پرداخت شما با موفقیت انجام شد.');
                             $this->redirect(array('/apps/bill/' . $buy->id));
-                        }else{
+                        } else {
                             Yii::app()->user->setFlash('failed', Yii::app()->zarinpal->getError());
                             $this->redirect(array('/apps/buy/' . $id));
                         }
-                    }else{
+                    } else {
                         Yii::app()->user->setFlash('failed', 'عملیات پرداخت ناموفق بوده یا توسط کاربر لغو شده است.');
                         $this->redirect(array('/apps/buy/' . $id));
                     }
@@ -296,7 +296,7 @@ class AppsController extends Controller
      */
     private function saveBuyInfo($app, $basePrice, $price, $user, $method, $transactionID = null)
     {
-        $appTitle=$app->title;
+        $appTitle = $app->title;
         $app->download += 1;
         $app->setScenario('update-download');
         $app->save();
@@ -318,14 +318,14 @@ class AppsController extends Controller
         }
         $buy->site_earn = $price - $buy->developer_earn;
         $buy->save();
-        
+
         /* @var $transaction UserTransactions */
         $transaction = null;
         if (!is_null($transactionID))
             $transaction = UserTransactions::model()->findByPk($transactionID);
-        
+
         $message =
-            '<p style="text-align: right;">'.(is_null($user->userDetails->fa_name)?'کاربر':$user->userDetails->fa_name).' عزیز، سلام<br>از اینکه از '.Yii::app()->name.' خرید کردید متشکریم. رسید خریدتان در زیر این صفحه آمده است.</p>
+            '<p style="text-align: right;">' . (is_null($user->userDetails->fa_name) ? 'کاربر' : $user->userDetails->fa_name) . ' عزیز، سلام<br>از اینکه از ' . Yii::app()->name . ' خرید کردید متشکریم. رسید خریدتان در زیر این صفحه آمده است.</p>
             <p style="text-align: right;">برنامه برای دریافت روی دستگاهتان آماده است. چنانچه در دریافت برنامه به مشکلی برخورد کردید، لطفا ابتدا چک کنید که روی دستگاهتان وارد حساب کاربریتان شده باشید.در صورتی که مشکل از این نبود لطفا با ما تماس بگیرید: hyperapps.ir@gmail.com</p>
             <div style="width: 100%;height: 1px;background: #ccc;margin-bottom: 15px;"></div>
             <h4 style="text-align: right;">صورت حساب</h4>
@@ -344,7 +344,7 @@ class AppsController extends Controller
                 </tr>
                 <tr>
                     <td style="font-weight: bold;width: 120px;">نام برنامه</td>
-                    <td>' . CHtml::encode($appTitle.' ('.$app->lastPackage->package_name.')') . '</td>
+                    <td>' . CHtml::encode($appTitle . ' (' . $app->lastPackage->package_name . ')') . '</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;width: 120px;">قیمت (با احتساب مالیات و عوارض)</td>
@@ -371,25 +371,25 @@ class AppsController extends Controller
 
     public function actionBill($id)
     {
-        Yii::app()->theme='market';
-        $this->layout='panel';
-        $buy=AppBuys::model()->findByPk($id);
+        Yii::app()->theme = 'market';
+        $this->layout = 'panel';
+        $buy = AppBuys::model()->findByPk($id);
 
         $this->render('bill', array(
-            'buy'=>$buy,
+            'buy' => $buy,
         ));
     }
 
     /**
      * Download app
      */
-    public function actionDownload($id, $title)
+    public function actionDownload($id, $title = null)
     {
         Yii::import('manageApps.components.BaseManageController');
         $dataFile = isset($_GET['data']);
         $model = $this->loadModel($id);
         $filePath = Yii::getPathOfAlias("webroot") . "/" . BaseManageController::$dataFilesPath . "/";
-        if(!$dataFile && $model->platform_id == 1) {
+        if (!$dataFile && $model->platform_id == 1) {
             $platformFolder = '';
             switch (pathinfo($model->lastPackage->file_name, PATHINFO_EXTENSION)) {
                 case 'apk':
@@ -407,7 +407,7 @@ class AppsController extends Controller
             $filePath = Yii::getPathOfAlias("webroot") . '/uploads/apps/files/';
             $filePath .= $platformFolder;
         }
-        if($model->platform_id == 1) {
+        if ($model->platform_id == 1) {
             if ($model->price == 0)
                 $allow = true;
             else {
@@ -419,24 +419,27 @@ class AppsController extends Controller
                 $model->install += 1;
                 $model->setScenario('update-install');
                 $model->save();
-                $this->download($dataFile?$model->lastPackage->data_file_name:$model->lastPackage->file_name, $filePath);
+                if(isset($_GET['range']))
+                    $this->downloadRange($dataFile ? $model->lastPackage->data_file_name : $model->lastPackage->file_name, $filePath);
+                else
+                    $this->download($dataFile ? $model->lastPackage->data_file_name : $model->lastPackage->file_name, $filePath);
             } else
-                $this->redirect(array('/apps/buy/' . CHtml::encode($model->id) . '/' . CHtml::encode($model->title)));
-        }else{
-            if($model->price == 0){
+                $this->redirect($model->getBuyUrl());
+        } else {
+            if ($model->price == 0) {
                 $model->install += 1;
                 $model->setScenario('update-install');
                 $model->save();
                 $this->redirect($model->lastPackage->download_file_url);
-            }else{
+            } else {
                 $buy = AppBuys::model()->findByAttributes(array('user_id' => Yii::app()->user->getId(), 'app_id' => $id));
-                if($buy){
+                if ($buy) {
                     $model->install += 1;
                     $model->setScenario('update-install');
                     $model->save();
                     $this->redirect($model->lastPackage->download_file_url);
-                }else
-                    $this->redirect(array('/apps/buy/' . CHtml::encode($model->id) . '/' . CHtml::encode($model->title)));
+                } else
+                    $this->redirect($model->getBuyUrl());
             }
         }
     }
@@ -447,7 +450,7 @@ class AppsController extends Controller
         $realFileName = $fileName;
 
         $file = $filePath . DIRECTORY_SEPARATOR . $realFileName;
-        if(!is_file($file))
+        if (!is_file($file))
             throw new CHttpException(404, "فایل موردنظر یافت نشد.");
         $mimeType = '';
         switch (pathinfo($fileName, PATHINFO_EXTENSION)) {
@@ -464,6 +467,7 @@ class AppsController extends Controller
                 $mimeType = 'application/octet-stream';
                 break;
         }
+
         header('Pragma: public');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -472,6 +476,17 @@ class AppsController extends Controller
         header('Content-Disposition: attachment; filename=' . $fakeFileName);
         readfile($file);
         exit;
+    }
+
+    protected function downloadRange($fileName, $filePath)
+    {
+        $fakeFileName = $fileName;
+        $realFileName = $fileName;
+
+        $file = $filePath . DIRECTORY_SEPARATOR . $realFileName;
+        if (!is_file($file))
+            throw new CHttpException(404, "فایل موردنظر یافت نشد.");
+        (new Response)->sendFile($file, $fakeFileName);
     }
 
     /**
@@ -487,17 +502,17 @@ class AppsController extends Controller
         $criteria = Apps::getValidApps($this->platform);
         if (isset($_GET['t']) and $_GET['t'] == 1) {
             $criteria->addCondition('developer_team=:dev');
-            $developer_id=$pageTitle = $title;
+            $developer_id = $pageTitle = $title;
         } else {
             $criteria->addCondition('developer_id=:dev');
             $developer_id = $id;
             $pageTitle = UserDetails::model()->findByAttributes(array('user_id' => $id));
-            $pageTitle=$pageTitle->nickname;
+            $pageTitle = $pageTitle->nickname;
         }
         $criteria->params[':dev'] = $developer_id;
 
         $dp = Apps::model()->findAll($criteria);
-        $this->pageTitle = CHtml::encode($pageTitle).((!is_null($title))?'ی '.CHtml::encode($title):null);
+        $this->pageTitle = CHtml::encode($pageTitle) . ((!is_null($title)) ? 'ی ' . CHtml::encode($title) : null);
 
         $this->render('single_apps_list', array(
             'dataProvider' => $dp,
@@ -541,7 +556,7 @@ class AppsController extends Controller
      */
     public function actionPrograms($id = null, $title = null)
     {
-        if(is_null($id))
+        if (is_null($id))
             $id = 1;
         $this->showCategory($id, $title, 'برنامه ها');
     }
@@ -551,7 +566,7 @@ class AppsController extends Controller
      */
     public function actionGames($id = null, $title = null)
     {
-        if(is_null($id))
+        if (is_null($id))
             $id = 2;
         $this->showCategory($id, $title, 'بازی ها');
     }
@@ -561,7 +576,7 @@ class AppsController extends Controller
      */
     public function actionEducations($id = null, $title = null)
     {
-        if(is_null($id))
+        if (is_null($id))
             $id = 3;
         $this->showCategory($id, $title, 'آموزش ها');
     }
@@ -754,7 +769,7 @@ class AppsController extends Controller
                 // show daily report
                 $datesDiff = $_POST['to_date_altField'] - $_POST['from_date_altField'];
                 $daysCount = ($datesDiff / (60 * 60 * 24));
-                if($daysCount < 7)
+                if ($daysCount < 7)
                     $daysCount = 7;
                 for ($i = 0; $i < $daysCount; $i++) {
                     $labels[] = JalaliDate::date('d F Y', $_POST['from_date_altField'] + (60 * 60 * (24 * $i)));
@@ -923,7 +938,7 @@ class AppsController extends Controller
     {
         Yii::import('rows.models.*');
         $row = RowsHomepage::model()->find($id);
-        if(!$row)
+        if (!$row)
             $this->redirect(Yii::app()->getBaseUrl(true));
         $dp = Apps::model()->findAll($row->getConstCriteria(Apps::getValidApps($this->platform)));
     }
@@ -1016,15 +1031,49 @@ class AppsController extends Controller
         return $model;
     }
 
-    public function actionTransactions(){
+    public function actionTransactions()
+    {
         Yii::app()->theme = 'abound';
         $this->layout = '//layouts/main';
         $model = new UserTransactions('search');
         $model->status = null;
-        if(isset($_GET['UserTransactions']))
+        if (isset($_GET['UserTransactions']))
             $model->attributes = $_GET['UserTransactions'];
-        $this->render('transactions',array(
+        $this->render('transactions', array(
             'model' => $model
         ));
+    }
+
+    /**
+     * Determines the HTTP range given in the request.
+     * @param int $fileSize the size of the file that will be used to validate the requested HTTP range.
+     * @return array|bool the range (begin, end), or false if the range request is invalid.
+     */
+    protected function getHttpRange($fileSize)
+    {
+        if (!isset($_SERVER['HTTP_RANGE']) || $_SERVER['HTTP_RANGE'] === '-') {
+            return [0, $fileSize - 1];
+        }
+        if (!preg_match('/^bytes=(\d*)-(\d*)$/', $_SERVER['HTTP_RANGE'], $matches)) {
+            return false;
+        }
+        if ($matches[1] === '') {
+            $start = $fileSize - $matches[2];
+            $end = $fileSize - 1;
+        } elseif ($matches[2] !== '') {
+            $start = $matches[1];
+            $end = $matches[2];
+            if ($end >= $fileSize) {
+                $end = $fileSize - 1;
+            }
+        } else {
+            $start = $matches[1];
+            $end = $fileSize - 1;
+        }
+        if ($start < 0 || $start > $end) {
+            return false;
+        } else {
+            return [$start, $end];
+        }
     }
 }
