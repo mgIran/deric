@@ -79,34 +79,58 @@ if(!Yii::app()->user->isGuest && Yii::app()->user->type =='user')
                 ?>
 
                 <div class="text-media"><i class="glyphicon version"></i><span>نسخه: <?= $model->lastPackage->version ?></span></div>
+
+                <?php if(!Yii::app()->user->isGuest && Yii::app()->user->type=='user'):?>
+                    <div class="text-media relative bookmark<?php echo ($bookmarked)?' active':'';?>"><i class="glyphicon bookmark-icon"></i><span><?php echo ($bookmarked)?'نشان شده':'نشان کردن';?></span>
+                        <?= CHtml::ajaxLink('',array('/apps/bookmark'),array(
+                            'data' => "js:{appId:$model->id}",
+                            'type' => 'POST',
+                            'dataType' => 'JSON',
+                            'success' => 'js:function(data){
+                                if(data.status){
+                                    if($(".bookmark").hasClass("active")){
+                                        $(".bookmark").removeClass("active");
+                                        $(".bookmark > span").text("نشان کردن");
+                                    }
+                                    else{
+                                        $(".bookmark > span").text("نشان شده");
+                                        $(".bookmark").addClass("active");
+                                    }
+                                }
+                                else
+                                    alert("در انجام عملیات خطایی رخ داده است لطفا مجددا تلاش کنید.");
+                                return false;
+                            }'
+                        ),array(
+                            'id' =>"bookmark-app",
+                            'class' => 'abs-link'
+                        )); ?>
+                    </div>
+                <?php endif;
+                ?>
             </div>
+            <div class="clearfix"></div>
             <div class="media-dn">
-                <div class="btn downloady">
-                    <a class="hidden-sm hidden-xs" href="#" data-toggle="modal" data-target="#install-modal">
-                        <?php
-                        if(!$bought && $model->price>0)
-                            echo 'خرید';
-                        else {
-                            if($model->lastPackage->data_file_name && is_file($dataPath . $model->lastPackage->data_file_name))
-                                echo 'دانلود + دیتا';
-                            else
-                                echo 'دانلود';
-                        }
-                        ?>
-                    </a>
-                    <?php if(!$bought && $model->price>0):?>
-                        <a class="hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/buy/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">خرید</a>
-                    <?php else:?>
-                        <a class="hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/download/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">
-                            <?php
-                            if($model->lastPackage->data_file_name && is_file($dataPath.$model->lastPackage->data_file_name))
-                                echo 'دانلود + دیتا';
-                            else
-                                echo 'دانلود';
-                            ?>
-                        </a>
-                    <?php endif;?>
-                </div>
+                <a class="btn downloady hidden-sm hidden-xs" href="#" data-toggle="modal" data-target="#install-modal">
+                    <?php
+                    if(!$bought && $model->price>0)
+                        echo 'خرید';
+                    else {
+                        if($model->lastPackage->data_file_name && is_file($dataPath . $model->lastPackage->data_file_name))
+                            echo 'دانلود + دیتا';
+                        else
+                            echo 'دانلود';
+                    }
+                    ?>
+                </a>
+                <?php if(!$bought && $model->price>0):?>
+                    <a class="btn downloady hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/buy/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">خرید</a>
+                <?php else:?>
+                    <a class="btn downloady hidden-md hidden-lg" href="<?php echo $model->getDownloadUrl();?>">دانلود فایل نصب</a>
+                <?php endif;?>
+                <?php if($model->lastPackage->data_file_name && is_file($dataPath.$model->lastPackage->data_file_name)):?>
+                    <a class="btn downloady hidden-md hidden-lg" href="<?php echo $model->getDownloadUrl(true);?>">دانلود دیتا</a>
+                <?php endif;?>
             </div>
         </div>
     </div>

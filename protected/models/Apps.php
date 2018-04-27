@@ -416,11 +416,12 @@ class Apps extends CActiveRecord
     }
 
     /**
+     * @param bool $data
      * @return string
      */
-    public function getDownloadUrl()
+    public function getDownloadUrl($data= false)
     {
-        return Yii::app()->createAbsoluteUrl('/apps/download/' . CHtml::encode($this->id));
+        return Yii::app()->createAbsoluteUrl('/apps/download/' . CHtml::encode($this->id)).($data?'?data=true':'');
     }
 
     /**

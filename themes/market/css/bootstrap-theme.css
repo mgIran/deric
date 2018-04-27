@@ -887,28 +887,27 @@ a{
     position: relative;
 }
 .media-game .media-game-to .media-dn{
-    width: 40%;
-    height: 226px;
+    width: 100%;
+    height: auto;
     display: inline-block;
     position: relative;
+    text-align: left;
+    margin: 0 -10px;
 }
 .media-game .media-game-to .media-dn .downloady{
-    position: absolute;
-    left: 0;
-    bottom: 0;
+    color: #fff!important;
     background-color: #00381f;
-    border-radius: 6px;
-    width: 32%;
-    padding: 13px 0;
+    border-radius: 4px;
+    width: auto;
+    padding: 13px 25px;
+    float: left;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 16px;
 }
 .media-game .media-game-to .media-dn .downloady:hover,
 .media-game .media-game-to .media-dn .downloady:active{
     background-color: #006b3d;
-}
-.media-game .media-game-to .media-dn .downloady a{
-    text-decoration: none;
-    color: #fff;
-    font-size: 16px;
 }
 .media-game .media-game-to .media-b .title-m{
     margin-right: 5px;
@@ -929,6 +928,7 @@ a{
 .media-game .media-game-to .media-b .text-media .user,
 .media-game .media-game-to .media-b2 .text-media .category,
 .media-game .media-game-to .media-b2 .text-media .file-size,
+.media-game .media-game-to .media-b2 .text-media .bookmark-icon,
 .media-game .media-game-to .media-b2 .text-media .version{
     background: url("../svg/coding.svg") no-repeat center;
     background-size: 20px;
@@ -948,6 +948,21 @@ a{
 .media-game .media-game-to .media-b .text-media .user{
     background: url("../svg/pre user.svg") no-repeat center !important;
 }
+.media-game .media-game-to .media-b2 .text-media .bookmark-icon{
+    background: url("../svg/favorite.svg") no-repeat center !important;
+    margin-bottom: -3px;
+}
+.media-game .media-game-to .media-b2 .text-media.bookmark.active .bookmark-icon{
+    background: url("../svg/favorite-active.svg") no-repeat center !important;
+}
+
+.media-game .media-game-to .media-b2 .text-media.bookmark:hover span{
+    text-decoration: underline !important;
+}
+.media-game .media-game-to .media-b2 .text-media.bookmark.active span{
+    color: #D75A4A !important;
+}
+
 .media-game .media-game-to .media-b2 .text-media .category{
     background: url("../svg/category3.svg") no-repeat center;
     background-size: 20px;
@@ -2171,4 +2186,13 @@ a{
     display: block;
     z-index: 1;
     background: url("../images/shadow.png") no-repeat scroll bottom center transparent;
+}
+.abs-link{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
 }

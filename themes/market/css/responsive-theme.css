@@ -388,10 +388,9 @@
     .media-game .media-game-to .media-dn{
         display: block;
         width: auto;
-        height: 0;
     }
     .media-game .media-game-to .media-dn .downloady{
-        padding: 9px 0;
+        padding: 9px 15px;
     }
     .game-images .father-scroll{
         overflow: hidden;

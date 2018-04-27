@@ -74,7 +74,7 @@ class AppsController extends Controller
         // Has bookmarked this apps by user
         $bookmarked = false;
         if (!Yii::app()->user->isGuest) {
-            $hasRecord = UserAppBookmark::model()->findByAttributes(array('user_id' => Yii::app()->user->getId(), 'app_id' => $id));
+            $hasRecord = UserAppBookmark::model()->findByAttributes(array('user_id' => Yii::app()->user->getId(), 'app_id' => $model->id));
             if ($hasRecord)
                 $bookmarked = true;
         }
@@ -388,7 +388,7 @@ class AppsController extends Controller
         Yii::import('manageApps.components.BaseManageController');
         $dataFile = isset($_GET['data']);
         $model = $this->loadModel($id);
-        $filePath = Yii::getPathOfAlias("webroot") . "/" . BaseManageController::$dataFilesPath . "/";
+        $filePath = Yii::getPathOfAlias("webroot") . "/" . BaseManageController::$dataFilesPath;
         if (!$dataFile && $model->platform_id == 1) {
             $platformFolder = '';
             switch (pathinfo($model->lastPackage->file_name, PATHINFO_EXTENSION)) {
@@ -419,9 +419,9 @@ class AppsController extends Controller
                 $model->install += 1;
                 $model->setScenario('update-install');
                 $model->save();
-                if(isset($_GET['range']))
-                    $this->downloadRange($dataFile ? $model->lastPackage->data_file_name : $model->lastPackage->file_name, $filePath);
-                else
+//                if(isset($_GET['range']))
+//                    $this->downloadRange($dataFile ? $model->lastPackage->data_file_name : $model->lastPackage->file_name, $filePath);
+//                else
                     $this->download($dataFile ? $model->lastPackage->data_file_name : $model->lastPackage->file_name, $filePath);
             } else
                 $this->redirect($model->getBuyUrl());
@@ -448,7 +448,6 @@ class AppsController extends Controller
     {
         $fakeFileName = $fileName;
         $realFileName = $fileName;
-
         $file = $filePath . DIRECTORY_SEPARATOR . $realFileName;
         if (!is_file($file))
             throw new CHttpException(404, "فایل موردنظر یافت نشد.");
@@ -467,7 +466,6 @@ class AppsController extends Controller
                 $mimeType = 'application/octet-stream';
                 break;
         }
-
         header('Pragma: public');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -476,17 +474,6 @@ class AppsController extends Controller
         header('Content-Disposition: attachment; filename=' . $fakeFileName);
         readfile($file);
         exit;
-    }
-
-    protected function downloadRange($fileName, $filePath)
-    {
-        $fakeFileName = $fileName;
-        $realFileName = $fileName;
-
-        $file = $filePath . DIRECTORY_SEPARATOR . $realFileName;
-        if (!is_file($file))
-            throw new CHttpException(404, "فایل موردنظر یافت نشد.");
-        (new Response)->sendFile($file, $fakeFileName);
     }
 
     /**
@@ -1076,4 +1063,16 @@ class AppsController extends Controller
             return [$start, $end];
         }
     }
+
+    /*
+     protected function ($fileName, $filePath)
+    {
+        $fakeFileName = $fileName;
+        $realFileName = $fileName;
+        $file = $filePath . DIRECTORY_SEPARATOR . $realFileName;
+        if (!is_file($file))
+            throw new CHttpException(404, "فایل موردنظر یافت نشد.");
+        (new Response())->sendFile($file, $fakeFileName)->send();
+    }
+     * */
 }
