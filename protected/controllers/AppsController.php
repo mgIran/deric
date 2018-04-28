@@ -120,7 +120,7 @@ class AppsController extends Controller
         else {
             $buy = AppBuys::model()->findByAttributes(array('user_id' => $userID, 'app_id' => $id));
             if ($buy)
-                $this->redirect(array('/apps/download/' . CHtml::encode($model->id) . '/' . CHtml::encode($model->title)));
+                $this->redirect($model->getDownloadUrl());
             Yii::app()->getModule('users');
             $user = Users::model()->findByPk(Yii::app()->user->getId());
             /* @var $user Users */
@@ -451,29 +451,36 @@ class AppsController extends Controller
         $file = $filePath . DIRECTORY_SEPARATOR . $realFileName;
         if (!is_file($file))
             throw new CHttpException(404, "فایل موردنظر یافت نشد.");
-        $mimeType = '';
-        switch (pathinfo($fileName, PATHINFO_EXTENSION)) {
-            case 'apk':
-                $mimeType = 'application/vnd.android.package-archive';
-                break;
+        (new Response())->sendFile($file, $fakeFileName)->send();
 
-            case 'xap':
-                $mimeType = 'application/x-silverlight-app';
-                break;
-
-            case 'ipa':
-            default:
-                $mimeType = 'application/octet-stream';
-                break;
-        }
-        header('Pragma: public');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Content-Transfer-Encoding: binary');
-        header('Content-Type: ' . $mimeType);
-        header('Content-Disposition: attachment; filename=' . $fakeFileName);
-        readfile($file);
-        exit;
+//        $fakeFileName = $fileName;
+//        $realFileName = $fileName;
+//        $file = $filePath . DIRECTORY_SEPARATOR . $realFileName;
+//        if (!is_file($file))
+//            throw new CHttpException(404, "فایل موردنظر یافت نشد.");
+//        $mimeType = '';
+//        switch (pathinfo($fileName, PATHINFO_EXTENSION)) {
+//            case 'apk':
+//                $mimeType = 'application/vnd.android.package-archive';
+//                break;
+//
+//            case 'xap':
+//                $mimeType = 'application/x-silverlight-app';
+//                break;
+//
+//            case 'ipa':
+//            default:
+//                $mimeType = 'application/octet-stream';
+//                break;
+//        }
+//        header('Pragma: public');
+//        header('Expires: 0');
+//        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+//        header('Content-Transfer-Encoding: binary');
+//        header('Content-Type: ' . $mimeType);
+//        header('Content-Disposition: attachment; filename=' . $fakeFileName);
+//        readfile($file);
+//        exit;
     }
 
     /**
@@ -1030,49 +1037,4 @@ class AppsController extends Controller
             'model' => $model
         ));
     }
-
-    /**
-     * Determines the HTTP range given in the request.
-     * @param int $fileSize the size of the file that will be used to validate the requested HTTP range.
-     * @return array|bool the range (begin, end), or false if the range request is invalid.
-     */
-    protected function getHttpRange($fileSize)
-    {
-        if (!isset($_SERVER['HTTP_RANGE']) || $_SERVER['HTTP_RANGE'] === '-') {
-            return [0, $fileSize - 1];
-        }
-        if (!preg_match('/^bytes=(\d*)-(\d*)$/', $_SERVER['HTTP_RANGE'], $matches)) {
-            return false;
-        }
-        if ($matches[1] === '') {
-            $start = $fileSize - $matches[2];
-            $end = $fileSize - 1;
-        } elseif ($matches[2] !== '') {
-            $start = $matches[1];
-            $end = $matches[2];
-            if ($end >= $fileSize) {
-                $end = $fileSize - 1;
-            }
-        } else {
-            $start = $matches[1];
-            $end = $fileSize - 1;
-        }
-        if ($start < 0 || $start > $end) {
-            return false;
-        } else {
-            return [$start, $end];
-        }
-    }
-
-    /*
-     protected function ($fileName, $filePath)
-    {
-        $fakeFileName = $fileName;
-        $realFileName = $fileName;
-        $file = $filePath . DIRECTORY_SEPARATOR . $realFileName;
-        if (!is_file($file))
-            throw new CHttpException(404, "فایل موردنظر یافت نشد.");
-        (new Response())->sendFile($file, $fakeFileName)->send();
-    }
-     * */
 }

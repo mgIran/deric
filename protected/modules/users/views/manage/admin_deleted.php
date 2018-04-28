@@ -22,7 +22,7 @@ $this->breadcrumbs=array(
                     'email',
                     array(
                         'header' => 'نام کامل',
-                        'value' => '$data->userDetails->fa_name',
+                        'name' => 'userDetails.fa_name',
                         'filter' => CHtml::activeTextField($model,'fa_name')
                     ),
                     array(

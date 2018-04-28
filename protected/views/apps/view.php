@@ -126,7 +126,7 @@ if(!Yii::app()->user->isGuest && Yii::app()->user->type =='user')
                 <?php if(!$bought && $model->price>0):?>
                     <a class="btn downloady hidden-md hidden-lg" href="<?php echo Yii::app()->createAbsoluteUrl('/apps/buy/'.CHtml::encode($model->id).'/'.urlencode(CHtml::encode($model->title)));?>">خرید</a>
                 <?php else:?>
-                    <a class="btn downloady hidden-md hidden-lg" href="<?php echo $model->getDownloadUrl();?>">دانلود فایل نصب</a>
+                    <a class="btn downloady hidden-md hidden-lg" href="<?php echo $model->getDownloadUrl();?>">نصب</a>
                 <?php endif;?>
                 <?php if($model->lastPackage->data_file_name && is_file($dataPath.$model->lastPackage->data_file_name)):?>
                     <a class="btn downloady hidden-md hidden-lg" href="<?php echo $model->getDownloadUrl(true);?>">دانلود دیتا</a>

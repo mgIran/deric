@@ -959,9 +959,6 @@ a{
 .media-game .media-game-to .media-b2 .text-media.bookmark:hover span{
     text-decoration: underline !important;
 }
-.media-game .media-game-to .media-b2 .text-media.bookmark.active span{
-    color: #D75A4A !important;
-}
 
 .media-game .media-game-to .media-b2 .text-media .category{
     background: url("../svg/category3.svg") no-repeat center;
