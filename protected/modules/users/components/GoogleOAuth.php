@@ -140,7 +140,9 @@ class GoogleOAuth extends CComponent
         $user->role_id = 1;
         $user->create_date = time();
         if ($user->save()) {
-            $userDetails = UserDetails::model()->findByPk($user->userDetails->user_id);
+            $userDetails = new UserDetails('OAuthInsert');
+            $userDetails->user_id = $user->id;
+            $userDetails->credit = 0;
             $userDetails->fa_name = $this->first_name.' '.$this->last_name;
             $userDetails->avatar = $this->profile_image_link;
             return $userDetails->save();

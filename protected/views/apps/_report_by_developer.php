@@ -16,7 +16,7 @@
 </div>
 <div class="row">
     <div class="col-md-3">
-        <?php echo CHtml::dropDownList('developer', '', CHtml::listData(Users::model()->getDeveloers()->getData(),'id','userDetails.fa_name'));?>
+        <?php echo CHtml::dropDownList('developer', '', CHtml::listData(Users::model()->getDevelopers()->getData(),'id','userDetails.fa_name'));?>
     </div>
     <div class="col-md-3">
         <?php $this->widget('application.extensions.PDatePicker.PDatePicker', array(

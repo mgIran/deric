@@ -218,7 +218,7 @@ class Users extends CActiveRecord
     public function afterSave()
     {
         if (parent::afterSave()) {
-            if ($this->isNewRecord) {
+            if ($this->isNewRecord && $this->scenario != 'OAuthInsert') {
                 $model = new UserDetails;
                 $model->user_id = $this->id;
                 $model->credit = 0;
@@ -228,7 +228,7 @@ class Users extends CActiveRecord
         return true;
     }
 
-    public function getDeveloers()
+    public function getDevelopers()
     {
         $criteria = new CDbCriteria;
 
