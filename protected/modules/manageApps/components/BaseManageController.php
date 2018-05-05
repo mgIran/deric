@@ -57,7 +57,7 @@ class BaseManageController extends Controller
     {
         return array(
             array('allow',  // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'upload', 'deleteUpload', 'uploadFile', 'deleteUploadFile', 'changeConfirm', 'changePackageStatus', 'deletePackage', 'savePackage', 'images', 'download', 'downloadPackage', 'discount', 'deleteDiscount', 'fetch'),
+                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'upload', 'deleteUpload', 'uploadFile', 'deleteUploadFile', 'changeConfirm', 'changePackageStatus', 'deletePackage', 'savePackage', 'images', 'download', 'downloadPackage', 'discount', 'deleteDiscount', 'fetch', 'fakeRate'),
                 'roles' => array('admin', 'validator'),
             ),
             array('deny',  // deny all users
@@ -686,33 +686,10 @@ class BaseManageController extends Controller
     {
         $fakeFileName = $fileName;
         $realFileName = $fileName;
-
         $file = $filePath . DIRECTORY_SEPARATOR . $realFileName;
-        $fp = fopen($file, 'rb');
-
-        $mimeType = '';
-        switch(pathinfo($fileName, PATHINFO_EXTENSION)){
-            case 'apk':
-                $mimeType = 'application/vnd.android.package-archive';
-                break;
-
-            case 'xap':
-                $mimeType = 'application/x-silverlight-app';
-                break;
-
-            case 'ipa':
-                $mimeType = 'application/octet-stream';
-                break;
-        }
-
-        header('Pragma: public');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Content-Transfer-Encoding: binary');
-        header('Content-Type: ' . $mimeType);
-        header('Content-Disposition: attachment; filename=' . $fakeFileName);
-
-        echo stream_get_contents($fp);
+        if (!is_file($file))
+            throw new CHttpException(404, "فایل موردنظر یافت نشد.");
+        (new Response())->sendFile($file, $fakeFileName)->send();
     }
 
 
@@ -952,5 +929,21 @@ class BaseManageController extends Controller
         $model->delete();
         if(!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl'])?$_POST['returnUrl']:array('discount'));
+    }
+
+    public function actionFakeRate($id)
+    {
+        $model = $this->loadModel($id);
+        if (isset($_POST['rate']) && isset($_POST['qty'])) {
+            for ($i = 0; $i < (int)$_POST['qty']; $i++) {
+                $rate = new AppRatings('fake_rate');
+                $rate->user_id = null;
+                $rate->app_id = $model->id;
+                $rate->rate = (int)$_POST['rate'];
+                @$rate->save();
+            }
+            Yii::app()->user->setFlash('success', 'امتیازات با موفقیت ثبت شد.');
+        }
+        $this->render('manageApps.views.baseManage.fake_rate', compact('model'));
     }
 }
