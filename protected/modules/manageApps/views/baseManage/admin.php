@@ -2,10 +2,12 @@
 /* @var $this BaseManageController */
 /* @var $model Apps */
 
-
 $this->breadcrumbs=array(
 	'مدیریت',
 );
+
+//echo '<pre>';
+//var_dump($model->search(true,'/manageApps/'.$this->controller.'/admin')->getData());exit;
 ?>
 <div class="box">
 	<div class="box-header with-border">
@@ -70,16 +72,16 @@ $this->breadcrumbs=array(
 					'value' => 'is_null($data->lastPackage)?"ندارد":$data->lastPackage->package_name',
 					'filter' => CHtml::activeTextField($model,'packageFilter'),
 				),
-                array(
-                    'header' => 'امتیاز فیک',
-                    'value' => function($data){
-                        return CHtml::link('ثبت امتیاز', $this->createUrl("/manageApps/$this->controller/fakeRate/$data->id"),array(
-                                'class' =>'btn btn-success btn-xs'
-                        ));
-                    },
-                    'filter' => false,
-                    'type' => 'raw'
-                ),
+//                array(
+//                    'header' => 'امتیاز فیک',
+//                    'value' => function($data){
+//                        return CHtml::link('ثبت امتیاز', $this->createUrl("/manageApps/$this->controller/fakeRate/$data->id"),array(
+//                                'class' =>'btn btn-success btn-xs'
+//                        ));
+//                    },
+//                    'filter' => false,
+//                    'type' => 'raw'
+//                ),
 				array(
 					'class'=>'CButtonColumn',
 					'buttons' => array(

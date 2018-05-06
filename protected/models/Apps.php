@@ -228,7 +228,8 @@ class Apps extends CActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array(
-                'route' => !empty($route)?$route:Yii::app()->request->requestUri
+                'route' => !empty($route)?$route:Yii::app()->request->requestUri,
+                'pageSize' => 20
             )
         ));
     }
