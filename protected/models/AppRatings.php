@@ -22,6 +22,7 @@ class AppRatings extends CActiveRecord
 		return '{{app_ratings}}';
 	}
 
+
 	public $avgRate;
 
 	/**
@@ -32,7 +33,7 @@ class AppRatings extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id', 'required'),
+			array('user_id', 'required','except'=> 'fake_rate'),
 			array('user_id, app_id', 'length', 'max'=>11),
 			array('rate', 'length', 'max'=>1),
 			// The following rule is used by search().

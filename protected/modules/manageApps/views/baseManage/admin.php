@@ -2,6 +2,7 @@
 /* @var $this BaseManageController */
 /* @var $model Apps */
 
+
 $this->breadcrumbs=array(
 	'مدیریت',
 );
@@ -69,15 +70,16 @@ $this->breadcrumbs=array(
 					'value' => 'is_null($data->lastPackage)?"ندارد":$data->lastPackage->package_name',
 					'filter' => CHtml::activeTextField($model,'packageFilter'),
 				),
-				/*
-				'file_name',
-				'icon',
-				'description',
-				'change_log',
-				'permissions',
-				'size',
-				'version',
-				*/
+                array(
+                    'header' => 'امتیاز فیک',
+                    'value' => function($data){
+                        return CHtml::link('ثبت امتیاز', $this->createUrl("/manageApps/$this->controller/fakeRate/$data->id"),array(
+                                'class' =>'btn btn-success btn-xs'
+                        ));
+                    },
+                    'filter' => false,
+                    'type' => 'raw'
+                ),
 				array(
 					'class'=>'CButtonColumn',
 					'buttons' => array(
