@@ -19,7 +19,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/jqu
 <?php $this->renderPartial('/site/_quick_access') ?>
 
 <?php foreach ($dynamicRows as $dynamicRow):
-    $dp = Apps::model()->findAll($dynamicRow->getConstCriteria(Apps::getValidApps($this->platform, $dynamicRow->getCategoryIdsArray())));
+    $criteria = null;
+    $criteria = $dynamicRow->getConstCriteria(Apps::getValidApps($this->platform, $dynamicRow->getCategoryIdsArray()));
+    $criteria->limit = 12;
+    $criteria->offset = 0;
+    $criteria->group = 't.id';
+    $dp = Apps::model()->findAll($criteria);
     ?>
     <section>
         <div class="see">

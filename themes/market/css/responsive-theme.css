@@ -459,17 +459,8 @@
     .header .guide .login-proces{
         width: 75%;
     }
-    .header .guide .guide-user .downloader{
-        width: 44%;
-    }
     .header .guide .guide-user .downloader .download .download-sisen h5{
-        margin: 1px 4px;
-        width: 57%;
         font-size: 12px;
-        line-height: 14px;
-    }
-    .header .guide .guide-user .downloader .download .download-sisen img{
-        bottom: 14px;
     }
     .header .guide .hide-search{
         width: 100%;
@@ -654,17 +645,11 @@
     .header .guide .guide-user .search-user{
         width: 20%;
     }
-    .header .guide .guide-user .downloader .download .download-sisen img{
-        right: 5px;
-    }
     .header .guide .guide-user .downloader .download .download-sisen h5{
         font-size: 12px;
         margin: 0;
         line-height: 40px;
         padding-right: 4px;
-    }
-    .header .guide .guide-user .downloader{
-        width: 55%;
     }
     .header .guide .hide-search{
         width: 100%;

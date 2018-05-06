@@ -10,7 +10,7 @@
                     <h5 class="visible-sm"><?= $this->pageTitle ?></h5>
                 </a>
             </div>
-            <div class="col-lg-5 col-md-5 col-sm-5 hidden-xs icons">
+            <div class="col-lg-5 col-md-5 col-sm-4 hidden-xs icons">
                 <div class="icon-android">
                     <a class="link-android <?= $this->platform == 1?'active':'' ?>" href="<?php echo $this->createUrl('/android');?>">
                         <span class="android"></span>
@@ -31,7 +31,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-7 guide">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-7 guide">
                 <div class="guide-user">
                     <div class="downloader hidden-xs">
                         <div class="download">

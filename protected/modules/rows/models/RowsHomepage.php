@@ -169,9 +169,9 @@ class RowsHomepage extends SortableCActiveRecord
     }
 
     /**
-     * @param null $query
      * @param null $criteria
-     *
+     * @param null $query
+     * @param null $limit
      * @return CDbCriteria|null
      */
     public function getConstCriteria($criteria=null, $query=null)
