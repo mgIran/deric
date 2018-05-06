@@ -44,6 +44,11 @@
                     <a class="search-user" href="#">
                         <span class="glyphicon search"></span>
                     </a>
+                    <?php if(!Yii::app()->user->isGuest && Yii::app()->user->type == 'user'): ?>
+                    <a class="notification-icon hidden-xs" href="<?= Yii::app()->createUrl('/users/public/notifications') ?>">
+                        <span class="icon icon-bell"></span>
+                    </a>
+                    <?php endif; ?>
                     <a class="user hidden-xs" href="#">
                         <span class="glyphicon user-gi"></span>
                     </a>

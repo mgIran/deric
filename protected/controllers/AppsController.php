@@ -989,7 +989,8 @@ class AppsController extends Controller
             if ($rateModel->save()) {
                 $this->beginClip('rate-view');
                 $this->renderPartial('_rating', array(
-                    'model' => $model
+                    'model' => $model,
+                    'rating' => $model->calculateRating(),
                 ));
                 $this->endClip();
                 if (isset($_GET['ajax'])) {
