@@ -26,26 +26,25 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/jqu
     $criteria->group = 't.id';
     $dp = Apps::model()->findAll($criteria);
     ?>
+    <?php if($dp): ?>
     <section>
         <div class="see">
             <div class="row">
                 <div class="see-all col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <a class="link-grid" href="<?= $this->createUrl('/apps/all/'.($dynamicRow->query?:(Controller::sefLink($dynamicRow->title).'/'.$dynamicRow->id))) ?>"><span>مشاهده همه</span><span class="grid"></span></a>
-                    <a class="novelty" href="#"><?= $dynamicRow->title ?></a>
+                    <a class="novelty"><?= $dynamicRow->title ?></a>
                 </div>
             </div>
         </div>
         <div class="game">
             <div class="imgs">
                 <div id="demo2" class="is-carousel"  data-items="8" data-dots="0" data-nav="1" data-mouse-drag="1" data-responsive='{"1366":{"items":"8"},"1200":{"items":"6"},"992":{"items":"5"},"768":{"items":"4"},"650":{"items":"4"},"0":{"items":"4"}}'>
-                    <?php if($dp): ?>
-                        <?php foreach ($dp as $data): $this->renderPartial('//site/_app_item', compact('data')); endforeach; ?>
-                    <?php endif; ?>
+                    <?php foreach ($dp as $data): $this->renderPartial('//site/_app_item', compact('data')); endforeach; ?>
                 </div>
             </div>
         </div>
     </section>
-<?php
+<?php endif;
 endforeach;
 ?>
 <?php
