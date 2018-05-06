@@ -5,9 +5,6 @@
 $this->breadcrumbs=array(
 	'مدیریت',
 );
-
-//echo '<pre>';
-//var_dump($model->search(true,'/manageApps/'.$this->controller.'/admin')->getData());exit;
 ?>
 <div class="box">
 	<div class="box-header with-border">

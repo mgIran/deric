@@ -188,7 +188,7 @@ class Apps extends CActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->with = array('developer', 'developer.userDetails');
-        $criteria->join = 'LEFT OUTER JOIN ym_app_ratings ratings ON ratings.app_id = t.id';
+//        $criteria->join = 'LEFT OUTER JOIN ym_app_ratings ratings ON ratings.app_id = t.id';
         if (isset($_GET['ajax']) and $_GET['ajax'] == 'apps-grid') {
             if ($this->devFilter) {
                 $criteria->addCondition('developer_team Like :dev_filter OR  userDetails.fa_name Like :dev_filter OR userDetails.en_name Like :dev_filter OR userDetails.developer_id Like :dev_filter');
