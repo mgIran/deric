@@ -217,7 +217,6 @@ a{
     height: 55px;
 }
 .header .guide .guide-user .mobail-bar a{
-    position: absolute;
     width: 100%;
     height: 100%;
     z-index: 5;
@@ -1544,6 +1543,7 @@ a{
 }
 .consumer{
     position: relative;
+    overflow: hidden;
 }
 .consumer .karbar-panel .panel-item{
     border-radius: 0;
@@ -2261,4 +2261,7 @@ a{
 }
 .notification-icon:hover {
     color: #fff!important;
+}
+.dz-hidden-input{
+    display: none !important;
 }

@@ -1,6 +1,4 @@
-<?php
-//        var_dump(Yii::app()->user->getState('avatar'));exit;
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -23,7 +21,7 @@
     $cs->registerCssFile($baseUrl.'/css/bootstrap-select.min.css');
     $cs->registerCssFile($baseUrl.'/css/font-awesome.css');
     $cs->registerCssFile($baseUrl.'/css/animate.min.css');
-    $cs->registerCssFile($baseUrl.'/css/bootstrap-theme.css?2.3');
+    $cs->registerCssFile($baseUrl.'/css/bootstrap-theme.css?2.3.1');
     $cs->registerCssFile($baseUrl.'/css/responsive-theme.css?2.3');
 
     $cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
