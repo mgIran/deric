@@ -87,7 +87,7 @@ $(function () {
     $("body").on("click", ".lists", function () {
         $(".hide-menu").fadeToggle(200);
     }).on("click", ".user", function () {
-        $(".login-process").fadeToggle(200);
+        $(".guide").toggleClass("open");
     }).on("click", ".user-dash", function () {
         $(".login-panel").fadeToggle(200);
     }).on("click", ".btn-3", function () {

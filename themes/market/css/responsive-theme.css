@@ -17,9 +17,6 @@
     #panel-menu-trigger {
         margin: 15px;
     }
-    .guide{
-        position: static !important;
-    }
     .guide-user{
         text-align: left !important;
     }
@@ -102,6 +99,11 @@
     }
 }
 @media screen and (max-width: 767px) {
+    .tri-1,
+    .tri-2,
+    .user-menu{
+        display: none !important;
+    }
     .baner .baner-box .baner-box-to .baner-item .media .media-body .media-heading{
         padding-left: 100px;
         padding-right: 0;
@@ -435,11 +437,6 @@
         display: inline-block !important;
         font-size: 13px;
     }
-    .header .icons .icon-android, .header .icons .icon-ios,
-    .header .icons .icon-android, .header .icons .icon-android,
-    .header .icons .lists{
-        width: 28%;
-    }
     .header .icons .icon-android h5,
     .header .icons .icon-ios h5,
     .header .icons .lists h5{
@@ -634,9 +631,6 @@
     }
     .header .navbar-header .sisen-brand h5{
         font-size: 10px;
-    }
-    .header .icons .icon-ios{
-        width: 25%;
     }
     .header .guide{
         padding: 0;

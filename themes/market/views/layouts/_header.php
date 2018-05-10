@@ -1,3 +1,6 @@
+<?php
+/** @var $this Controller */
+?>
 <div class="header">
     <div class="container-fluid">
         <div class="row">
@@ -10,29 +13,31 @@
                     <h5 class="visible-sm"><?= $this->pageTitle ?></h5>
                 </a>
             </div>
-            <div class="col-lg-5 col-md-5 col-sm-4 hidden-xs icons">
-                <div class="icon-android">
-                    <a class="link-android <?= $this->platform == 1?'active':'' ?>" href="<?php echo $this->createUrl('/android');?>">
-                        <span class="android"></span>
-                        <h5>اندروید</h5>
-                    </a>
-                </div>
-                <div class="icon-ios">
-                    <a class="link-ios <?= $this->platform == 2?'active':'' ?>" href="<?php echo $this->createUrl('/ios');?>">
-                        <span class="ios"></span>
-                        <h5>آی او اس</h5>
-                    </a>
-                </div>
-                <div class="lists">
-                    <a class="link-lists" href="#">
-                        <span class="glyphicon category"></span>
-                        <h5>دسته بندی ها</h5>
-                        <span class="glyphicon arrows-down hidden-xs"></span>
-                    </a>
+            <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs icons">
+                <div class="table">
+                    <div class="icon-android">
+                        <a class="link-android <?= $this->platform == 1?'active':'' ?>" href="<?php echo $this->createUrl('/android');?>">
+                            <span class="android"></span>
+                            <h5>اندروید</h5>
+                        </a>
+                    </div>
+                    <div class="icon-ios">
+                        <a class="link-ios <?= $this->platform == 2?'active':'' ?>" href="<?php echo $this->createUrl('/ios');?>">
+                            <span class="ios"></span>
+                            <h5>آی او اس</h5>
+                        </a>
+                    </div>
+                    <div class="lists">
+                        <a class="link-lists" href="#">
+                            <span class="glyphicon category"></span>
+                            <h5>دسته بندی ها</h5>
+                            <span class="glyphicon arrows-down hidden-xs"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-7 guide">
-                <div class="guide-user">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7 guide">
+                <div class="guide-user table">
                     <div class="downloader hidden-xs">
                         <div class="download">
                             <a class="download-sisen" href="<?php echo $this->createUrl('/site/underConstruction');?>">
@@ -59,17 +64,49 @@
                 </div>
                 <?php
                 if(!Yii::app()->user->isGuest && Yii::app()->user->type == 'user'):
-                ?>
-                    <div class="login-process">
-                        <div class="login"><a href="<?= Yii::app()->createUrl('/dashboard') ?>">پنل کاربری</a></div>
-                        <? if(Yii::app()->user->roles == 'developer'):?>
-                        <div class="border"></div>
-                        <div class="login"><a href="<?= Yii::app()->createUrl('/developers/panel') ?>">پنل توسعه دهندگان</a></div>
-                        <? endif;?>
-                        <div class="border"></div>
-                        <div class="register"><a href="<?= Yii::app()->createUrl('logout') ?>">خروج</a></div>
-                    </div>
-                <?php
+                    ?>
+                    <?php
+                    if (Yii::app()->user->email == 'yusef.mobasheri@gmail.com'):
+                        ?>
+                        <div class="tri-1"></div>
+                        <div class="tri-2"></div>
+                        <div class="user-menu">
+                            <div class="inner">
+                                <div class="avatar">
+                                    <?php if (Yii::app()->user->avatar && is_file(Yii::getPathOfAlias('webroot').'/uploads/users/avatar/'.Yii::app()->user->avatar)): echo CHtml::image(Yii::app()->getBaseUrl(true) . '/uploads/users/avatar/' . Yii::app()->user->avatar); else: echo '<span class="icon icon-user"></span>'; endif; ?>
+                                </div>
+                                <div class="user-detail">
+                                    <div class="name"><?= $this->userDetails->getShowName(); ?></div>
+                                    <div class="type"><i class="icon icon-user"></i><?= $this->userDetails->roleLabels[Yii::app()->user->roles] ?></div>
+                                    <div class="type"><i class="glyphicon coins"></i>اعتبار : <?= Controller::parseNumbers(number_format($this->userDetails->credit, 0)) ?> تومان</div>
+                                </div>
+                                <footer>
+                                    <a class="btn btn-default" href="<?= Yii::app()->createUrl('/dashboard') ?>">پنل
+                                        کاربری</a>
+                                    <?php if (Yii::app()->user->roles == 'developer'): ?>
+                                        <a class="btn btn-default"
+                                           href="<?= Yii::app()->createUrl('/developers/panel') ?>">پنل توسعه
+                                            دهندگان</a>
+                                    <?php endif; ?>
+                                    <a class="btn btn-default pull-left" href="<?= Yii::app()->createUrl('logout') ?>">خروج</a>
+                                </footer>
+                            </div>
+                        </div>
+                    <?
+                    else:
+                        ?>
+                        <div class="login-process">
+                            <div class="login"><a href="<?= Yii::app()->createUrl('/dashboard') ?>">پنل کاربری</a></div>
+                            <? if (Yii::app()->user->roles == 'developer'): ?>
+                                <div class="border"></div>
+                                <div class="login"><a href="<?= Yii::app()->createUrl('/developers/panel') ?>">پنل توسعه
+                                        دهندگان</a></div>
+                            <? endif; ?>
+                            <div class="border"></div>
+                            <div class="register"><a href="<?= Yii::app()->createUrl('logout') ?>">خروج</a></div>
+                        </div>
+                    <?php
+                    endif;
                 else:
                 ?>
                     <div class="login-process">
@@ -93,7 +130,7 @@
                     ?>
                         <div class="form-group">
                             <?= CHtml::textField('term',isset($_GET['term'])?trim($_GET['term']):'',array('class' => 'text-search','placeholder' => 'جستجو کنید ...')); ?>
-                            <a class="link-svg-search" href="#"><i class="glyphicon svg-search"></i></a>
+                            <button class="link-svg-search" type="submit"><i class="glyphicon svg-search"></i></button>
                         </div>
                     <?
                     $this->endWidget();
