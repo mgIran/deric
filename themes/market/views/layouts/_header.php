@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7 guide">
-                <div class="guide-user table">
+                <div class="guide-user">
                     <div class="downloader hidden-xs">
                         <div class="download">
                             <a class="download-sisen" href="<?php echo $this->createUrl('/site/underConstruction');?>">
@@ -65,48 +65,31 @@
                 <?php
                 if(!Yii::app()->user->isGuest && Yii::app()->user->type == 'user'):
                     ?>
-                    <?php
-                    if (Yii::app()->user->email == 'yusef.mobasheri@gmail.com'):
-                        ?>
-                        <div class="tri-1"></div>
-                        <div class="tri-2"></div>
-                        <div class="user-menu">
-                            <div class="inner">
-                                <div class="avatar">
-                                    <?php if (Yii::app()->user->avatar && is_file(Yii::getPathOfAlias('webroot').'/uploads/users/avatar/'.Yii::app()->user->avatar)): echo CHtml::image(Yii::app()->getBaseUrl(true) . '/uploads/users/avatar/' . Yii::app()->user->avatar); else: echo '<span class="icon icon-user"></span>'; endif; ?>
-                                </div>
-                                <div class="user-detail">
-                                    <div class="name"><?= $this->userDetails->getShowName(); ?></div>
-                                    <div class="type"><i class="icon icon-user"></i><?= $this->userDetails->roleLabels[Yii::app()->user->roles] ?></div>
-                                    <div class="type"><i class="glyphicon coins"></i>اعتبار : <?= Controller::parseNumbers(number_format($this->userDetails->credit, 0)) ?> تومان</div>
-                                </div>
-                                <footer>
-                                    <a class="btn btn-default" href="<?= Yii::app()->createUrl('/dashboard') ?>">پنل
-                                        کاربری</a>
-                                    <?php if (Yii::app()->user->roles == 'developer'): ?>
-                                        <a class="btn btn-default"
-                                           href="<?= Yii::app()->createUrl('/developers/panel') ?>">پنل توسعه
-                                            دهندگان</a>
-                                    <?php endif; ?>
-                                    <a class="btn btn-default pull-left" href="<?= Yii::app()->createUrl('logout') ?>">خروج</a>
-                                </footer>
+                    <div class="tri-1"></div>
+                    <div class="tri-2"></div>
+                    <div class="user-menu">
+                        <div class="inner">
+                            <div class="avatar">
+                                <?php if (Yii::app()->user->avatar && is_file(Yii::getPathOfAlias('webroot').'/uploads/users/avatar/'.Yii::app()->user->avatar)): echo CHtml::image(Yii::app()->getBaseUrl(true) . '/uploads/users/avatar/' . Yii::app()->user->avatar); else: echo '<span class="icon icon-user"></span>'; endif; ?>
                             </div>
+                            <div class="user-detail">
+                                <div class="name"><?= $this->userDetails->getShowName(); ?></div>
+                                <div class="type"><i class="icon icon-user"></i><?= $this->userDetails->roleLabels[Yii::app()->user->roles] ?></div>
+                                <div class="type"><i class="glyphicon coins"></i>اعتبار : <?= Controller::parseNumbers(number_format($this->userDetails->credit, 0)) ?> تومان</div>
+                            </div>
+                            <footer>
+                                <a class="btn btn-default" href="<?= Yii::app()->createUrl('/dashboard') ?>">پنل
+                                    کاربری</a>
+                                <?php if (Yii::app()->user->roles == 'developer'): ?>
+                                    <a class="btn btn-default"
+                                       href="<?= Yii::app()->createUrl('/developers/panel') ?>">پنل توسعه
+                                        دهندگان</a>
+                                <?php endif; ?>
+                                <a class="btn btn-default pull-left" href="<?= Yii::app()->createUrl('logout') ?>">خروج</a>
+                            </footer>
                         </div>
-                    <?
-                    else:
-                        ?>
-                        <div class="login-process">
-                            <div class="login"><a href="<?= Yii::app()->createUrl('/dashboard') ?>">پنل کاربری</a></div>
-                            <? if (Yii::app()->user->roles == 'developer'): ?>
-                                <div class="border"></div>
-                                <div class="login"><a href="<?= Yii::app()->createUrl('/developers/panel') ?>">پنل توسعه
-                                        دهندگان</a></div>
-                            <? endif; ?>
-                            <div class="border"></div>
-                            <div class="register"><a href="<?= Yii::app()->createUrl('logout') ?>">خروج</a></div>
-                        </div>
-                    <?php
-                    endif;
+                    </div>
+                <?php
                 else:
                 ?>
                     <div class="login-process">

@@ -319,6 +319,9 @@ a{
     top: 70px;
     white-space: nowrap;
 }
+.header .guide.open .login-process{
+    display: block;
+}
 .header .guide .login-process .login,
 .header .guide .login-process .register{
     width: auto;
@@ -2360,7 +2363,18 @@ a{
     vertical-align: top;
     width: 80px;
 }
-
+.user-menu .inner > .avatar img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
 .user-menu .inner > .avatar .icon {
     font-size: 2em;
     margin-top: -0.5em;
@@ -2389,17 +2403,17 @@ a{
     display: table;
     padding: 5px;
     width: 100%;
+    white-space: nowrap;
 }
 
 .user-menu .inner > footer .btn{
-    padding: 4px 12px;
+    padding: 3px 10px;
+    float: right;
 }
 
 .user-menu .inner > footer > a:first-of-type {
     width: 96px;
-}
-.user-menu .inner > footer > a:nth-child(2) {
-    width: 96px;
+    margin-left: 4px;
 }
 
 

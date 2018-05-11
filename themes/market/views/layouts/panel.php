@@ -21,8 +21,8 @@
     $cs->registerCssFile($baseUrl.'/css/bootstrap-select.min.css');
     $cs->registerCssFile($baseUrl.'/css/font-awesome.css');
     $cs->registerCssFile($baseUrl.'/css/animate.min.css');
-    $cs->registerCssFile($baseUrl.'/css/bootstrap-theme.css?2.3.1');
-    $cs->registerCssFile($baseUrl.'/css/responsive-theme.css?2.3');
+    $cs->registerCssFile($baseUrl.'/css/bootstrap-theme.css?2.4.1');
+    $cs->registerCssFile($baseUrl.'/css/responsive-theme.css?2.4');
 
     $cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js');
     $cs->registerScriptFile($baseUrl.'/js/bootstrap-select.min.js');
