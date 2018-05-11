@@ -360,11 +360,12 @@ a{
     display: none;
     z-index: 10;
 }
-.header .guide .hide-search .svg-close{
-    width: 20%;
+.header .guide .hide-search .svg-close {
+    width: 50px;
     height: 49px;
     position: absolute;
     top: 0;
+    right: 0;
 }
 .header .guide .hide-search .svg-close i{
     background: url("../svg/close.svg") no-repeat center;
@@ -380,7 +381,7 @@ a{
     line-height: 47px;
     color: #000;
     width: 100%;
-    padding-right: 15px;
+    padding-right: 50px;
 }
 .header .guide .hide-search form .link-svg-search{
     position: absolute;
